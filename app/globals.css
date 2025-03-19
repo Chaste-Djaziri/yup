@@ -1,0 +1,452 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Animation styles */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Transition styles */
+.page-transition {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hover-scale {
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Dark mode specific overrides */
+.dark .bg-white {
+  background-color: hsl(240 10% 3.9%);
+}
+
+.dark .bg-gray-100 {
+  background-color: hsl(240 5% 7%);
+}
+
+.dark .bg-gray-50 {
+  background-color: hsl(240 5% 9%);
+}
+
+.dark .text-gray-500 {
+  color: hsl(240 5% 65%);
+}
+
+.dark .border {
+  border-color: hsl(240 5% 15%);
+}
+
+.dark .bg-primary\/5 {
+  background-color: hsla(0, 0%, 98%, 0.05);
+}
+
+.dark .bg-primary\/10 {
+  background-color: hsla(0, 0%, 98%, 0.1);
+}
+
+/* Additional dark mode fixes */
+.dark .bg-white .text-gray-500 {
+  color: hsl(240 5% 65%);
+}
+
+.dark .bg-white h1,
+.dark .bg-white h2,
+.dark .bg-white h3,
+.dark .bg-white h4,
+.dark .bg-white h5,
+.dark .bg-white h6,
+.dark .bg-white p,
+.dark .bg-white span,
+.dark .bg-white div {
+  color: hsl(0 0% 98%);
+}
+
+.dark .bg-gray-50 h1,
+.dark .bg-gray-50 h2,
+.dark .bg-gray-50 h3,
+.dark .bg-gray-50 h4,
+.dark .bg-gray-50 h5,
+.dark .bg-gray-50 h6,
+.dark .bg-gray-50 p,
+.dark .bg-gray-50 span,
+.dark .bg-gray-50 div {
+  color: hsl(0 0% 98%);
+}
+
+.dark .bg-gray-100 h1,
+.dark .bg-gray-100 h2,
+.dark .bg-gray-100 h3,
+.dark .bg-gray-100 h4,
+.dark .bg-gray-100 h5,
+.dark .bg-gray-100 h6,
+.dark .bg-gray-100 p,
+.dark .bg-gray-100 span,
+.dark .bg-gray-100 div {
+  color: hsl(0 0% 98%);
+}
+
+/* Fix for inputs in dark mode */
+.dark input,
+.dark textarea,
+.dark select {
+  color: hsl(0 0% 98%);
+  background-color: hsl(240 3.7% 15.9%);
+}
+
+/* Fix for cards in dark mode */
+.dark .card {
+  background-color: hsl(240 10% 3.9%);
+  color: hsl(0 0% 98%);
+}
+
+/* Fix for navigation in dark mode */
+.dark header {
+  background-color: hsl(240 10% 3.9%);
+  border-color: hsl(240 5% 15%);
+}
+
+.dark header a {
+  color: hsl(0 0% 98%);
+}
+
+.dark header .text-sm {
+  color: hsl(0 0% 90%);
+}
+
+.dark header .text-lg {
+  color: hsl(0 0% 98%);
+}
+
+/* Fix for buttons in dark mode */
+.dark button.bg-primary {
+  background-color: hsl(0 0% 98%);
+  color: hsl(240 5.9% 10%);
+}
+
+.dark button.bg-primary:hover {
+  background-color: hsl(0 0% 90%);
+}
+
+.dark button[variant="outline"] {
+  border-color: hsl(240 5% 65%);
+  color: hsl(0 0% 98%);
+}
+
+/* Additional dark mode improvements */
+.dark .bg-primary\/5 {
+  background-color: rgba(30, 30, 35, 0.5);
+}
+
+.dark .text-primary {
+  color: hsl(0 0% 90%);
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: hsl(240 5% 65%);
+}
+
+.dark .bg-primary {
+  background-color: hsl(0 0% 98%);
+}
+
+.dark .hover\:bg-primary\/90:hover {
+  background-color: hsl(0 0% 90%);
+}
+
+.dark .border-gray-300 {
+  border-color: hsl(240 5% 25%);
+}
+
+.dark .shadow-sm,
+.dark .shadow-md,
+.dark .shadow-lg,
+.dark .shadow-xl {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+/* Animation improvements */
+.hover-zoom {
+  transition: transform 0.3s ease;
+}
+
+.hover-zoom:hover {
+  transform: scale(1.05);
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive utilities */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 1400px;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Responsive text sizes */
+.responsive-text-xs {
+  font-size: 0.75rem;
+}
+
+.responsive-text-sm {
+  font-size: 0.875rem;
+}
+
+.responsive-text-base {
+  font-size: 1rem;
+}
+
+.responsive-text-lg {
+  font-size: 1.125rem;
+}
+
+.responsive-text-xl {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-text-xs {
+    font-size: 0.8125rem;
+  }
+
+  .responsive-text-sm {
+    font-size: 0.9375rem;
+  }
+
+  .responsive-text-base {
+    font-size: 1.0625rem;
+  }
+
+  .responsive-text-lg {
+    font-size: 1.1875rem;
+  }
+
+  .responsive-text-xl {
+    font-size: 1.375rem;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (max-width: 640px) {
+  button,
+  a[role="button"],
+  .clickable {
+    min-height: 2.75rem;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+  }
+}
+
+/* Improved spacing for mobile */
+.mobile-stack > * + * {
+  margin-top: 1rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-stack > * + * {
+    margin-top: 0;
+  }
+}
+
+/* Better image handling */
+.responsive-image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Improved form elements for touch */
+@media (max-width: 640px) {
+  .form-touch-friendly input,
+  .form-touch-friendly select,
+  .form-touch-friendly textarea,
+  .form-touch-friendly button {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+}
+
