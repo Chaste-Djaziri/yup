@@ -25,7 +25,7 @@ export function Navbar() {
       <div className="container flex h-14 md:h-16 items-center px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-removebg-preview-croped-unK5yhZb4hLauZH2m77TqPQkjz8hH4.png"
+            src="/assets/icon1.png"
             alt={t.siteName}
             width={32}
             height={32}
