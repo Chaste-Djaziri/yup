@@ -1013,7 +1013,7 @@ export const en = {
     },
   },
 
-  donate: {
+  donates: {
     form: {
       title: "Donate Now",
       description: "Choose an amount to donate. All donations are tax-deductible.",

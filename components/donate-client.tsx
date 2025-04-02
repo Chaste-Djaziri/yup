@@ -55,8 +55,8 @@ export function DonateClient() {
     return (
       <main className="flex flex-col min-h-screen">
         <PageHeader
-          title={t.donate?.title || "Make a Donation"}
-          description={t.donate?.description || "Your generosity helps us continue our mission."}
+          title={t.donates?.title || "Make a Donation"}
+          description={t.donates?.description || "Your generosity helps us continue our mission."}
           backgroundImage="/donate-header.jpg"
         />
         <section className="py-12 md:py-24 bg-white dark:bg-gray-900">
@@ -66,24 +66,24 @@ export function DonateClient() {
                 <Heart className="h-8 w-8 md:h-12 md:w-12 text-primary" />
               </div>
               <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mb-4">
-                {t.donate?.thankYou?.title || "Thank You for Your Donation!"}
+                {t.donates?.thankYou?.title || "Thank You for Your Donation!"}
               </h2>
               <p className="max-w-[600px] text-gray-500 dark:text-gray-400 text-base md:text-lg lg:text-xl mb-8">
-                {t.donate?.thankYou?.description || "Your generosity makes our work possible."}
+                {t.donates?.thankYou?.description || "Your generosity makes our work possible."}
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button
                   className="w-full sm:w-auto bg-primary hover:bg-primary/90"
                   onClick={() => (window.location.href = "/")}
                 >
-                  {t.donate?.thankYou?.homeButton || "Return to Home"}
+                  {t.donates?.thankYou?.homeButton || "Return to Home"}
                 </Button>
                 <Button
                   variant="outline"
                   className="w-full sm:w-auto"
                   onClick={() => (window.location.href = "/programs")}
                 >
-                  {t.donate?.thankYou?.programsButton || "Explore Our Programs"}
+                  {t.donates?.thankYou?.programsButton || "Explore Our Programs"}
                 </Button>
               </div>
             </div>

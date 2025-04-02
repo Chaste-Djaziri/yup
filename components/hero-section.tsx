@@ -59,7 +59,7 @@ export function HeroSection() {
           >
             <div className="relative h-[350px] w-[350px] md:h-[400px] md:w-[400px]">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-removebg-preview-JsE7Yc5tF2CGPGmcZ3pNodvDgCSIMH.png"
+                src="/assets/logo.png"
                 alt="Youth Uplift Initiative Logo"
                 fill
                 className="object-contain"
