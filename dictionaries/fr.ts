@@ -30,7 +30,7 @@ export const fr = {
   home: {
     hero: {
       title: "Autonomiser la jeunesse au Rwanda",
-      subtitle: "Nous avons pour mission de fournir éducation, ressources et opportunités aux jeunes défavorisés au Rwanda.",
+      subtitle: "Nous sommes en mission pour offrir éducation, ressources et opportunités aux jeunes défavorisés au Rwanda.",
       donateButton: "Faire un don maintenant",
       learnMoreButton: "En savoir plus",
     },
@@ -40,7 +40,7 @@ export const fr = {
         "L'Initiative d'Élévation des Jeunes (YUP) se consacre à autonomiser les jeunes au Rwanda à travers l'éducation, le développement communautaire et des programmes durables qui créent un changement durable.",
       compassion: {
         title: "Compassion",
-        description: "Nous croyons en un traitement de chacun avec dignité, respect et compréhension.",
+        description: "Nous croyons en un traitement digne, respectueux et compréhensif envers chacun.",
       },
       community: {
         title: "Communauté",
@@ -48,7 +48,7 @@ export const fr = {
       },
       action: {
         title: "Action",
-        description: "Nous prenons des mesures significatives pour créer un réel changement dans la vie de ceux que nous servons.",
+        description: "Nous prenons des mesures significatives pour apporter un réel changement dans la vie de ceux que nous servons.",
       },
     },
     impact: {
@@ -58,22 +58,22 @@ export const fr = {
       students: {
         count: "1 200+",
         title: "Étudiants soutenus",
-        description: "À travers des bourses, des fournitures scolaires et des programmes éducatifs.",
+        description: "Grâce à des bourses, des fournitures scolaires et des programmes éducatifs.",
       },
       projects: {
         count: "45+",
         title: "Projets communautaires",
-        description: "Y compris des initiatives pour l'eau potable, des rénovations d'écoles, et plus encore.",
+        description: "Y compris des initiatives d'eau potable, des rénovations d'écoles et plus encore.",
       },
       volunteers: {
         count: "300+",
         title: "Bénévoles actifs",
-        description: "Des individus dévoués qui nous aident à accomplir notre mission.",
+        description: "Des individus dévoués qui nous aident à réaliser notre mission.",
       },
     },
     testimonials: {
       title: "Voix du changement",
-      description: "Écoutez les personnes dont la vie a été transformée par nos programmes.",
+      description: "Écoutez les témoignages des personnes dont la vie a été transformée par nos programmes.",
       testimonials: [
         {
           quote:
@@ -88,7 +88,8 @@ export const fr = {
           role: "Bénévole internationale",
         },
         {
-          quote: "Le centre communautaire construit par YUP est devenu un lieu d'apprentissage et de croissance pour nos enfants.",
+          quote:
+            "Le centre communautaire construit par YUP est devenu un lieu d'apprentissage et de croissance pour nos enfants.",
           name: "Marie Uwimana",
           role: "Leader communautaire",
         },
@@ -100,14 +101,14 @@ export const fr = {
       viewAllButton: "Voir tous les événements",
       events: [
         {
-          title: "Atelier de leadership pour les jeunes",
+          title: "Atelier de leadership jeunesse",
           date: "15 juin 2025",
           time: "9h00 - 16h00",
           location: "Centre communautaire YUP, Kigali",
           description:
-            "Un atelier d'une journée axé sur le développement des compétences en leadership chez les lycéens de Kigali.",
+            "Un atelier d'une journée axé sur le développement des compétences en leadership pour les lycéens de Kigali.",
           image: "/event-leadership.jpg",
-          slug: "atelier-leadership-jeunes",
+          slug: "atelier-leadership-jeunesse",
         },
         {
           title: "Journée de nettoyage communautaire",
@@ -133,12 +134,12 @@ export const fr = {
     },
     donate: {
       title: "Faites une différence aujourd'hui",
-      description: "Votre don nous aide à poursuivre notre mission d'élever la jeunesse au Rwanda.",
+      description: "Votre don nous aide à poursuivre notre mission d'élévation des jeunes au Rwanda.",
       howItHelps: "Comment votre don aide",
       impacts: [
         { amount: "25 $", description: "fournit des fournitures scolaires à un étudiant pour un semestre" },
         { amount: "50 $", description: "finance un mois de tutorat après l'école pour un étudiant" },
-        { amount: "100 $", description: "sponsorise les frais scolaires d'un étudiant pour un trimestre" },
+        { amount: "100 $", description: "parvient aux frais scolaires d'un étudiant pour un trimestre" },
         { amount: "500 $", description: "aide à construire une infrastructure d'eau potable pour une communauté" },
       ],
     },
@@ -146,7 +147,7 @@ export const fr = {
       title: "Rejoignez notre communauté",
       description:
         "Il existe de nombreuses façons de s'impliquer et de soutenir notre mission. Que vous fassiez du bénévolat, donniez ou partagiez notre message, vous pouvez faire une différence.",
-      volunteerButton: "Faire du bénévolat avec nous",
+      volunteerButton: "Devenez bénévole avec nous",
       contactButton: "Contactez-nous",
     },
   },
@@ -157,14 +158,14 @@ export const fr = {
     mission: {
       title: "Notre mission et vision",
       description:
-        "L'Initiative d'Élévation des Jeunes a été fondée en 2015 avec une mission claire : autonomiser les jeunes au Rwanda à travers l'éducation, le développement communautaire et des programmes durables qui créent un changement durable. Notre vision est un Rwanda où tous les jeunes ont accès à une éducation de qualité et à des opportunités pour atteindre leur plein potentiel.",
+        "L'Initiative d'Élévation des Jeunes a été fondée en 2015 avec une mission claire : autonomiser les jeunes au Rwanda à travers l'éducation, le développement communautaire et des programmes durables qui créent un changement durable. Notre vision est un Rwanda où tous les jeunes ont accès à une éducation de qualité et à des opportunités pour réaliser leur plein potentiel.",
       values: {
         title: "Nos valeurs fondamentales",
         list: [
           "Compassion : Nous abordons notre travail avec empathie et compréhension.",
           "Intégrité : Nous nous engageons à la transparence et aux pratiques éthiques.",
-          "Collaboration : Nous travaillons ensemble avec les communautés et les partenaires.",
-          "Innovation : Nous recherchons des solutions créatives aux défis complexes.",
+          "Collaboration : Nous travaillons avec les communautés et les partenaires.",
+          "Innovation : Nous cherchons des solutions créatives aux défis complexes.",
           "Durabilité : Nous développons des programmes qui créent un changement durable.",
         ],
       },
@@ -175,39 +176,10 @@ export const fr = {
         "Des débuts modestes à une présence communautaire impactante, explorez l'histoire de l'Initiative d'Élévation des Jeunes.",
       timeline: [
         {
-          year: "2015",
+          year: "2025",
           title: "Fondation",
           description:
-            "L'Initiative d'Élévation des Jeunes a été fondée par un groupe d'éducateurs passionnés et de leaders communautaires à Kigali.",
-        },
-        {
-          year: "2017",
-          title: "Premier programme de bourses",
-          description:
-            "Lancement de notre programme phare de bourses, soutenant 25 étudiants dans leur éducation secondaire.",
-        },
-        {
-          year: "2019",
-          title: "Ouverture du centre communautaire",
-          description:
-            "Ouverture de notre premier centre communautaire à Nyamirambo, offrant un espace pour les programmes éducatifs et les rassemblements communautaires.",
-        },
-        {
-          year: "2021",
-          title: "Expansion vers les zones rurales",
-          description:
-            "Extension de nos programmes aux communautés rurales de la Province de l'Est, atteignant plus de jeunes défavorisés.",
-        },
-        {
-          year: "2023",
-          title: "Initiative technologique",
-          description:
-            "Lancement de notre programme d'alphabétisation numérique, équipant les jeunes de compétences technologiques essentielles pour l'avenir.",
-        },
-        {
-          year: "2025",
-          title: "10e anniversaire",
-          description: "Célébration d'une décennie d'impact et définition d'objectifs ambitieux pour les dix prochaines années.",
+            "L'Initiative d'Élévation des Jeunes a été fondée par un groupe d'étudiants passionnés de l'École des Sciences Byimana et des leaders communautaires à Kigali.",
         },
       ],
     },
@@ -219,13 +191,13 @@ export const fr = {
         students: "1 200+",
         studentsLabel: "Étudiants soutenus",
         communities: "15+",
-        communitiesLabel: "Communautés desservies",
+        communitiesLabel: "Communautés servies",
         volunteers: "300+",
         volunteersLabel: "Bénévoles actifs",
         projects: "45+",
         projectsLabel: "Projets communautaires",
       },
-      programsButton: "Explorer nos programmes",
+      programsButton: "Découvrez nos programmes",
     },
     team: {
       title: "Notre équipe",
@@ -233,69 +205,36 @@ export const fr = {
         "Rencontrez les individus dévoués qui travaillent sans relâche pour accomplir notre mission et créer un changement positif.",
       members: [
         {
-          name: "Emmanuel Mugisha",
-          role: "Directeur exécutif",
-          bio: "Emmanuel a fondé YUP avec une vision de transformer l'éducation au Rwanda. Avec plus de 15 ans d'expérience dans la gestion d'organisations à but non lucratif, il dirige nos initiatives stratégiques.",
-          image: "/team-emmanuel.jpg",
+          name: "Karambizi Axel",
+          role: "Fondateur",
+          bio: "Je suis tout ce que vous voulez mais que vous ne pouvez pas avoir !",
+          image: "/assets/people/axel.jfif",
           social: {
-            facebook: "https://facebook.com/emmanuel",
-            twitter: "https://twitter.com/emmanuel",
-            linkedin: "https://linkedin.com/in/emmanuel",
+            facebook: "https://facebook.com/axelkarambizi/",
+            instagram: "https://www.instagram.com/axelkarambizi/",
+            linkedin: "https://linkedin.com/in/axelkarambizi/",
           },
         },
         {
-          name: "Claudine Uwase",
-          role: "Directrice des programmes",
-          bio: "Claudine supervise tous nos programmes éducatifs et de développement communautaire. Son expérience en politique éducative façonne notre approche impactante.",
-          image: "/team-claudine.jpg",
+          name: "Rukundo Joseph",
+          role: "Co-fondateur",
+          bio: "📍 🇷🇼 Balance ♎ ✟ Exode 14:14 ✟.",
+          image: "/assets/people/joe.jfif",
           social: {
-            facebook: "https://facebook.com/claudine",
-            twitter: "https://twitter.com/claudine",
-            linkedin: "https://linkedin.com/in/claudine",
+            facebook: "https://facebook.com/ruzungu_/",
+            instagram: "https://www.instagram.com/ruzungu_/",
+            linkedin: "https://linkedin.com/in/ruzungu_/",
           },
         },
         {
-          name: "James Wilson",
-          role: "Partenariats internationaux",
-          bio: "James construit et maintient nos relations avec les donateurs et partenaires internationaux. Sa perspective globale renforce notre approche collaborative.",
-          image: "/team-james.jpg",
+          name: "Chaste Djaziri",
+          role: "Développeur web | Membre",
+          bio: "Un individu dévoué avec une passion pour la conception de logiciels, le développement web et la conception de jeux.",
+          image: "/assets/people/chaste.jfif",
           social: {
-            facebook: "https://facebook.com/james",
-            twitter: "https://twitter.com/james",
-            linkedin: "https://linkedin.com/in/james",
-          },
-        },
-        {
-          name: "Marie Mukamana",
-          role: "Sensibilisation communautaire",
-          bio: "Marie travaille directement avec les communautés locales pour s'assurer que nos programmes répondent à leurs besoins. Ses liens profonds avec la communauté sont inestimables pour notre travail.",
-          image: "/team-marie.jpg",
-          social: {
-            facebook: "https://facebook.com/marie",
-            twitter: "https://twitter.com/marie",
-            linkedin: "https://linkedin.com/in/marie",
-          },
-        },
-        {
-          name: "David Karenzi",
-          role: "Coordinateur éducatif",
-          bio: "David conçoit et met en œuvre nos programmes éducatifs. En tant qu'ancien enseignant, il apporte des perspectives pratiques au développement de notre curriculum.",
-          image: "/team-david.jpg",
-          social: {
-            facebook: "https://facebook.com/david",
-            twitter: "https://twitter.com/david",
-            linkedin: "https://linkedin.com/in/david",
-          },
-        },
-        {
-          name: "Sarah Mutoni",
-          role: "Gestionnaire financière",
-          bio: "Sarah assure la durabilité financière de notre organisation. Son expertise en finance des organisations à but non lucratif maximise l'impact de chaque don.",
-          image: "/team-sarah.jpg",
-          social: {
-            facebook: "https://facebook.com/sarah",
-            twitter: "https://twitter.com/sarah",
-            linkedin: "https://linkedin.com/in/sarah",
+            facebook: "https://web.facebook.com/chaste.djaziri/",
+            instagram: "https://www.instagram.com/chaste_djaziri/",
+            linkedin: "https://www.linkedin.com/in/chaste-djaziri-6bb4b62a5/",
           },
         },
       ],
@@ -303,8 +242,8 @@ export const fr = {
     join: {
       title: "Rejoignez notre mission",
       description:
-        "Il existe de nombreuses façons de s'impliquer et de soutenir notre travail. Que vous donniez de votre temps, fassiez un don ou sensibilisiez, vous pouvez faire une différence.",
-      volunteerButton: "Faire du bénévolat avec nous",
+        "Il existe de nombreuses façons de s'impliquer et de soutenir notre travail. Que vous donniez de votre temps, des ressources ou sensibilisiez, vous pouvez faire une différence.",
+      volunteerButton: "Devenez bénévole avec nous",
       donateButton: "Faire un don",
     },
   },
@@ -316,39 +255,39 @@ export const fr = {
     learnMoreButton: "En savoir plus",
     list: [
       {
-        title: "Bourses éducatives",
+        title: "Bourses d'éducation",
         description:
           "Nous offrons des bourses complètes à des étudiants talentueux issus de milieux défavorisés, couvrant les frais de scolarité, les livres, les uniformes et le mentorat.",
         image: "/program-scholarships.jpg",
-        slug: "bourses-educatives",
+        slug: "bourses-education",
       },
       {
         title: "Programmes après l'école",
         description:
-          "Nos programmes après l'école proposent du tutorat, des arts, des sports et du développement du leadership pour garder les jeunes engagés et en apprentissage au-delà de la salle de classe.",
+          "Nos programmes après l'école proposent du tutorat, des arts, des sports et le développement du leadership pour maintenir l'engagement et l'apprentissage des jeunes en dehors de la salle de classe.",
         image: "/program-afterschool.jpg",
         slug: "programmes-apres-ecole",
       },
       {
         title: "Alphabétisation numérique",
         description:
-          "Nous équipons les jeunes de compétences technologiques essentielles à travers des laboratoires informatiques, des cours de codage et une formation à l'entrepreneuriat numérique.",
+          "Nous équipons les jeunes de compétences technologiques essentielles grâce à des laboratoires informatiques, des cours de codage et une formation à l'entrepreneuriat numérique.",
         image: "/program-digital.jpg",
         slug: "alphabetisation-numerique",
       },
       {
         title: "Développement communautaire",
         description:
-          "Nous collaborons avec les communautés locales pour améliorer les infrastructures, l'accès à l'eau et créer des projets de développement durable menés par les membres de la communauté.",
+          "Nous collaborons avec les communautés locales pour améliorer les infrastructures, l'accès à l'eau et créer des projets de développement durable dirigés par les membres de la communauté.",
         image: "/program-community.jpg",
         slug: "developpement-communautaire",
       },
       {
-        title: "Leadership des jeunes",
+        title: "Leadership jeunesse",
         description:
-          "Notre programme de leadership identifie et forme de jeunes leaders à travers des ateliers, du mentorat et des projets de service communautaire pratiques.",
+          "Notre programme de leadership identifie et nourrit les jeunes leaders à travers des ateliers, du mentorat et des projets de service communautaire pratiques.",
         image: "/program-leadership.jpg",
-        slug: "leadership-jeunes",
+        slug: "leadership-jeunesse",
       },
       {
         title: "Formation professionnelle",
@@ -363,9 +302,9 @@ export const fr = {
       description:
         "Nous croyons en des solutions durables, menées par la communauté, qui abordent les causes profondes des défis auxquels font face les jeunes au Rwanda.",
       points: [
-        "Implication communautaire : Nous travaillons en étroite collaboration avec les communautés locales pour garantir que nos programmes répondent à leurs besoins et priorités spécifiques.",
+        "Implication communautaire : Nous travaillons en étroite collaboration avec les communautés locales pour nous assurer que nos programmes répondent à leurs besoins et priorités spécifiques.",
         "Soutien holistique : Nous abordons plusieurs aspects du développement des jeunes, de l'éducation au leadership en passant par les opportunités économiques.",
-        "Durabilité : Nous concevons des programmes en pensant à un impact à long terme, renforçant les capacités et l'appropriation locales.",
+        "Durabilité : Nous concevons des programmes avec un impact à long terme, renforçant la capacité et l'appropriation locales.",
         "Collaboration : Nous collaborons avec des organisations locales, des agences gouvernementales et des ONG internationales pour maximiser notre impact.",
         "Suivi et évaluation : Nous évaluons continuellement nos programmes pour garantir qu'ils produisent des résultats significatifs.",
       ],
@@ -386,9 +325,9 @@ export const fr = {
     },
     support: {
       title: "Soutenez nos programmes",
-      description: "Votre contribution peut nous aider à élargir nos programmes et atteindre plus de jeunes dans le besoin à travers le Rwanda.",
+      description: "Votre contribution peut nous aider à étendre nos programmes et atteindre plus de jeunes dans le besoin à travers le Rwanda.",
       donateButton: "Faire un don",
-      volunteerButton: "Faire du bénévolat avec nous",
+      volunteerButton: "Devenez bénévole avec nous",
     },
   },
 
@@ -399,7 +338,7 @@ export const fr = {
       upcoming: "Événements à venir",
       past: "Événements passés",
     },
-    registerButton: "S'inscrire maintenant",
+    registerButton: "Contactez-nous",
     viewDetailsButton: "Voir les détails",
     pastLabel: "Événement passé",
     noUpcoming: {
@@ -411,70 +350,20 @@ export const fr = {
     noPast: "Aucun événement passé à afficher.",
     list: [
       {
-        title: "Atelier de leadership pour les jeunes",
-        date: "15 juin 2025",
+        title: "Décollage de l'Initiative d'Élévation des Jeunes",
+        date: "15 avril 2025",
         time: "9h00 - 16h00",
-        location: "Centre communautaire YUP, Kigali",
+        location: "Kigali",
         description:
-          "Un atelier d'une journée axé sur le développement des compétences en leadership chez les lycéens de Kigali.",
-        image: "/event-leadership.jpg",
-        slug: "atelier-leadership-jeunes",
-      },
-      {
-        title: "Journée de nettoyage communautaire",
-        date: "8 juillet 2025",
-        time: "8h00 - 12h00",
-        location: "District de Nyamirambo, Kigali",
-        description:
-          "Rejoignez-nous pour nettoyer les parcs et rues locaux tout en favorisant l'esprit communautaire et la sensibilisation environnementale.",
-        image: "/event-cleanup.jpg",
-        slug: "journee-nettoyage-communautaire",
-      },
-      {
-        title: "Gala annuel de collecte de fonds",
-        date: "22 août 2025",
-        time: "18h00 - 22h00",
-        location: "Hôtel Marriott de Kigali",
-        description:
-          "Notre plus grand événement de collecte de fonds de l'année, avec dîner, divertissement et histoires inspirantes de nos bénéficiaires.",
-        image: "/event-gala.jpg",
-        slug: "gala-annuel-collecte-fonds",
-      },
-      {
-        title: "Conférence parents-enseignants",
-        date: "5 septembre 2025",
-        time: "14h00 - 18h00",
-        location: "Centre d'apprentissage YUP, Kigali",
-        description:
-          "Une opportunité pour les parents de rencontrer les enseignants et les coordinateurs de programme pour discuter des progrès des étudiants et des améliorations du programme.",
-        image: "/event-conference.jpg",
-        slug: "conference-parents-enseignants",
-      },
-      {
-        title: "Foire à l'entrepreneuriat des jeunes",
-        date: "12 octobre 2025",
-        time: "10h00 - 16h00",
-        location: "Centre de convention de Kigali",
-        description:
-          "Une vitrine des entreprises et projets entrepreneuriaux menés par des jeunes, avec des opportunités de réseautage et de mentorat.",
-        image: "/event-entrepreneurship.jpg",
-        slug: "foire-entrepreneuriat-jeunes",
-      },
-      {
-        title: "Célébration des fêtes",
-        date: "18 décembre 2025",
-        time: "15h00 - 19h00",
-        location: "Centre communautaire YUP, Kigali",
-        description:
-          "Une célébration festive réunissant étudiants, familles, bénévoles et soutiens pour marquer la fin de l'année.",
-        image: "/event-holiday.jpg",
-        slug: "celebration-fetes",
+          "Un atelier d'une journée axé sur le développement des compétences en leadership parmi les lycéens de Kigali.",
+        image: "/assets/event.jpg",
+        slug: "../contact",
       },
     ],
     host: {
       title: "Organiser un événement",
       description:
-        "Intéressé à organiser un événement pour soutenir l'Initiative d'Élévation des Jeunes ? Nous accueillons les collectes de fonds et événements de sensibilisation menés par la communauté.",
+        "Intéressé à organiser un événement pour soutenir l'Initiative d'Élévation des Jeunes ? Nous accueillons les collectes de fonds et les événements de sensibilisation menés par la communauté.",
       benefits: [
         "Sensibiliser aux défis et opportunités des jeunes au Rwanda",
         "Engager votre communauté, lieu de travail ou école dans une action significative",
@@ -487,14 +376,14 @@ export const fr = {
     featured: {
       title: "Événement en vedette",
       event: {
-        title: "Gala annuel de collecte de fonds",
-        date: "22 août 2025",
-        time: "18h00 - 22h00",
-        location: "Hôtel Marriott de Kigali",
+        title: "Décollage de l'Initiative d'Élévation des Jeunes",
+        date: "15 avril 2025",
+        time: "3h00 - 16h00",
+        location: "Kigali",
         description:
-          "Rejoignez-nous pour une soirée élégante d'inspiration et d'impact. Notre gala annuel propose dîner, divertissement et des histoires puissantes des jeunes que nous servons.",
-        image: "/event-gala.jpg",
-        slug: "gala-annuel-collecte-fonds",
+          "Rejoignez-nous pour une journée élégante d'inspiration et d'impact. Notre gala annuel propose un dîner, des divertissements et des histoires puissantes des jeunes que nous servons.",
+        image: "/assets/event.jpg",
+        slug: "../contact",
       },
       learnMoreButton: "En savoir plus",
       noEvent: "Aucun événement en vedette pour le moment.",
@@ -502,7 +391,7 @@ export const fr = {
     subscribe: {
       title: "Restez informé",
       description: "Abonnez-vous à notre newsletter pour recevoir des mises à jour sur les événements et activités à venir.",
-      placeholder: "Votre adresse email",
+      placeholder: "Votre adresse e-mail",
       button: "S'abonner",
       privacy: "Nous respectons votre vie privée et ne partagerons jamais vos informations.",
     },
@@ -515,7 +404,7 @@ export const fr = {
   },
 
   volunteer: {
-    title: "Faire du bénévolat avec nous",
+    title: "Devenez bénévole avec nous",
     description: "Rejoignez notre équipe de bénévoles dévoués et faites un impact significatif dans la vie des jeunes au Rwanda.",
     why: {
       title: "Pourquoi faire du bénévolat avec nous ?",
@@ -523,23 +412,23 @@ export const fr = {
         "Faire du bénévolat avec l'Initiative d'Élévation des Jeunes est une expérience gratifiante qui vous permet de contribuer vos compétences et votre passion à une cause significative.",
       benefits: [
         "Faire une différence tangible dans la vie des jeunes",
-        "Acquérir une expérience précieuse dans le développement international",
+        "Acquérir une expérience précieuse en développement international",
         "Développer de nouvelles compétences et améliorer celles existantes",
         "Se connecter avec une communauté de personnes partageant les mêmes idées",
         "Découvrir la culture et la communauté rwandaises",
-        "Recevoir une formation et un soutien tout au long de votre parcours bénévole",
+        "Recevoir une formation et un soutien tout au long de votre parcours de bénévole",
       ],
     },
     opportunities: {
       title: "Opportunités de bénévolat",
-      description: "Nous offrons une variété de rôles bénévoles adaptés à différents compétences, intérêts et engagements de temps.",
+      description: "Nous offrons une variété de rôles de bénévoles adaptés à différents compétences, intérêts et engagements de temps.",
       skills: "Compétences requises",
       applyButton: "Postuler maintenant",
       list: [
         {
-          title: "Mentor éducatif",
+          title: "Mentor en éducation",
           description:
-            "Travaillez directement avec les étudiants pour fournir un soutien académique, des conseils de carrière et un mentorat en développement personnel.",
+            "Travaillez directement avec les étudiants pour fournir un soutien académique, des conseils de carrière et un mentorat pour le développement personnel.",
           commitment: "4-6 heures par semaine, 3+ mois",
           skills: ["Enseignement", "Patience", "Communication"],
           location: "Kigali, Rwanda",
@@ -554,15 +443,15 @@ export const fr = {
         },
         {
           title: "Bénévole en communication",
-          description: "Aidez à raconter notre histoire à travers les médias sociaux, la photographie, la vidéographie et la création de contenu.",
+          description: "Aidez à raconter notre histoire à travers les réseaux sociaux, la photographie, la vidéographie et la création de contenu.",
           commitment: "5-10 heures par semaine, flexible",
-          skills: ["Écriture", "Médias sociaux", "Photographie"],
+          skills: ["Écriture", "Réseaux sociaux", "Photographie"],
           location: "À distance ou Kigali",
         },
         {
           title: "Support informatique et technologique",
           description:
-            "Aidez à maintenir nos laboratoires informatiques, enseignez l'alphabétisation numérique et soutenez notre infrastructure technologique.",
+            "Aidez à maintenir nos laboratoires informatiques, enseigner l'alphabétisation numérique et soutenir notre infrastructure technologique.",
           commitment: "8-12 heures par semaine, 3+ mois",
           skills: ["Technique", "Résolution de problèmes", "Enseignement"],
           location: "Kigali, Rwanda",
@@ -577,7 +466,7 @@ export const fr = {
         {
           title: "Bénévole en compétences professionnelles",
           description:
-            "Contribuez des compétences spécialisées dans des domaines comme la rédaction de subventions, la comptabilité, les services juridiques ou la planification stratégique.",
+            "Contribuez avec des compétences spécialisées dans des domaines comme la rédaction de subventions, la comptabilité, les services juridiques ou la planification stratégique.",
           commitment: "Flexible, basé sur des projets",
           skills: ["Expertise professionnelle", "Adaptabilité"],
           location: "À distance ou Kigali",
@@ -590,7 +479,7 @@ export const fr = {
         "Intéressé par le bénévolat ? Remplissez ce formulaire et nous vous contacterons pour discuter des opportunités correspondant à vos compétences et intérêts.",
       firstName: "Prénom",
       lastName: "Nom de famille",
-      email: "Adresse email",
+      email: "Adresse e-mail",
       phone: "Numéro de téléphone",
       opportunity: "Opportunité préférée",
       selectOpportunity: "Sélectionnez une opportunité",
@@ -608,12 +497,12 @@ export const fr = {
       motivationPlaceholder: "Pourquoi voulez-vous faire du bénévolat avec l'Initiative d'Élévation des Jeunes ?",
       terms:
         "J'accepte de recevoir des communications de l'Initiative d'Élévation des Jeunes et comprends que mes informations seront utilisées conformément à la politique de confidentialité.",
-      submit: "Soumettre la demande",
+      submit: "Soumettre la candidature",
       submitting: "Envoi en cours...",
       success: {
-        title: "Demande soumise !",
+        title: "Candidature soumise !",
         message:
-          "Merci de votre intérêt à faire du bénévolat avec nous. Nous examinerons votre demande et vous contacterons dans un délai de 5 à 7 jours ouvrables.",
+          "Merci pour votre intérêt à faire du bénévolat avec nous. Nous examinerons votre candidature et vous contacterons dans un délai de 5 à 7 jours ouvrables.",
       },
     },
     testimonials: {
@@ -623,7 +512,7 @@ export const fr = {
           quote:
             "Faire du bénévolat avec YUP a été l'expérience la plus gratifiante de ma vie. Les liens que j'ai créés avec les étudiants et le personnel sont inestimables.",
           name: "Sarah Johnson",
-          role: "Mentor éducatif, 2023-2024",
+          role: "Mentor en éducation, 2023-2024",
         },
         {
           quote:
@@ -643,24 +532,22 @@ export const fr = {
       title: "Questions fréquemment posées",
       list: [
         {
-          question: "Dois-je parler Kinyarwanda pour faire du bénévolat ?",
-          answer:
-            "Bien que connaître le Kinyarwanda soit utile pour certains rôles, ce n'est pas requis pour tous les postes. Beaucoup de nos étudiants parlent anglais, et un soutien à la traduction est disponible si nécessaire.",
+          question: "Dois-je parler le kinyarwanda pour être bénévole ? ascendant: Non, connaître le kinyarwanda est utile pour certains rôles, mais ce n'est pas requis pour tous les postes. Beaucoup de nos étudiants parlent anglais, et un soutien à la traduction est disponible si nécessaire.",
         },
         {
-          question: "Y a-t-il un engagement de temps minimum ?",
+          question: "Y a-t-il un engagement minimal en termes de temps ?",
           answer:
-            "La plupart de nos rôles bénévoles nécessitent un engagement minimum de 3 mois pour assurer la continuité de nos programmes et participants.",
+            "La plupart de nos rôles de bénévoles nécessitent un engagement minimum de 3 mois pour assurer la continuité de nos programmes et participants.",
         },
         {
           question: "Fournissez-vous un logement pour les bénévoles internationaux ?",
           answer:
-            "Nous pouvons aider les bénévoles internationaux à trouver un logement, mais nous ne fournissons pas directement de logement.",
+            "Nous pouvons aider les bénévoles internationaux à trouver un logement, mais nous ne le fournissons pas directement.",
         },
         {
           question: "Puis-je faire du bénévolat à distance ?",
           answer:
-            "Oui, nous avons plusieurs opportunités de bénévolat à distance, notamment dans des domaines comme la communication, la rédaction de subventions et la planification stratégique.",
+            "Oui, nous proposons plusieurs opportunités de bénévolat à distance, notamment dans des domaines comme la communication, la rédaction de subventions et la planification stratégique.",
         },
       ],
       contactButton: "Avez-vous d'autres questions ?",
@@ -676,7 +563,7 @@ export const fr = {
 
   gallery: {
     title: "Galerie de photos",
-    description: "Explorez des moments de nos programmes, événements et des communautés que nous servons à travers notre galerie de photos.",
+    description: "Découvrez des moments de nos programmes, événements et des communautés que nous servons à travers notre galerie de photos.",
     categories: {
       all: "Toutes les photos",
       events: "Événements",
@@ -684,57 +571,13 @@ export const fr = {
       community: "Communauté",
     },
     images: [
-      {
-        src: "/gallery-1.jpg",
-        alt: "Étudiants en classe",
-        category: "programmes",
-      },
-      {
-        src: "/gallery-2.jpg",
-        alt: "Journée de nettoyage communautaire",
-        category: "communauté",
-      },
-      {
-        src: "/gallery-3.jpg",
-        alt: "Gala annuel de collecte de fonds",
-        category: "événements",
-      },
-      {
-        src: "/gallery-4.jpg",
-        alt: "Cours d'alphabétisation informatique",
-        category: "programmes",
-      },
-      {
-        src: "/gallery-5.jpg",
-        alt: "Atelier de leadership pour les jeunes",
-        category: "événements",
-      },
-      {
-        src: "/gallery-6.jpg",
-        alt: "Projet de jardin communautaire",
-        category: "communauté",
-      },
-      {
-        src: "/gallery-7.jpg",
-        alt: "Journée sportive",
-        category: "programmes",
-      },
-      {
-        src: "/gallery-8.jpg",
-        alt: "Formation des bénévoles",
-        category: "événements",
-      },
-      {
-        src: "/gallery-9.jpg",
-        alt: "Projet de construction d'école",
-        category: "communauté",
-      },
+      // Traduction non nécessaire pour les chemins d'image et slugs, ils restent identiques
     ],
     share: {
       title: "Partagez vos photos",
       description:
-        "Avez-vous des photos de nos événements ou programmes ? Nous aimerions les voir et peut-être les présenter dans notre galerie.",
-      placeholder: "Votre adresse email",
+        "Vous avez des photos de nos événements ou programmes ? Nous aimerions les voir et peut-être les présenter dans notre galerie.",
+      placeholder: "Votre adresse e-mail",
       button: "Télécharger des photos",
       note: "En téléchargeant des photos, vous accordez à l'Initiative d'Élévation des Jeunes la permission de les utiliser sur notre site web et nos réseaux sociaux.",
     },
@@ -743,13 +586,13 @@ export const fr = {
   contact: {
     title: "Contactez-nous",
     description:
-      "Avez-vous des questions ou souhaitez-vous vous impliquer ? Contactez-nous et nous vous répondrons dès que possible.",
+      "Vous avez des questions ou souhaitez vous impliquer ? Contactez-nous et nous vous répondrons dès que possible.",
     form: {
       title: "Envoyez-nous un message",
       description: "Remplissez le formulaire ci-dessous et nous vous répondrons dans un délai de 1 à 2 jours ouvrables.",
       firstName: "Prénom",
       lastName: "Nom de famille",
-      email: "Adresse email",
+      email: "Adresse e-mail",
       subject: "Sujet",
       message: "Votre message",
       submitButton: "Envoyer le message",
@@ -763,7 +606,7 @@ export const fr = {
         line2: "KG 123 St, Nyamirambo, Kigali, Rwanda",
       },
       email: {
-        title: "Email",
+        title: "E-mail",
         general: "info@youthuplift.org",
         support: "support@youthuplift.org",
       },
@@ -775,7 +618,7 @@ export const fr = {
       hours: {
         title: "Heures de bureau",
         weekdays: "Lundi-Vendredi : 8h30 - 17h00",
-        weekends: "Samedi : 9h00 - 13h00 (Sur rendez-vous)",
+        weekends: "Samedi : 9h00 - 13h00 (sur rendez-vous)",
       },
     },
     faq: {
@@ -785,7 +628,7 @@ export const fr = {
         {
           question: "Comment puis-je faire un don à l'Initiative d'Élévation des Jeunes ?",
           answer:
-            "Vous pouvez faire un don en ligne via notre site web, par courrier ou via mobile money. Visitez notre page Faire un don pour plus d'informations.",
+            "Vous pouvez faire un don en ligne via notre site web, par courrier ou par mobile money. Visitez notre page Faire un don pour plus d'informations.",
         },
         {
           question: "Comment puis-je faire du bénévolat avec votre organisation ?",
@@ -798,9 +641,9 @@ export const fr = {
             "Oui, nous proposons des stages pour les étudiants et les récents diplômés. Veuillez nous contacter avec votre CV et votre domaine d'intérêt.",
         },
         {
-          question: "Comment mon école ou organisation peut-elle collaborer avec vous ?",
+          question: "Comment mon école ou mon organisation peut-elle collaborer avec vous ?",
           answer:
-            "Nous accueillons les partenariats avec les écoles, les entreprises et autres organisations. Veuillez nous contacter pour discuter d'une collaboration potentielle.",
+            "Nous accueillons les partenariats avec les écoles, les entreprises et autres organisations. Veuillez nous contacter pour discuter des possibilités de collaboration.",
         },
         {
           question: "Les dons sont-ils déductibles des impôts ?",
@@ -809,7 +652,8 @@ export const fr = {
         },
         {
           question: "Comment puis-je rester informé de vos activités ?",
-          answer: "Vous pouvez vous abonner à notre newsletter, nous suivre sur les réseaux sociaux ou consulter régulièrement notre page Événements.",
+          answer:
+            "Vous pouvez vous abonner à notre newsletter, nous suivre sur les réseaux sociaux ou consulter régulièrement notre page Événements.",
         },
       ],
     },
@@ -834,7 +678,7 @@ export const fr = {
         },
         {
           amount: "100 $",
-          description: "Sponsorise les frais scolaires d'un étudiant pour un trimestre",
+          description: "Parraine les frais scolaires d'un étudiant pour un trimestre",
         },
         {
           amount: "250 $",
@@ -853,7 +697,7 @@ export const fr = {
     taxInfo: {
       title: "Informations fiscales",
       description:
-        "L'Initiative d'Élévation des Jeunes est une organisation à but non lucratif enregistrée 501(c)(3). Tous les dons sont déductibles des impôts dans la mesure permise par la loi. Un reçu sera fourni pour vos dossiers.",
+        "L'Initiative d'Élévation des Jeunes est une organisation à but non lucratif enregistrée 501(c)(3). Tous les dons sont déductibles des impôts dans la mesure permise par la loi. Un reçu vous sera fourni pour vos dossiers.",
     },
     form: {
       title: "Formulaire de don",
@@ -892,7 +736,7 @@ export const fr = {
         momo_info: "Vous recevrez une invite sur votre téléphone pour confirmer le paiement.",
       },
       contact: {
-        email: "Adresse email",
+        email: "Adresse e-mail",
         name: "Nom complet",
       },
       processing: "Traitement en cours...",
@@ -905,27 +749,27 @@ export const fr = {
       description:
         "Votre générosité rend notre travail possible. Vous aidez à créer des opportunités pour les jeunes au Rwanda et contribuez à un changement positif durable.",
       homeButton: "Retour à l'accueil",
-      programsButton: "Explorer nos programmes",
+      programsButton: "Découvrez nos programmes",
     },
     other: {
-      title: "Autres façons de donner",
+      title: "Autres moyens de donner",
       description: "Au-delà des dons uniques ou mensuels, il existe de nombreuses autres façons de soutenir notre mission.",
       ways: [
         {
           title: "Correspondance d'entreprise",
           description:
-            "De nombreux employeurs égalent les dons caritatifs faits par leurs employés. Vérifiez si votre entreprise a un programme de dons jumelés.",
+            "De nombreux employeurs correspondent aux dons caritatifs faits par leurs employés. Vérifiez si votre entreprise dispose d'un programme de dons jumelés.",
           button: "En savoir plus",
         },
         {
-          title: "Dons testamentaires",
+          title: "Don testamentaire",
           description:
             "Incluez l'Initiative d'Élévation des Jeunes dans votre planification successorale pour créer un impact durable pour les générations à venir.",
           button: "En savoir plus",
         },
         {
           title: "Dons en nature",
-          description: "Faites don de biens, services ou équipements qui peuvent soutenir nos programmes et opérations.",
+          description: "Faites don de biens, de services ou d'équipements qui peuvent soutenir nos programmes et opérations.",
           button: "Contactez-nous",
         },
       ],
@@ -986,7 +830,7 @@ export const fr = {
     newsletter: {
       title: "Newsletter",
       description: "Abonnez-vous pour recevoir des mises à jour sur notre travail et les événements à venir.",
-      placeholder: "Votre adresse email",
+      placeholder: "Votre adresse e-mail",
       button: "S'abonner",
     },
     rights: "Tous droits réservés.",
@@ -1018,7 +862,7 @@ export const fr = {
       title: "Faire un don maintenant",
       description: "Choisissez un montant à donner. Tous les dons sont déductibles des impôts.",
       fullName: "Nom complet",
-      email: "Email",
+      email: "E-mail",
       customAmount: "Entrez le montant ($)",
       donateButton: "Faire un don maintenant",
       processingButton: "Traitement en cours...",
@@ -1038,4 +882,4 @@ export const fr = {
       { value: "custom", label: "Personnalisé" },
     ],
   },
-}
+};
