@@ -19,7 +19,7 @@ export default function VolunteerPage() {
       <PageHeader
         title={t.volunteer.title}
         description={t.volunteer.description}
-        backgroundImage="/volunteer-header.jpg"
+        backgroundImage="/assets/donate.jpg"
       />
 
       <section className="py-12 md:py-24 bg-white">
@@ -49,7 +49,7 @@ export default function VolunteerPage() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <img
-                src="/volunteer-why.jpg"
+                src="/assets/donate.jpg"
                 alt="Volunteers making a difference"
                 className="object-cover w-full h-full"
               />
@@ -71,7 +71,7 @@ export default function VolunteerPage() {
             </div>
           </div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {t.volunteer.opportunities.list.map((opportunity, index) => (
+            {/* {t.volunteer.opportunities.list.map((opportunity, index) => (
               <OpportunityCard
                 key={index}
                 title={opportunity.title}
@@ -81,8 +81,9 @@ export default function VolunteerPage() {
                 location={opportunity.location}
                 index={index}
               />
-            ))}
+            ))} */}
           </div>
+          <p className="text-gray-500 font-bold text-center text-xl">We will put the opportunities here soon</p>
         </div>
       </section>
 
@@ -108,7 +109,7 @@ export default function VolunteerPage() {
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-xl font-bold mb-4">{t.volunteer.testimonials.title}</h3>
                 <div className="space-y-6">
-                  {t.volunteer.testimonials.list.map((testimonial, index) => (
+                  {/* {t.volunteer.testimonials.list.map((testimonial, index) => (
                     <div key={index} className="space-y-2">
                       <p className="italic text-gray-500">"{testimonial.quote}"</p>
                       <div className="flex items-center">
@@ -119,7 +120,8 @@ export default function VolunteerPage() {
                         </div>
                       </div>
                     </div>
-                  ))}
+                  ))} */}
+                  <p className="text-gray-500 font-bold">Testimonials will be posted here soon</p>
                 </div>
               </div>
               <div className="bg-primary/5 p-6 rounded-lg">

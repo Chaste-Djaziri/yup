@@ -1,22 +1,29 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import Image from "next/image"
-import { Facebook, Instagram, Twitter, Mail, MapPin, Phone } from "lucide-react"
-import { useState } from "react"
-import { NewsletterSignup } from "@/components/newsletter-signup"
-import { useTheme } from "next-themes"
-import { useLanguage } from "@/contexts/language-context"
-import { dictionaries } from "@/dictionaries"
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
+import { useState } from "react";
+import { NewsletterSignup } from "@/components/newsletter-signup";
+import { useTheme } from "next-themes";
+import { useLanguage } from "@/contexts/language-context";
+import { dictionaries } from "@/dictionaries";
 // Import the Acknowledgments component
-import { Acknowledgments } from "@/components/acknowledgments"
+import { Acknowledgments } from "@/components/acknowledgments";
 
 export function Footer() {
-  const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false)
-  const { theme } = useTheme()
-  const { language } = useLanguage()
-  const t = dictionaries[language]
-  const isDark = theme === "dark"
+  const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false);
+  const { theme } = useTheme();
+  const { language } = useLanguage();
+  const t = dictionaries[language];
+  const isDark = theme === "dark";
 
   return (
     <footer className="w-full bg-gray-900 text-white">
@@ -25,7 +32,7 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-removebg-preview-croped-unK5yhZb4hLauZH2m77TqPQkjz8hH4.png"
+                src="/assets/icon1.png"
                 alt={t.siteName}
                 width={40}
                 height={40}
@@ -63,7 +70,10 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/programs" className="text-gray-400 hover:text-white">
+                <Link
+                  href="/programs"
+                  className="text-gray-400 hover:text-white"
+                >
                   {t.nav.programs}
                 </Link>
               </li>
@@ -73,12 +83,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/volunteer" className="text-gray-400 hover:text-white">
+                <Link
+                  href="/volunteer"
+                  className="text-gray-400 hover:text-white"
+                >
                   {t.nav.volunteer}
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="text-gray-400 hover:text-white">
+                <Link
+                  href="/gallery"
+                  className="text-gray-400 hover:text-white"
+                >
                   {t.nav.gallery}
                 </Link>
               </li>
@@ -110,12 +126,6 @@ export function Footer() {
             <h3 className="text-lg font-bold">{t.footer.newsletter.title}</h3>
             <p className="text-gray-400">{t.footer.newsletter.description}</p>
             <div className="flex flex-col space-y-2">
-              <input
-                type="email"
-                placeholder={t.footer.newsletter.placeholder}
-                className="px-4 py-2 bg-gray-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 text-sm md:text-base"
-                required
-              />
               <button
                 type="button"
                 onClick={() => setIsNewsletterModalOpen(true)}
@@ -134,8 +144,10 @@ export function Footer() {
         {/* Add the Acknowledgments component before the closing div tag of the footer */}
         <Acknowledgments />
       </div>
-      <NewsletterSignup isOpen={isNewsletterModalOpen} onClose={() => setIsNewsletterModalOpen(false)} />
+      <NewsletterSignup
+        isOpen={isNewsletterModalOpen}
+        onClose={() => setIsNewsletterModalOpen(false)}
+      />
     </footer>
-  )
+  );
 }
-
