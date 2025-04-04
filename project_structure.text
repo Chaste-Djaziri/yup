@@ -1,0 +1,183 @@
+- .gitignore
+- app
+  - about
+    - page.tsx
+  - contact
+    - page.tsx
+  - donate
+    - loading.tsx
+    - page.tsx
+  - events
+    - page.tsx
+  - favicon.ico
+  - gallery
+    - page.tsx
+  - globals.css
+  - layout.tsx
+  - page.tsx
+  - programs
+    - page.tsx
+  - volunteer
+    - page.tsx
+- components
+  - acknowledgments.tsx
+  - contact-map.tsx
+  - donate-client.tsx
+  - donate-section.tsx
+  - donation-modal.tsx
+  - event-card.tsx
+  - footer.tsx
+  - hero-section.tsx
+  - history-timeline.tsx
+  - image-gallery.tsx
+  - impact-section.tsx
+  - language-selector.tsx
+  - mission-section.tsx
+  - navbar.tsx
+  - newsletter-signup.tsx
+  - opportunity-card.tsx
+  - page-header.tsx
+  - page-transition.tsx
+  - payment-icons.tsx
+  - program-card.tsx
+  - schema-org.tsx
+  - scroll-to-top.tsx
+  - team-section.tsx
+  - testimonial-section.tsx
+  - theme-provider.tsx
+  - theme-toggle.tsx
+  - ui
+    - accordion.tsx
+    - alert-dialog.tsx
+    - alert.tsx
+    - aspect-ratio.tsx
+    - avatar.tsx
+    - badge.tsx
+    - breadcrumb.tsx
+    - button.tsx
+    - calendar.tsx
+    - card.tsx
+    - carousel.tsx
+    - chart.tsx
+    - checkbox.tsx
+    - collapsible.tsx
+    - command.tsx
+    - context-menu.tsx
+    - dialog.tsx
+    - drawer.tsx
+    - dropdown-menu.tsx
+    - form.tsx
+    - hover-card.tsx
+    - input-otp.tsx
+    - input.tsx
+    - label.tsx
+    - menubar.tsx
+    - modal.tsx
+    - navigation-menu.tsx
+    - pagination.tsx
+    - popover.tsx
+    - progress.tsx
+    - radio-group.tsx
+    - resizable.tsx
+    - scroll-area.tsx
+    - select.tsx
+    - separator.tsx
+    - sheet.tsx
+    - sidebar.tsx
+    - skeleton.tsx
+    - slider.tsx
+    - sonner.tsx
+    - switch.tsx
+    - table.tsx
+    - tabs.tsx
+    - textarea.tsx
+    - toast.tsx
+    - toaster.tsx
+    - toggle-group.tsx
+    - toggle.tsx
+    - tooltip.tsx
+    - use-mobile.tsx
+    - use-toast.ts
+  - upcoming-events.tsx
+  - volunteer-form.tsx
+- components.json
+- contexts
+  - language-context.tsx
+- dictionaries
+  - en.ts
+  - fr.ts
+  - index.ts
+  - rw.ts
+- hooks
+  - use-mobile.tsx
+  - use-responsive.tsx
+  - use-toast.ts
+- lib
+  - utils.ts
+- next-env.d.ts
+- next.config.mjs
+- package-lock.json
+- package.json
+- pnpm-lock.yaml
+- postcss.config.mjs
+- project_structure.text
+- public
+  - about-header.jpg
+  - apple-touch-icon.png
+  - assets
+    - about-header.jpg
+    - about.jpg
+    - british-library-gTV2osuOsJc-unsplash.jpg
+    - donate.jpg
+    - donation1.jpg
+    - event-header.jpg
+    - event.jpg
+    - food.jpg
+    - forthepoor.jpg
+    - gallery-header.jpg
+    - icon.png
+    - icon1.png
+    - impact.jpg
+    - logo.png
+    - marcos-paulo-prado-83JZupwXfhU-unsplash.jpg
+    - nico-smit-NLTbKZvl0us-unsplash.jpg
+    - people
+      - axel.jfif
+      - boston.jfif
+      - chaste.jfif
+      - joe.jfif
+    - pexels-brandaohh-3959485.jpg
+    - programs-header.jpg
+    - united.jpg
+  - contact-header.jpg
+  - donate-header.jpg
+  - donation-chart.jpg
+  - donation-image.jpg
+  - events-header.jpg
+  - favicon-16x16.png
+  - favicon-32x32.png
+  - gallery-header.jpg
+  - paypal-button-dark.png
+  - paypal-button.png
+  - paypal-icon-light.png
+  - paypal-icon.png
+  - placeholder-logo.png
+  - placeholder-logo.svg
+  - placeholder-user.jpg
+  - placeholder.jpg
+  - placeholder.svg
+  - programs-header.jpg
+  - site.webmanifest
+  - stripe-checkout-dark.png
+  - stripe-checkout.png
+  - stripe-icon-light.png
+  - stripe-icon.png
+  - volunteer-header.jpg
+- styles
+  - globals.css
+- tailwind.config.ts
+- tsconfig.json
+- utils
+  - translation-utils.ts
+- _docs
+  - .project_structure_ignore

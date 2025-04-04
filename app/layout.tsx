@@ -1,29 +1,27 @@
-import type React from "react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { ThemeProvider } from "@/components/theme-provider"
-import { LanguageProvider } from "@/contexts/language-context"
-import type { Metadata } from "next"
-import "./globals.css"
-import { ScrollToTop } from "@/components/scroll-to-top"
-import { PageTransition } from "@/components/page-transition"
-import { SchemaOrg } from "@/components/schema-org"
+import type React from "react";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { ThemeProvider } from "@/components/theme-provider";
+import { LanguageProvider } from "@/contexts/language-context";
+import type { Metadata } from "next";
+import "./globals.css";
+import { ScrollToTop } from "@/components/scroll-to-top";
+import { PageTransition } from "@/components/page-transition";
+import { SchemaOrg } from "@/components/schema-org";
 
 export const metadata: Metadata = {
   title: {
     default: "Youth Uplift Initiative | Empowering Youth in Rwanda",
     template: "%s | Youth Uplift Initiative",
   },
-  description: "Youth Uplift Initiative (YUP) is a charity-based community for helping those in need, based in Rwanda.",
+  description:
+    "Youth Uplift Initiative (YUP) is a charity-based community for helping those in need, based in Rwanda.",
   keywords: [
-    "charity",
-    "Rwanda",
-    "youth empowerment",
-    "education",
-    "community development",
-    "nonprofit",
-    "volunteer",
-    "donate",
+    "charity", "Rwanda", "youth empowerment", "education", "community development", "nonprofit", "volunteer", "donate",
+    "aide humanitaire", "jeunesse", "éducation", "développement communautaire", "ONG", "bénévolat", "don", "entraide",
+    "ubufasha", "urubyiruko", "kwigisha", "iterambere ry'umuryango", "gukorera bushake", "gutanga inkunga", "gufasha abandi",
+    "assistance", "solidarité", "humanitarian aid", "development", "support", "impact social", "caring", "hope",
+    "impuhwe", "ubwuzuzanye", "gushyigikira", "intego", "indashyikirwa"
   ],
   authors: [{ name: "Youth Uplift Initiative" }],
   creator: "Youth Uplift Initiative",
@@ -81,12 +79,12 @@ export const metadata: Metadata = {
     google: "v3pNA_S_M2JBWaKjHfRTJFp_FLXl_x9lVjE4Kz2oYRM",
   },
   generator: "v0.dev",
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html suppressHydrationWarning lang="en">
@@ -110,9 +108,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
-
-
-
-import './globals.css'

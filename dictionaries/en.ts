@@ -175,39 +175,10 @@ export const en = {
         "From humble beginnings to impactful community presence, explore the history of Youth Uplift Initiative.",
       timeline: [
         {
-          year: "2015",
+          year: "2025",
           title: "Foundation",
           description:
-            "Youth Uplift Initiative was founded by a group of passionate educators and community leaders in Kigali.",
-        },
-        {
-          year: "2017",
-          title: "First Scholarship Program",
-          description:
-            "Launched our flagship scholarship program, supporting 25 students in their secondary education.",
-        },
-        {
-          year: "2019",
-          title: "Community Center Opening",
-          description:
-            "Opened our first community center in Nyamirambo, providing a space for educational programs and community gatherings.",
-        },
-        {
-          year: "2021",
-          title: "Expansion to Rural Areas",
-          description:
-            "Extended our programs to rural communities in Eastern Province, reaching more underserved youth.",
-        },
-        {
-          year: "2023",
-          title: "Technology Initiative",
-          description:
-            "Launched our digital literacy program, equipping youth with essential technology skills for the future.",
-        },
-        {
-          year: "2025",
-          title: "10-Year Anniversary",
-          description: "Celebrating a decade of impact and setting ambitious goals for the next ten years.",
+            "Youth Uplift Initiative was founded by a group of passionate students from Ecoles Des Sciences Byimana and community leaders in Kigali.",
         },
       ],
     },
@@ -233,69 +204,36 @@ export const en = {
         "Meet the dedicated individuals who work tirelessly to fulfill our mission and create positive change.",
       members: [
         {
-          name: "Emmanuel Mugisha",
-          role: "Executive Director",
-          bio: "Emmanuel founded YUP with a vision to transform education in Rwanda. With over 15 years of experience in nonprofit management, he leads our strategic initiatives.",
-          image: "/team-emmanuel.jpg",
+          name: "Karambizi Axel",
+          role: "Founder",
+          bio: "I'm everything u want but can't have!.",
+          image: "/assets/people/axel.jfif",
           social: {
-            facebook: "https://facebook.com/emmanuel",
-            twitter: "https://twitter.com/emmanuel",
-            linkedin: "https://linkedin.com/in/emmanuel",
+            facebook: "https://facebook.com/axelkarambizi/",
+            instagram: "https://www.instagram.com/axelkarambizi/",
+            linkedin: "https://linkedin.com/in/axelkarambizi/",
           },
         },
         {
-          name: "Claudine Uwase",
-          role: "Programs Director",
-          bio: "Claudine oversees all of our educational and community development programs. Her background in education policy helps shape our impactful approach.",
-          image: "/team-claudine.jpg",
+          name: "Rukundo Joseph",
+          role: "Co-Founder",
+          bio: "📍 🇷🇼 ʟɪʙʀᴀ ♎ ✟𝐄𝐱𝐨𝐝𝐮𝐬 𝟏𝟒:𝟏𝟒✟.",
+          image: "/assets/people/joe.jfif",
           social: {
-            facebook: "https://facebook.com/claudine",
-            twitter: "https://twitter.com/claudine",
-            linkedin: "https://linkedin.com/in/claudine",
+            facebook: "https://facebook.com/ruzungu_/",
+            instagram: "https://www.instagram.com/ruzungu_/",
+            linkedin: "https://linkedin.com/in/ruzungu_/",
           },
         },
         {
-          name: "James Wilson",
-          role: "International Partnerships",
-          bio: "James builds and maintains our relationships with international donors and partners. His global perspective strengthens our collaborative approach.",
-          image: "/team-james.jpg",
+          name: "Chaste Djaziri",
+          role: "Web Developer | Member",
+          bio: "A dedicated individual with a passion for software designing, web development, and game design.",
+          image: "/assets/people/chaste.jfif",
           social: {
-            facebook: "https://facebook.com/james",
-            twitter: "https://twitter.com/james",
-            linkedin: "https://linkedin.com/in/james",
-          },
-        },
-        {
-          name: "Marie Mukamana",
-          role: "Community Outreach",
-          bio: "Marie works directly with local communities to ensure our programs meet their needs. Her deep community connections are invaluable to our work.",
-          image: "/team-marie.jpg",
-          social: {
-            facebook: "https://facebook.com/marie",
-            twitter: "https://twitter.com/marie",
-            linkedin: "https://linkedin.com/in/marie",
-          },
-        },
-        {
-          name: "David Karenzi",
-          role: "Education Coordinator",
-          bio: "David designs and implements our educational programs. As a former teacher, he brings practical insights to our curriculum development.",
-          image: "/team-david.jpg",
-          social: {
-            facebook: "https://facebook.com/david",
-            twitter: "https://twitter.com/david",
-            linkedin: "https://linkedin.com/in/david",
-          },
-        },
-        {
-          name: "Sarah Mutoni",
-          role: "Finance Manager",
-          bio: "Sarah ensures the financial sustainability of our organization. Her expertise in nonprofit finance helps maximize the impact of every donation.",
-          image: "/team-sarah.jpg",
-          social: {
-            facebook: "https://facebook.com/sarah",
-            twitter: "https://twitter.com/sarah",
-            linkedin: "https://linkedin.com/in/sarah",
+            facebook: "https://web.facebook.com/chaste.djaziri/",
+            instagram: "https://www.instagram.com/chaste_djaziri/",
+            linkedin: "https://www.linkedin.com/in/chaste-djaziri-6bb4b62a5/",
           },
         },
       ],
@@ -399,7 +337,7 @@ export const en = {
       upcoming: "Upcoming Events",
       past: "Past Events",
     },
-    registerButton: "Register Now",
+    registerButton: "Contact Us",
     viewDetailsButton: "View Details",
     pastLabel: "Past Event",
     noUpcoming: {
@@ -411,65 +349,65 @@ export const en = {
     noPast: "No past events to display.",
     list: [
       {
-        title: "Youth Leadership Workshop",
-        date: "June 15, 2025",
+        title: "Youth Uplift Takeoff",
+        date: "April 15, 2025",
         time: "9:00 AM - 4:00 PM",
-        location: "YUP Community Center, Kigali",
+        location: "Kigali",
         description:
           "A day-long workshop focused on developing leadership skills among high school students in Kigali.",
-        image: "/event-leadership.jpg",
-        slug: "youth-leadership-workshop",
+        image: "/assets/event.jpg",
+        slug: "../contact",
       },
-      {
-        title: "Community Clean-up Day",
-        date: "July 8, 2025",
-        time: "8:00 AM - 12:00 PM",
-        location: "Nyamirambo District, Kigali",
-        description:
-          "Join us in cleaning up local parks and streets while fostering community spirit and environmental awareness.",
-        image: "/event-cleanup.jpg",
-        slug: "community-cleanup-day",
-      },
-      {
-        title: "Annual Fundraising Gala",
-        date: "August 22, 2025",
-        time: "6:00 PM - 10:00 PM",
-        location: "Kigali Marriott Hotel",
-        description:
-          "Our biggest fundraising event of the year, featuring dinner, entertainment, and inspiring stories from our beneficiaries.",
-        image: "/event-gala.jpg",
-        slug: "annual-fundraising-gala",
-      },
-      {
-        title: "Parent-Teacher Conference",
-        date: "September 5, 2025",
-        time: "2:00 PM - 6:00 PM",
-        location: "YUP Learning Center, Kigali",
-        description:
-          "An opportunity for parents to meet with teachers and program coordinators to discuss student progress and program improvements.",
-        image: "/event-conference.jpg",
-        slug: "parent-teacher-conference",
-      },
-      {
-        title: "Youth Entrepreneurship Fair",
-        date: "October 12, 2025",
-        time: "10:00 AM - 4:00 PM",
-        location: "Kigali Convention Center",
-        description:
-          "A showcase of youth-led businesses and entrepreneurial projects, with opportunities for networking and mentorship.",
-        image: "/event-entrepreneurship.jpg",
-        slug: "youth-entrepreneurship-fair",
-      },
-      {
-        title: "Holiday Celebration",
-        date: "December 18, 2025",
-        time: "3:00 PM - 7:00 PM",
-        location: "YUP Community Center, Kigali",
-        description:
-          "A festive celebration bringing together students, families, volunteers, and supporters to mark the end of the year.",
-        image: "/event-holiday.jpg",
-        slug: "holiday-celebration",
-      },
+      // {
+      //   title: "Community Clean-up Day",
+      //   date: "July 8, 2025",
+      //   time: "8:00 AM - 12:00 PM",
+      //   location: "Nyamirambo District, Kigali",
+      //   description:
+      //     "Join us in cleaning up local parks and streets while fostering community spirit and environmental awareness.",
+      //   image: "/event-cleanup.jpg",
+      //   slug: "community-cleanup-day",
+      // },
+      // {
+      //   title: "Annual Fundraising Gala",
+      //   date: "August 22, 2025",
+      //   time: "6:00 PM - 10:00 PM",
+      //   location: "Kigali Marriott Hotel",
+      //   description:
+      //     "Our biggest fundraising event of the year, featuring dinner, entertainment, and inspiring stories from our beneficiaries.",
+      //   image: "/event-gala.jpg",
+      //   slug: "annual-fundraising-gala",
+      // },
+      // {
+      //   title: "Parent-Teacher Conference",
+      //   date: "September 5, 2025",
+      //   time: "2:00 PM - 6:00 PM",
+      //   location: "YUP Learning Center, Kigali",
+      //   description:
+      //     "An opportunity for parents to meet with teachers and program coordinators to discuss student progress and program improvements.",
+      //   image: "/event-conference.jpg",
+      //   slug: "parent-teacher-conference",
+      // },
+      // {
+      //   title: "Youth Entrepreneurship Fair",
+      //   date: "October 12, 2025",
+      //   time: "10:00 AM - 4:00 PM",
+      //   location: "Kigali Convention Center",
+      //   description:
+      //     "A showcase of youth-led businesses and entrepreneurial projects, with opportunities for networking and mentorship.",
+      //   image: "/event-entrepreneurship.jpg",
+      //   slug: "youth-entrepreneurship-fair",
+      // },
+      // {
+      //   title: "Holiday Celebration",
+      //   date: "December 18, 2025",
+      //   time: "3:00 PM - 7:00 PM",
+      //   location: "YUP Community Center, Kigali",
+      //   description:
+      //     "A festive celebration bringing together students, families, volunteers, and supporters to mark the end of the year.",
+      //   image: "/event-holiday.jpg",
+      //   slug: "holiday-celebration",
+      // },
     ],
     host: {
       title: "Host an Event",
@@ -487,14 +425,14 @@ export const en = {
     featured: {
       title: "Featured Event",
       event: {
-        title: "Annual Fundraising Gala",
-        date: "August 22, 2025",
-        time: "6:00 PM - 10:00 PM",
-        location: "Kigali Marriott Hotel",
+        title: "Youth Uplift Initiative Takeoff",
+        date: "April 15, 2025",
+        time: "3:00 AM - 4:00 PM",
+        location: "Kigali",
         description:
-          "Join us for an elegant evening of inspiration and impact. Our annual gala features dinner, entertainment, and powerful stories from the youth we serve.",
-        image: "/event-gala.jpg",
-        slug: "annual-fundraising-gala",
+          "Join us for an elegant day of inspiration and impact. Our annual gala features dinner, entertainment, and powerful stories from the youth we serve.",
+        image: "/assets/event.jpg",
+        slug: "../contact",
       },
       learnMoreButton: "Learn More",
       noEvent: "No featured event at this time.",
@@ -684,51 +622,51 @@ export const en = {
       community: "Community",
     },
     images: [
-      {
-        src: "/gallery-1.jpg",
-        alt: "Students in classroom",
-        category: "programs",
-      },
-      {
-        src: "/gallery-2.jpg",
-        alt: "Community clean-up day",
-        category: "community",
-      },
-      {
-        src: "/gallery-3.jpg",
-        alt: "Annual fundraising gala",
-        category: "events",
-      },
-      {
-        src: "/gallery-4.jpg",
-        alt: "Computer literacy class",
-        category: "programs",
-      },
-      {
-        src: "/gallery-5.jpg",
-        alt: "Youth leadership workshop",
-        category: "events",
-      },
-      {
-        src: "/gallery-6.jpg",
-        alt: "Community garden project",
-        category: "community",
-      },
-      {
-        src: "/gallery-7.jpg",
-        alt: "Sports day",
-        category: "programs",
-      },
-      {
-        src: "/gallery-8.jpg",
-        alt: "Volunteer training",
-        category: "events",
-      },
-      {
-        src: "/gallery-9.jpg",
-        alt: "School construction project",
-        category: "community",
-      },
+      // {
+      //   src: "/gallery-1.jpg",
+      //   alt: "Students in classroom",
+      //   category: "programs",
+      // },
+      // {
+      //   src: "/gallery-2.jpg",
+      //   alt: "Community clean-up day",
+      //   category: "community",
+      // },
+      // {
+      //   src: "/gallery-3.jpg",
+      //   alt: "Annual fundraising gala",
+      //   category: "events",
+      // },
+      // {
+      //   src: "/gallery-4.jpg",
+      //   alt: "Computer literacy class",
+      //   category: "programs",
+      // },
+      // {
+      //   src: "/gallery-5.jpg",
+      //   alt: "Youth leadership workshop",
+      //   category: "events",
+      // },
+      // {
+      //   src: "/gallery-6.jpg",
+      //   alt: "Community garden project",
+      //   category: "community",
+      // },
+      // {
+      //   src: "/gallery-7.jpg",
+      //   alt: "Sports day",
+      //   category: "programs",
+      // },
+      // {
+      //   src: "/gallery-8.jpg",
+      //   alt: "Volunteer training",
+      //   category: "events",
+      // },
+      // {
+      //   src: "/gallery-9.jpg",
+      //   alt: "School construction project",
+      //   category: "community",
+      // },
     ],
     share: {
       title: "Share Your Photos",

@@ -14,14 +14,14 @@ export const rw = {
   },
 
   theme: {
-    select: "Hitamo Insanganyamatsiko",
+    select: "Hitamo icyo ushaka",
     light: "Cy’umucyo",
     dark: "Cy’umwijima",
     system: "Sisitemu",
   },
 
   language: {
-    select: "Hitamo Ururimi",
+    select: "Hitamo ururimi",
     en: "Icyongereza",
     fr: "Igifaransa",
     rw: "Ikinyarwanda",
@@ -30,31 +30,31 @@ export const rw = {
   home: {
     hero: {
       title: "Guteza Imbere Urubyiruko mu Rwanda",
-      subtitle: "Turi mu bikorwa byo gutanga uburezi, ibikoresho, n’ubushobozi ku rubyiruko rutozwa mu Rwanda.",
+      subtitle: "Turi mu bikorwa byo guha urubyiruko rutozwe mu Rwanda uburezi, ibikoresho, n’ubushobozi.",
       donateButton: "Tanga Ubufasha None",
       learnMoreButton: "Menya Byinshi",
     },
     mission: {
       title: "Intego Yacu",
       description:
-        "Inyigisho yo Kuzamura Urubyiruko (YUP) yashinzwe kugira ngo iteze imbere abayouth mu Rwanda binyuze mu burezi, iterambere ry’umuryango, hamwe n’ibikorwa bigumya amahoro bigatuma habaho ivugururwa ry’igihe kirekire.",
+        "Inyigisho yo Kuzamura Urubyiruko (YUP) yashinzwe kugira ngo iteze imbere urubyiruko mu Rwanda binyuze mu burezi, iterambere ry’umuryango, hamwe n’ibikorwa bigumya umusaruro bigatuma habaho impinduka zidahoraho.",
       compassion: {
         title: "Impuhwe",
-        description: "Twizera ko buri muntu agomba guhabwa icyubahiro, urubanza, n’ubushishozi.",
+        description: "Twizera ko buri muntu agomba guhabwa agaciro, icyubahiro, n’ubushishozi.",
       },
       community: {
         title: "Umuryango",
-        description: "Dukorana hamwe n’abaturage bo mu gace kugira ngo dushyireho ibisubizo bigumya amahoro.",
+        description: "Dukorana n’abaturage bo mu gace kugira ngo dushyireho ibisubizo bigumya umusaruro.",
       },
       action: {
-        title: "Igikorwa",
-        description: "Dufata ingamba z’ingenzi zo guhindura ubuzima bw’abantu tubakira.",
+        title: "Ibikorwa",
+        description: "Dufata ingamba z’ingenzi zo guhindura ubuzima bw’abantu tudukurikiza.",
       },
     },
     impact: {
       title: "Ingaruka Zacu",
       description:
-        "Kuva twashinzwe, twakoze impinduka z’ingenzi mu buzima bw’urubyiruko rwinshi mu Rwanda.",
+        "Guhera ubwo twashinzwe, twakoze impinduka z’ingenzi mu buzima bw’urubyiruko rwinshi mu Rwanda.",
       students: {
         count: "1,200+",
         title: "Abanyeshuri Twafashije",
@@ -67,7 +67,7 @@ export const rw = {
       },
       volunteers: {
         count: "300+",
-        title: "Abakorerabushake Bakeneye",
+        title: "Abakorerabushake Bakora",
         description: "Abantu bashishikarije batuyambira mu guteza imbere intego zacu.",
       },
     },
@@ -77,18 +77,19 @@ export const rw = {
       testimonials: [
         {
           quote:
-            "Inkunga ya YUP yahinduye ubuzima bwanjye. None ndiga sayansi y’ikoranabuhanga kandi nshaka gusubiza umuryango wanjye.",
+            "Inkunga ya YUP yahinduye ubuzima bwanjye. None ndiga ikoranabuhanga kandi nshaka gutanga inyigisho mu muryango wanjye.",
           name: "Jean-Paul Mugisha",
           role: "Uwahawe Inkunga",
         },
         {
           quote:
-            "Gukorera YUP ubushake bwari umuzamo utangaje cyane. Ingaruka tugaragaza ni zigaragara kandi zikomeye.",
+            "Gukorera YUP k’ubushake byabaye ibintu by’ingenzi mu buzima bwanjye. Ingaruka dufite iragaragara kandi ifite ireme.",
           name: "Sarah Johnson",
-          role: "Umukorerabushake w’Amahanga",
+          role: "Umukorerabushake w’Amajyambere",
         },
         {
-          quote: "Ikigo cy’umuryango cyubatswe na YUP cyabaye ahantu ho kwiga no gukura kw’abana bacu.",
+          quote:
+            "Ikigo cy’umuryango cyubatswe na YUP cyabaye ahantu ho kwigira no gukura k’ abana bacu.",
           name: "Marie Uwimana",
           role: "Umuyobozi w’Umuryango",
         },
@@ -100,128 +101,99 @@ export const rw = {
       viewAllButton: "Reba Ibirori Byose",
       events: [
         {
-          title: "Ishyirahamwe ry’Ubuyobozi bw’Urubyiruko",
+          title: "Ikimwaro cy’Ubuyobozi bw’Urubyiruko",
           date: "Ku wa 15 Kamena 2025",
-          time: "Saa 3:00 - 10:00 z’Ijoro",
+          time: "Saa 3h00 - 10h00",
           location: "Ikigo cy’Umuryango YUP, Kigali",
           description:
-            "Umunsi w’ishyirahamwe ry’umunsi umwe rigamije guteza imbere ubushobozi bw’ubuyobozi mu banyeshuri b’amashuri yisumbuye i Kigali.",
+            "Ikimwaro cy’umunsi umwe gishingiye ku guteza imbere ubushobozi bw’ubuyobozi mu banyeshuri b’amashuri yisumbuye i Kigali.",
           image: "/event-leadership.jpg",
-          slug: "ishyirahamwe-ubuyobozi-urubyiruko",
+          slug: "ikimwaro-cy-ubuyobozi-bw-urubyiruko",
         },
         {
           title: "Umunsi wo Gusukura Umuryango",
           date: "Ku wa 8 Nyakanga 2025",
-          time: "Saa 2:00 - 6:00 z’Umuganda",
+          time: "Saa 2h00 - 6h00",
           location: "Akarere ka Nyamirambo, Kigali",
           description:
-            "Twifatanye mu gusukura parike n’imihango y’ahantu hagati aho dukomeza umutima w’umuryango no kumenyekanisha ibidukikije.",
+            "Twifatanye mu gusukura parike n’imyuga y’ahantu hafi tugashyiraho umwuka w’umuryango no kumenyekanisha ibidukikije.",
           image: "/event-cleanup.jpg",
-          slug: "umunsi-gusukura-umuryango",
+          slug: "umunsi-wo-gusukura-umuryango",
         },
         {
           title: "Ibirori by’Ukwezi bwo Gukusanya Amafaranga",
           date: "Ku wa 22 Kanama 2025",
-          time: "Saa 12:00 - 4:00 z’Ijoro",
-          location: "Hoteli ya Marriott, Kigali",
+          time: "Saa 12h00 - 4h00",
+          location: "Hoteli ya Marriott i Kigali",
           description:
-            "Ibirori byacu by’ingenzi byo gukusanya amafaranga mu mwaka, birimo ifunguro ry’ijoro, ibyishimo, n’inkuru z’inkubirizo z’abafashwa bacu.",
+            "Ibirori byacu by’ingenzi byo gukusanya amafaranga mu mwaka, birimo ifunguro ry’ijoro, ibyishimo, n’amateka y’urubyiruko twafashije.",
           image: "/event-gala.jpg",
-          slug: "ibirori-ukwezi-gukusanya-amafaranga",
+          slug: "ibirori-by-ukwezi-bwo-gukusanya-amafaranga",
         },
       ],
     },
     donate: {
       title: "Hindura Ibyo Ufite Uyu Munsi",
-      description: "Ubufasha bwawe butuyambura gukomeza intego zacu zo kuzamura urubyiruko mu Rwanda.",
+      description: "Ubufasha bwawe butuyambira gukomeza intego zacu zo kuzamura urubyiruko mu Rwanda.",
       howItHelps: "Ubufasha Bwawe Bufasha Uko",
       impacts: [
-        { amount: "$25", description: "butanga ibikoresho by’ishuri ku munyeshuri mu gihembwe" },
-        { amount: "$50", description: "butera inkunga y’ukwezi y’uburezi bw’inyuma y’ishuri ku munyeshuri" },
-        { amount: "$100", description: "butera inkunga y’amafaranga y’ishuri y’umunyeshuri mu gihembwe" },
-        { amount: "$500", description: "bufasha mu kubaka ibikorwa remezo by’amazi meza mu muryango" },
+        { amount: "$25", description: "itanga ibikoresho by’ishuri ku munyeshuri mu gihembwe" },
+        { amount: "$50", description: "ishyura ukwezi kwigisha umunyeshuri nyuma y’amasomo" },
+        { amount: "$100", description: "ishyura amafaranga y’ishuri y’umunyeshuri mu gihembwe" },
+        { amount: "$500", description: "ifasha kubaka ibikorwa remezo by’amazi meza mu muryango" },
       ],
     },
     community: {
       title: "Injira mu Muryango Wacu",
       description:
-        "Hari uburyo bwinshi bwo kwifatanya no gufasha intego zacu. Waba ugira ubushake, utanga ubufasha, cyangwa usakaza ijambo, ushobora guhindura ibintu.",
-      volunteerButton: "Gukorera Ubushake Nacu",
+        "Hari uburyo bwinshi bwo kwifatanya no gufasha intego zacu. Waba ugira akazi k’ubushake, utanga ubufasha, cyangwa ugasakaza ijambo, ushobora guhindura ibintu.",
+      volunteerButton: "Gukorera k’Ubushake Natwe",
       contactButton: "Twandikire",
     },
   },
 
   about: {
     title: "Ibyacu",
-    description: "Menya iby’ishyirahamwe ryacu, intego zacu, n’abantu bari inyuma y’Inyigisho yo Kuzamura Urubyiruko.",
+    description: "Menya byinshi kuri iyi sosiyete, intego zayo, n’abantu bayishyigikira Inyigisho yo Kuzamura Urubyiruko.",
     mission: {
       title: "Intego Zacu n’Icyerekezo",
       description:
-        "Inyigisho yo Kuzamura Urubyiruko yashinzwe mu 2015 ifite intego igaragara: guteza imbere abayouth mu Rwanda binyuze mu burezi, iterambere ry’umuryango, n’ibikorwa bigumya amahoro bigatuma habaho ivugururwa ry’igihe kirekire. Icyerekezo cyacu ni u Rwanda aho urubyiruko rwose rufite ubushobozi bwo kugera ku burezi bw’umwuga kandi bufite ubushobozi bwo kugera ku mbaraga zabyo zose.",
+        "Inyigisho yo Kuzamura Urubyiruko yashinzwe mu 2015 ifite intego igaragara: guteza imbere urubyiruko mu Rwanda binyuze mu burezi, iterambere ry’umuryango, n’ibikorwa bigumya umusaruro bigatuma habaho impinduka zidahoraho. Icyerekezo cyacu ni u Rwanda aho urubyiruko rwose rufite ubushobozi bwo kubona uburezi bw’umwuga no gukoresha ubushobozi bwabo bwuzuye.",
       values: {
         title: "Imigirwa Yacu yo mu Mutima",
         list: [
-          "Impuhwe: Dukorera umurimo wacu n’ubushishozi n’ubwitonzi.",
-          "Ubutungane: Twiyemeje kugaragaza ibintu by’ukuri no gukora ibintu by’ubutabera.",
-          "Ubufatanye: Dukorana hamwe n’umuryango n’abafatanyabikorwa.",
-          "Ubuhanga: Dushaka ibisubizo by’ubuhanga ku bibazo bigoye.",
-          "Ubugumu: Dutegura ibikorwa bigatuma habaho impinduka z’igihe kirekire.",
+          "Impuhwe: Dukorera ibintu byacu tugira impamvu n’ubushishozi.",
+          "Ubutungane: Twiyemeje kugaragaza ibintu byacu mu mucyo no gukora iby’ubutungane.",
+          "Gukorana: Dukorana n’abaturage n’abafatanyabikorwa.",
+          "Ubucurabwenge: Dushaka ibisubizo by’ubuhanga ku bibazo bigoye.",
+          "Gukomeza: Dutegura ibikorwa bigira ingaruka zihoraho.",
         ],
       },
     },
     history: {
       title: "Urugendo Rwacu",
       description:
-        "Kuva mu ntangiriro z’ubukene kugeza ku bikorwa by’ingenzi mu muryango, reba amateka y’Inyigisho yo Kuzamura Urubyiruko.",
+        "Guhera ku ntangiriro z’ubukene kugeza ku bikorwa bifite ingaruka mu muryango, reba amateka y’Inyigisho yo Kuzamura Urubyiruko.",
       timeline: [
         {
-          year: "2015",
-          title: "Gushingwa",
-          description:
-            "Inyigisho yo Kuzamura Urubyiruko yashinzwe n’itsinda ry’abarezi bashishikarije hamwe n’abayobozi b’umuryango i Kigali.",
-        },
-        {
-          year: "2017",
-          title: "Porogaramu ya mbere y’Inkunga",
-          description:
-            "Yatangije porogaramu yacu y’inkunga y’ibanze, ifasha abanyeshuri 25 mu burezi bwabo bw’ayisumbuye.",
-        },
-        {
-          year: "2019",
-          title: "Gufungura Ikigo cy’Umuryango",
-          description:
-            "Yafunguye ikigo cyacu cya mbere cy’umuryango i Nyamirambo, gitanga ahantu ho gukora ibikorwa by’uburezi n’ibiterane by’umuryango.",
-        },
-        {
-          year: "2021",
-          title: "Kwaguka mu Byaro",
-          description:
-            "Yaguye ibikorwa byacu mu miryango y’icyaro mu Ntara y’Iburasirazuba, ikagera ku rubyiruko rutozwa rwinshi.",
-        },
-        {
-          year: "2023",
-          title: "Inyigisho y’Ikoranabuhanga",
-          description:
-            "Yatangije porogaramu yacu y’ubumenyi bw’ikoranabuhanga, itanga ubushobozi bw’ingenzi ku rubyiruko ku ikoranabuhanga ry’ejo hazaza.",
-        },
-        {
           year: "2025",
-          title: "Imyaka 10 yo Kwizihiza",
-          description: "Kwizihiza imyaka icumi y’ingaruka no gushyiraho intego z’inkomezi z’imyaka icumi iri imbere.",
+          title: "Ishingwa",
+          description:
+            "Inyigisho yo Kuzamura Urubyiruko yashinzwe n’itsinda ry’abanyeshuri bashishikarije bo mu Ishuri ry’Ubumenyi Byimana n’abayobozi b’umuryango i Kigali.",
         },
       ],
     },
     impact: {
       title: "Ingaruka Zacu",
       description:
-        "Binyuze mu bushake bw’itsinda ryacu n’ubwitange bw’abafashanyabikorwa bacu, twakoze intambwe z’ingenzi mu guteza imbere urubyiruko mu Rwanda hose.",
+        "Binyuze mu bushake bw’itsinda ryacu n’ubwitange bw’abafasha bacu, twakoze intambwe z’ingenzi mu guteza imbere urubyiruko mu Rwanda hose.",
       stats: {
         students: "1,200+",
         studentsLabel: "Abanyeshuri Twafashije",
         communities: "15+",
         communitiesLabel: "Imiryango Twakoreramo",
         volunteers: "300+",
-        volunteersLabel: "Abakorerabushake Bakeneye",
+        volunteersLabel: "Abakorerabushake Bakora",
         projects: "45+",
         projectsLabel: "Ibikorwa by’Umuryango",
       },
@@ -230,81 +202,48 @@ export const rw = {
     team: {
       title: "Itsinda Ryacu",
       description:
-        "Menya abantu bashishikarije bakora umurimo utagira aho uhuma kugira ngo bashe intego zacu kandi bashyireho impinduka z’icyitegererezo.",
+        "Menya abantu bashishikarije bakora umunsi ku munsi kugira ngo bashe intego zacu kandi bashyireho impinduka nziza.",
       members: [
         {
-          name: "Emmanuel Mugisha",
-          role: "Umuyobozi Mukuru",
-          bio: "Emmanuel yashinze YUP afite icyerekezo cyo guhindura uburezi mu Rwanda. Afite uburambe bw’imyaka 15 mu buyobozi bw’ibigo bitari byo gukora inyungu, ni we uyobora ibikorwa byacu by’ingenzi.",
-          image: "/team-emmanuel.jpg",
+          name: "Karambizi Axel",
+          role: "Umuyobozi Ushinzwe",
+          bio: "Ndi byose ushaka ariko ntushobora kugira!",
+          image: "/assets/people/axel.jfif",
           social: {
-            facebook: "https://facebook.com/emmanuel",
-            twitter: "https://twitter.com/emmanuel",
-            linkedin: "https://linkedin.com/in/emmanuel",
+            facebook: "https://facebook.com/axelkarambizi/",
+            instagram: "https://www.instagram.com/axelkarambizi/",
+            linkedin: "https://linkedin.com/in/axelkarambizi/",
           },
         },
         {
-          name: "Claudine Uwase",
-          role: "Umuyobozi w’Ibikorwa",
-          bio: "Claudine yita ku bikorwa byacu byose by’uburezi n’iterambere ry’umuryango. Uburambe bwe mu ngamba z’uburezi bushyira imbaraga mu buryo bwacu bukomeye.",
-          image: "/team-claudine.jpg",
+          name: "Rukundo Joseph",
+          role: "Umufasha Ushinzwe",
+          bio: "📍 🇷🇼 Libra ♎ ✟Eksode 14:14✟.",
+          image: "/assets/people/joe.jfif",
           social: {
-            facebook: "https://facebook.com/claudine",
-            twitter: "https://twitter.com/claudine",
-            linkedin: "https://linkedin.com/in/claudine",
+            facebook: "https://facebook.com/ruzungu_/",
+            instagram: "https://www.instagram.com/ruzungu_/",
+            linkedin: "https://linkedin.com/in/ruzungu_/",
           },
         },
         {
-          name: "James Wilson",
-          role: "Ubufatanye Mpuzamahanga",
-          bio: "James ashyiraho kandi akomeza ubufatanye bwacu n’abatanga inkunga n’abafatanyabikorwa b’amahanga. Icyerekezo cye cy’isi yose cyungura uburyo bwacu bwo gukorana.",
-          image: "/team-james.jpg",
+          name: "Chaste Djaziri",
+          role: "Umwanditsi w’Urubuga | Umwe mu Banyamuryango",
+          bio: "Umuntu wihaye gukunda gushushanya porogaramu, guteza imbere urubuga, no gushushanya imikino.",
+          image: "/assets/people/chaste.jfif",
           social: {
-            facebook: "https://facebook.com/james",
-            twitter: "https://twitter.com/james",
-            linkedin: "https://linkedin.com/in/james",
-          },
-        },
-        {
-          name: "Marie Mukamana",
-          role: "Gushaka Umuryango",
-          bio: "Marie akorana直接 n’umuryango w’ahantu kugira ngo yemerwe ko ibikorwa byacu bihura n’ibyo bakeneye. Ubufatanye bwe bukomeye n’umuryango ni ingirakamaro mu murimo wacu.",
-          image: "/team-marie.jpg",
-          social: {
-            facebook: "https://facebook.com/marie",
-            twitter: "https://twitter.com/marie",
-            linkedin: "https://linkedin.com/in/marie",
-          },
-        },
-        {
-          name: "David Karenzi",
-          role: "Umuhuza w’Uburezi",
-          bio: "David ategura kandi ashira mu bikorwa ibikorwa byacu by’uburezi. Nk’umwarimu wahoze ari, aza n’ubushishozi bw’ukuri mu gutegura ibyigisho byacu.",
-          image: "/team-david.jpg",
-          social: {
-            facebook: "https://facebook.com/david",
-            twitter: "https://twitter.com/david",
-            linkedin: "https://linkedin.com/in/david",
-          },
-        },
-        {
-          name: "Sarah Mutoni",
-          role: "Umuyobozi w’Amafaranga",
-          bio: "Sarah yita ku bugumu bw’amafaranga y’ishyirahamwe ryacu. Ubumenyi bwe mu mafaranga y’ibigo bitari byo gukora inyungu bufasha kugira ngo buri bufasha bufite ingaruka nini.",
-          image: "/team-sarah.jpg",
-          social: {
-            facebook: "https://facebook.com/sarah",
-            twitter: "https://twitter.com/sarah",
-            linkedin: "https://linkedin.com/in/sarah",
+            facebook: "https://web.facebook.com/chaste.djaziri/",
+            instagram: "https://www.instagram.com/chaste_djaziri/",
+            linkedin: "https://www.linkedin.com/in/chaste-djaziri-6bb4b62a5/",
           },
         },
       ],
     },
     join: {
-      title: "Injira mu Ntegorwacu",
+      title: "Injira mu Nshingano Zacu",
       description:
-        "Hari uburyo bwinshi bwo kwifatanya no gufasha umurimo wacu. Waba utanga igihe cyawe, utanga ubufasha, cyangwa usakaza ijambo, ushobora guhindura ibintu.",
-      volunteerButton: "Gukorera Ubushake Nacu",
+        "Hari uburyo bwinshi bwo kwifatanya no gufasha ibikorwa byacu. Waba ugira akazi k’ubushake, utanga ibikoresho, cyangwa usakaza amakuru, ushobora guhindura ibintu.",
+      volunteerButton: "Gukorera k’Ubushake Natwe",
       donateButton: "Tanga Ubufasha",
     },
   },
@@ -312,328 +251,278 @@ export const rw = {
   programs: {
     title: "Porogaramu Zacu",
     description:
-      "Menya ibikorwa bitandukanye twashyizeho kugira ngo tuteze imbere urubyiruko kandi tukomeze imiryango mu Rwanda.",
+      "Menya ibikorwa bitandukanye twashyizeho kugira ngo tuteze imbere urubyiruko no gukomeza imiryango mu Rwanda.",
     learnMoreButton: "Menya Byinshi",
     list: [
       {
         title: "Inkunga y’Uburezi",
         description:
-          "Dutanga inkunga z’uburezi zikomeye ku banyeshuri bafite ubushobozi bavuye mu miryango itishoboye, zikubiyemo amafaranga y’ishuri, ibitabo, ibipfukisho, n’ubujyanama.",
+          "Duha inkunga z’uburezi zikomeye ku banyeshuri bafite ubushobozi ariko badafite ubushobozi, zirimo amafaranga y’ishuri, ibitabo, imyenda, n’ubujyanama.",
         image: "/program-scholarships.jpg",
-        slug: "inkunga-uburezi",
+        slug: "inkunga-y-uburezi",
       },
       {
-        title: "Ibikorwa by’Inyuma y’Ishuri",
+        title: "Porogaramu za Nyuma y’Amashuri",
         description:
-          "Ibikorwa byacu by’inyuma y’ishuri bitanga uburezi, ubuhanzi, siporo, n’iterambere ry’ubuyobozi kugira ngo urubyiruko rugume rukora kandi rwige inyuma y’ishuri.",
+          "Porogaramu zacu za nyuma y’amashuri zifasha mu kwigisha, ubugeni, siporo, no guteza imbere ubuyobozi kugira ngo urubyiruko rugume rukora kandi rwigira hanze y’ishuri.",
         image: "/program-afterschool.jpg",
-        slug: "ibikorwa-inyuma-ishuri",
+        slug: "porogaramu-za-nyuma-y-amashuri",
       },
       {
-        title: "Ubumenyi bw’Ikoranabuhanga",
+        title: "Kumenya Ikoranabuhanga",
         description:
-          "Duteza imbere abayouth ubushobozi bw’ingenzi bw’ikoranabuhanga binyuze mu mbuga z’ikoranabuhanga, amasomo yo gukora kode, n’ubuhuguzi bw’ikoranabuhanga.",
+          "Dushyiraho ubushobozi bw’ikoranabuhanga ku rubyiruko binyuze mu mbuga z’ikoranabuhanga, amasomo yo gukora porogaramu, n’ubushakashatsi bw’ikoranabuhanga.",
         image: "/program-digital.jpg",
-        slug: "ubumenyi-ikoranabuhanga",
+        slug: "kumenya-ikoranabuhanga",
       },
       {
         title: "Iterambere ry’Umuryango",
         description:
-          "Dukorana n’imiryango y’ahantu kugira ngo twongeze ibikorwa remezo, uburyo bwo kugera ku mazi, kandi dushyireho ibikorwa by’iterambere bigumya amahoro bigendera ku bantu bo mu muryango.",
+          "Dukorana n’imiryango yo mu gace kugira ngo tuteze imbere ibikorwa remezo, kubona amazi, no gushyiraho ibikorwa by’iterambere bigumya umusaruro bigengwa n’abaturage.",
         image: "/program-community.jpg",
-        slug: "iterambere-umuryango",
+        slug: "iterambere-ry-umuryango",
       },
       {
         title: "Ubuyobozi bw’Urubyiruko",
         description:
-          "Porogaramu yacu y’ubuyobozi ishaka kandi iteza imbere abayobozi bato binyuze mu byiciro by’amasomo, ubujyanama, n’ibikorwa by’umuryango by’ukuri.",
+          "Porogaramu yacu y’ubuyobozi imenyekanisha kandi ikura abayobozi bato binyuze mu bikimwaro, ubujyanama, n’ibikorwa by’umuryango by’ukuri.",
         image: "/program-leadership.jpg",
-        slug: "ubuyobozi-urubyiruko",
+        slug: "ubuyobozi-bw-urubyiruko",
       },
       {
-        title: "Amahugurwa y’Umwuga",
+        title: "Amasomo y’Ubumenyi bw’Imyuga",
         description:
-          "Dutanga amahugurwa y’ubushobozi mu mirimo itandukanye, dufasha urubyiruko kugira ubushobozi bwo gukora akazi cyangwa ubucuruzi.",
+          "Duha amasomo y’ubumenyi mu myuga itandukanye, tufasha urubyiruko kugira ubushobozi bwo gukora akazi cyangwa gukora ubucuruzi.",
         image: "/program-vocational.jpg",
-        slug: "amahugurwa-umwuga",
+        slug: "amasomo-y-ubumenyi-bw-imyuga",
       },
     ],
     approach: {
       title: "Uburyo Bwacu",
       description:
-        "Twizera mu bisubizo bigumya amahoro, bigendera ku muryango, bigamije kurwanya impamvu z’ibibazo urubyiruko mu Rwanda ruhura na byo.",
+        "Twizera mu bisubizo bigumya umusaruro, bigengwa n’umuryango, biganira ku nkomoko y’ibibazo urubyiruko mu Rwanda ruhura na byo.",
       points: [
-        "Kwifatanya n’Umuryango: Dukorana hafi n’imiryango y’ahantu kugira ngo twebwe twemeze ko ibikorwa byacu bihura n’ibyo bakeneye n’ibyo bashingiyeho.",
-        "Ubufasha Bwuzuye: Twita ku bice byinshi by’iterambere ry’urubyiruko, kuva ku burezi kugeza ku buyobozi no ku bushobozi bw’ubukungu.",
-        "Ubugumu: Dutegura ibikorwa bifite ingaruka z’igihe kirekire mu mutwe, tukubaka ubushobozi n’uburenganzira bw’ahantu.",
-        "Ubufatanye: Dukorana n’ibigo by’ahantu, ibigo bya Leta, n’ibigo mpuzamahanga bitari byo gukora inyungu kugira ngo twongeze ingaruka zacu.",
-        "Gusuzuma no Gukurikirana: Dusuzuma ibikorwa byacu buri gihe kugira ngo twemeze ko bitanga ibyavuye by’ingenzi.",
+        "Kwifatanya n’Umuryango: Dukorana n’abaturage bo mu gace kugira ngo ibikorwa byacu bigere ku bintu by’ingenzi byabo.",
+        "Ubufasha Bwuzuye: Tuganira ku bintu byinshi by’iterambere ry’urubyiruko, kuva ku burezi kugeza ku buyobozi n’ubushobozi bw’ubukungu.",
+        "Gukomeza: Dutegura ibikorwa bifite ingaruka zihoraho, tugashyiraho ubushobozi n’uburenganzira bw’ahantu.",
+        "Gukorana: Dukorana n’amasosiyete yo mu gace, ibigo bya Leta, n’ibigo by’amahanga kugira ngo twongere ingaruka zacu.",
+        "Gusuzuma no Gukurikirana: Dusuzuma ibikorwa byacu buri gihe kugira ngo turebe ko bifite ibyavuyeho by’ingenzi.",
       ],
     },
     outcomes: {
       title: "Ibyavuye mu Bikorwa",
-      description: "Ibikorwa byacu byerekanye ingaruka z’icyitegererezo ku rubyiruko n’imiryango tubakira.",
+      description: "Ibikorwa byacu byerekanye ingaruka zikomeye ku rubyiruko n’imiryango tuyikorera.",
       stats: {
         graduates: "95%",
         graduatesLabel: "Igipimo cy’Abahize Inkunga",
         employment: "80%",
-        employmentLabel: "Akazi Nyuma y’Amahugurwa",
+        employmentLabel: "Akazi Nyuma y’Amasomo",
         communities: "15+",
         communitiesLabel: "Imiryango Yahindutse",
         satisfaction: "4.8/5",
-        satisfactionLabel: "Kwishimira kw’Abifatanyabikorwa",
+        satisfactionLabel: "Ukwishima kw’Abifashije",
       },
     },
     support: {
-      title: "Fasha Ibikorwa Byacu",
-      description: "Ubufasha bwawe bushobora kudufasha kwagura ibikorwa byacu no kugera ku rubyiruko rwinshi rukeneye mu Rwanda hose.",
+      title: "Shyigikira Porogaramu Zacu",
+      description: "Ubufasha bwawe bushobora kudufasha kwagura ibikorwa byacu no kugera ku rubyiruko rwinshi rikeneye mu Rwanda.",
       donateButton: "Tanga Ubufasha",
-      volunteerButton: "Gukorera Ubushake Nacu",
+      volunteerButton: "Gukorera k’Ubushake Natwe",
     },
   },
 
   events: {
     title: "Ibirori n’Ibikorwa",
-    description: "Twifatanye mu birori n’ibikorwa bizaza kugira ngo ufashe intego zacu kandi wumve umuryango wacu.",
+    description: "Twifatanye mu birori n’ibikorwa bizaza kugira ngo tushyigikire intego zacu kandi tuganire n’umuryango wacu.",
     tabs: {
       upcoming: "Ibirori Bizaza",
       past: "Ibirori Byarangiye",
     },
-    registerButton: "Iyandikishe None",
+    registerButton: "Twandikire",
     viewDetailsButton: "Reba Ibisobanuro",
     pastLabel: "Ibirori Byarangiye",
     noUpcoming: {
       title: "Nta Birori Bizaza",
       description:
-        "Turi mu gutegura ibirori byacu bizaza. Garuka vuba cyangwa wandike ku makuru yacu kugira ngo umenye ibishya.",
+        "Turi mu gutegura ibirori byacu bizaza. Garuka vuba cyangwa wandike kuri lisiti yacu y’amakuru kugira ngo umenye ibishya.",
       contactButton: "Twandikire",
     },
     noPast: "Nta birori byarangiye byerekana.",
     list: [
       {
-        title: "Ishyirahamwe ry’Ubuyobozi bw’Urubyiruko",
-        date: "Ku wa 15 Kamena 2025",
-        time: "Saa 3:00 - 10:00 z’Ijoro",
-        location: "Ikigo cy’Umuryango YUP, Kigali",
+        title: "Gutangira Inyigisho yo Kuzamura Urubyiruko",
+        date: "Ku wa 15 Mata 2025",
+        time: "Saa 3h00 - 10h00",
+        location: "Kigali",
         description:
-          "Umunsi w’ishyirahamwe ry’umunsi umwe rigamije guteza imbere ubushobozi bw’ubuyobozi mu banyeshuri b’amashuri yisumbuye i Kigali.",
-        image: "/event-leadership.jpg",
-        slug: "ishyirahamwe-ubuyobozi-urubyiruko",
-      },
-      {
-        title: "Umunsi wo Gusukura Umuryango",
-        date: "Ku wa 8 Nyakanga 2025",
-        time: "Saa 2:00 - 6:00 z’Umuganda",
-        location: "Akarere ka Nyamirambo, Kigali",
-        description:
-          "Twifatanye mu gusukura parike n’imihango y’ahantu hagati aho dukomeza umutima w’umuryango no kumenyekanisha ibidukikije.",
-        image: "/event-cleanup.jpg",
-        slug: "umunsi-gusukura-umuryango",
-      },
-      {
-        title: "Ibirori by’Ukwezi bwo Gukusanya Amafaranga",
-        date: "Ku wa 22 Kanama 2025",
-        time: "Saa 12:00 - 4:00 z’Ijoro",
-        location: "Hoteli ya Marriott, Kigali",
-        description:
-          "Ibirori byacu by’ingenzi byo gukusanya amafaranga mu mwaka, birimo ifunguro ry’ijoro, ibyishimo, n’inkuru z’inkubirizo z’abafashwa bacu.",
-        image: "/event-gala.jpg",
-        slug: "ibirori-ukwezi-gukusanya-amafaranga",
-      },
-      {
-        title: "Inama y’Ababyeyi n’Abarezi",
-        date: "Ku wa 5 Nzeri 2025",
-        time: "Saa 8:00 - 12:00 z’Ijoro",
-        location: "Ikigo cyo Kwiga YUP, Kigali",
-        description:
-          "Ubushobozi ku babyeyi bwo guhura n’abarezi n’abahuza ibikorwa kugira ngo baganire ku iterambere ry’abanyeshuri n’ibikorwa byo kunoza porogaramu.",
-        image: "/event-conference.jpg",
-        slug: "inama-ababyeyi-abarezi",
-      },
-      {
-        title: "Isoko ry’Ubucuruzi bw’Urubyiruko",
-        date: "Ku wa 12 Ukwakira 2025",
-        time: "Saa 4:00 - 10:00 z’Ijoro",
-        location: "Ikigo cy’Inama za Kigali",
-        description:
-          "Igishushanyo cy’ubucuruzi n’ibikorwa by’ubucuruzi bigendera ku rubyiruko, hamwe n’ubushobozi bwo gukorana n’ubujyanama.",
-        image: "/event-entrepreneurship.jpg",
-        slug: "isoko-ubucuruzi-urubyiruko",
-      },
-      {
-        title: "Ibirori by’Iminsi Mikuru",
-        date: "Ku wa 18 Ukuboza 2025",
-        time: "Saa 9:00 - 1:00 z’Ijoro",
-        location: "Ikigo cy’Umuryango YUP, Kigali",
-        description:
-          "Ibirori by’umunezero bifatanya abanyeshuri, imiryango, abakorerabushake, n’abafasha kugira ngo bice umwaka.",
-        image: "/event-holiday.jpg",
-        slug: "ibirori-iminsi-mikuru",
+          "Ikimwaro cy’umunsi umwe gishingiye ku guteza imbere ubushobozi bw’ubuyobozi mu banyeshuri b’amashuri yisumbuye i Kigali.",
+        image: "/assets/event.jpg",
+        slug: "../contact",
       },
     ],
     host: {
       title: "Tangiza Ibirori",
       description:
-        "Wifuza gutangiza ibirori byo gufasha Inyigisho yo Kuzamura Urubyiruko? Turakira ibikorwa byo gukusanya amafaranga n’ibirori byo kumenyekanisha bigendera ku muryango.",
+        "Wifuza gutangiza ibirori byo gufasha Inyigisho yo Kuzamura Urubyiruko? Turakira ibikorwa byo gukusanya amafaranga n’ibikorwa byo kumenyekanisha bigengwa n’umuryango.",
       benefits: [
-        "Kuzamura ubumenyi ku bibazo n’ubushobozi bw’urubyiruko mu Rwanda",
-        "Gushyiraho umuryango wawe, ahantu ho gukorera, cyangwa ishuri mu bikorwa by’ingenzi",
+        "Kumenyekanisha ibibazo n’ubushobozi bw’urubyiruko mu Rwanda",
+        "Gushyiraho umuryango wawe, ahantu h’akazi, cyangwa ishuri mu bikorwa by’ingenzi",
         "Gukusanya amafaranga yo gufasha ibikorwa n’ibikorwa byacu",
-        "Kubona ubufasha kuva ku itsinda ryacu mu gutegura no gusakaza ibirori byawe",
-        "Gukora impinduka zigaragara mu buzima bw’urubyiruko",
+        "Kubona ubufasha bwa itsinda ryacu mu gutegura no gusakaza ibirori byawe",
+        "Guhindura ibintu mu buzima bw’urubyiruko",
       ],
       contactButton: "Twandikire kugira ngo Utangire",
     },
     featured: {
       title: "Ibirori Birangwa",
       event: {
-        title: "Ibirori by’Ukwezi bwo Gukusanya Amafaranga",
-        date: "Ku wa 22 Kanama 2025",
-        time: "Saa 12:00 - 4:00 z’Ijoro",
-        location: "Hoteli ya Marriott, Kigali",
+        title: "Gutangira Inyigisho yo Kuzamura Urubyiruko",
+        date: "Ku wa 15 Mata 2025",
+        time: "Saa 9h00 - 10h00",
+        location: "Kigali",
         description:
-          "Twifatanye mu ijoro ry’ubwiza ry’inkubirizo n’ingaruka. Ibirori byacu by’ukwezi birimo ifunguro ry’ijoro, ibyishimo, n’inkuru z’ubushobozi z’urubyiruko tubakira.",
-        image: "/event-gala.jpg",
-        slug: "ibirori-ukwezi-gukusanya-amafaranga",
+          "Twifatanye mu munsi w’icyubahiro w’inyigisho n’ingaruka. Ibirori byacu by’ukwezi birimo ifunguro ry’ijoro, ibyishimo, n’amateka y’urubyiruko tuyobora.",
+        image: "/assets/event.jpg",
+        slug: "../contact",
       },
       learnMoreButton: "Menya Byinshi",
       noEvent: "Nta birori birangwa kuri ubu.",
     },
     subscribe: {
-      title: "Menya Ibya Vuba",
-      description: "Wandike ku makuru yacu kugira ngo umenye ibishya ku birori n’ibikorwa bizaza.",
+      title: "Menya Ibyishya",
+      description: "Wandike kuri lisiti y’amakuru yacu kugira ngo ubone amakuru y’ibirori n’ibikorwa bizaza.",
       placeholder: "Imeyili yawe",
       button: "Wandika",
-      privacy: "Twubaha ubuzima bwawe kandi ntituzasangira amakuru yawe.",
+      privacy: "Turinda ubuzima bwawe kandi ntituzasangira amakuru yawe.",
     },
     eventDetails: {
       registerButton: "Iyandikishe kuri Ibi Birori",
       shareButton: "Sangira Ibirori",
-      contactButton: "Twandikire Umuteguzi",
+      contactButton: "Twandikire Umutezi",
       learnMoreButton: "Menya Byinshi",
     },
   },
 
   volunteer: {
-    title: "Gukorera Ubushake Nacu",
-    description: "Injira mu itsinda ryacu ry’abakorerabushake bashishikarije kandi uhindure ubuzima bw’urubyiruko mu Rwanda.",
+    title: "Gukorera k’Ubushake Natwe",
+    description: "Injira mu itsinda ry’abakorerabushake bashishikarije kandi uhindure ubuzima bw’urubyiruko mu Rwanda.",
     why: {
-      title: "Kuki Gukorera Ubushake Nacu?",
+      title: "Kuki Gukorera k’Ubushake Natwe?",
       description:
-        "Gukorera ubushake na Inyigisho yo Kuzamura Urubyiruko ni uburambe butangaza bugaragaza ko ushobora gutanga ubushobozi bwawe n’ubushake bwawe ku ntego y’ingenzi.",
+        "Gukorera k’ubushake na Inyigisho yo Kuzamura Urubyiruko ni ibintu bifite ireme rigutuma ushyireho ubushobozi bwawe n’ubushake bwawe mu nshingano z’ingenzi.",
       benefits: [
-        "Gukora impinduka zigaragara mu buzima bw’urubyiruko",
-        "Kubona uburambe bw’ingenzi mu iterambere ry’isi",
-        "Guteza imbere ubushobozi bushya no kunoza ubwo ufite",
-        "Guhurira hamwe n’umuryango w’abantu bafite ibitekerezo by’ukuri",
+        "Guhindura ibintu mu buzima bw’urubyiruko",
+        "Kubona ubunararibonye mu iterambere ry’isi",
+        "Guteza imbere ubushobozi bushya no gukomeza ubwo ufite",
+        "Guhura n’umuryango w’abantu bafite ibitekerezo by’ukuri",
         "Kumenya umuco n’umuryango w’u Rwanda",
-        "Kubona amahugurwa n’ubufasha mu rugendo rwawe rwo gukorera ubushake",
+        "Kubona amahugurwa n’ubufasha mu rugendo rwawe rw’ubushake",
       ],
     },
     opportunities: {
-      title: "Ubushobozi bwo Gukorera Ubushake",
-      description: "Dutanga uburyo butandukanye bwo gukorera ubushake buhuje n’ubushobozi, ibyifuzo, n’igihe cy’umuntu.",
-      skills: "Ubushobozi Bukenewe",
+      title: "Amahirwe yo Gukorera k’Ubushake",
+      description: "Duha amahirwe atandukanye yo gukorera k’ubushake ahuza ubushobozi, ibyifuzo, n’igihe cyo gukorera.",
+      skills: "Ubushobozi Busabwa",
       applyButton: "Saba None",
       list: [
         {
           title: "Umujyanama w’Uburezi",
           description:
-            "Korana直接 n’abanyeshuri kugira ngo ubahe ubufasha mu masomo, ubujyanama mu myuga, n’iterambere ry’umuntu ku giti cye.",
+            "Kora n’abanyeshuri wenyine kugira ngo ubahe ubufasha mu masomo, ubujyanama mu myuga, n’iterambere ry’umuntu ku giti cye.",
           commitment: "Amasaha 4-6 buri cyumweru, Amezi 3+",
-          skills: ["Kwigisha", "Uburere", "Itumanaho"],
+          skills: ["Kwigisha", "Umugiraneza", "Itumanaho"],
           location: "Kigali, Rwanda",
         },
         {
           title: "Umufasha wa Porogaramu",
           description:
-            "Fasha abahuza ibikorwa mu gushyira mu bikorwa ibikorwa, gukurikirana ibyavuye, no gukorana n’abifatanyabikorwa.",
+            "Fasha abayobozi b’ibikorwa mu gushyira mu bikorwa ibikorwa, gukurikirana ibyavuyeho, no gukorana n’abifashije.",
           commitment: "Amasaha 10-15 buri cyumweru, Amezi 6+",
-          skills: ["Guteza Imbere", "Kugera ku Bintu", "Gukorana mu Itsinda"],
+          skills: ["Guteza imbere", "Kugaragira", "Gukorana"],
           location: "Kigali, Rwanda",
         },
         {
           title: "Umukorerabushake mu Itumanaho",
-          description: "Fasha kuvuga inkuru yacu binyuze mu mbuga nkoranyambaga, amafoto, videwo, no gukora ibintu.",
-          commitment: "Amasaha 5-10 buri cyumweru, bigendera ku bushake",
-          skills: ["Gusoma", "Imbuga Nkoranyambaga", "Amafoto"],
-          location: "Kuri Interineti cyangwa Kigali",
+          description: "Fasha kuvuga amateka yacu binyuze mu mbuga nkoranyambaga, amashusho, videwo, no gukora ibintu.",
+          commitment: "Amasaha 5-10 buri cyumweru, bigaragara",
+          skills: ["Kwandika", "Imbuga Nkoranyambaga", "Amashusho"],
+          location: "Kure cyangwa Kigali",
         },
         {
-          title: "Ubufasha bw’Ikoranabuhanga n’Ubushobozi",
+          title: "Ubufasha bw’Ikoranabuhanga",
           description:
-            "Fasha mu kugumya mbuga z’ikoranabuhanga, kwigisha ubumenyi bw’ikoranabuhanga, no gufasha ibikorwa remezo by’ikoranabuhanga.",
+            "Fasha mu kugumya imbuga z’ikoranabuhanga, kwigisha kumenya ikoranabuhanga, no gufasha ibikorwa remezo by’ikoranabuhanga.",
           commitment: "Amasaha 8-12 buri cyumweru, Amezi 3+",
-          skills: ["Ikoranabuhanga", "Gukemura Ibibazo", "Kwigisha"],
+          skills: ["Ikoranabuhanga", "Gukemura ibibazo", "Kwigisha"],
           location: "Kigali, Rwanda",
         },
         {
           title: "Umukorerabushake mu Birori",
-          description: "Fasha gutegura no gukora ibirori by’umuryango, ibyiciro by’amasomo, n’ibikorwa byo gukusanya amafaranga.",
-          commitment: "Nk’uko bikenewe mu birori",
-          skills: ["Guteza Imbere", "Imbaraga", "Ubushobozi bw’Abantu"],
+          description: "Fasha mu gutegura no gukora ibirori by’umuryango, ibikimwaro, n’ibikorwa byo gukusanya amafaranga.",
+          commitment: "Nk’uko bisabwa mu birori",
+          skills: ["Guteza imbere", "Umurava", "Ubushobozi bw’Abantu"],
           location: "Kigali, Rwanda",
         },
         {
           title: "Umukorerabushake w’Ubushobozi bw’Umwuga",
           description:
-            "Tanga ubushobozi bwihariye mu bice nk’ubusabe bw’inkunga, ubucungamari, serivisi z’ubutabera, cyangwa gutegura ibikorwa by’ingenzi.",
-          commitment: "Bigendera ku bushake, bigendera ku bikorwa",
-          skills: ["Ubumenyi bw’Umwuga", "Kugera ku Bintu"],
-          location: "Kuri Interineti cyangwa Kigali",
+            "Shyira ubushobozi bwawe bwihariye mu bintu nk’ukwandika inkunga, ubucungamari, serivisi z’ubutungane, cyangwa gahunda z’ingenzi.",
+          commitment: "Bigaragara, bishingiye ku bikorwa",
+          skills: ["Ubunararibonye bw’Umwuga", "Kugaragira"],
+          location: "Kure cyangwa Kigali",
         },
       ],
     },
     form: {
-      title: "Isaba yo Gukorera Ubushake",
+      title: "Isaba yo Gukorera k’Ubushake",
       description:
-        "Wifuza gukorera ubushake? Uzuza iyi fomu kandi tuzakwandikira kugira ngo tuganire ku bushobozi buhuje n’ubushobozi bwawe n’ibyo wifuza.",
+        "Wifuza gukorera k’ubushake? Uzuza iyi fomu kandi tuzakwandikira tukaganire ku mahirwe ahuza ubushobozi bwawe n’ibyifuzo byawe.",
       firstName: "Izina ry’Imbere",
       lastName: "Izina ry’Inyuma",
       email: "Imeyili",
       phone: "Numero ya Telefoni",
-      opportunity: "Ubushobozi Bufite Uburenganzira",
-      selectOpportunity: "Hitamo Ubushobozi",
+      opportunity: "Amahirwe Yahitamo",
+      selectOpportunity: "Hitamo Amahirwe",
       availability: "Aho Uba",
       selectAvailability: "Hitamo Aho Uba",
       availabilityOptions: {
         weekdays: "Iminsi y’Icyezi",
         evenings: "Amanywa",
         weekends: "Icyumweru",
-        flexible: "Bigendera ku Bushake",
+        flexible: "Bigaragara",
       },
-      skills: "Ubushobozi n’Uburambe",
-      skillsPlaceholder: "Tubwire iby’ubushobozi bwawe n’uburambe bufite aho bihuriye",
+      skills: "Ubushobozi n’Umunararibonye",
+      skillsPlaceholder: "Vuga iby’ubushobozi bwawe n’ubunararibonye bufite aho bihuriye",
       motivation: "Intego",
-      motivationPlaceholder: "Kuki ushaka gukorera ubushake na Inyigisho yo Kuzamura Urubyiruko?",
+      motivationPlaceholder: "Kuki ushaka gukorera k’ubushake na Inyigisho yo Kuzamura Urubyiruko?",
       terms:
-        "Nemeza ko nshobora kwakira itumanaho rya Inyigisho yo Kuzamura Urubyiruko kandi numva ko amakuru yanjye azakoreshwa nk’uko amategeko y’ubuzima yabiteganya.",
+        "Ndabyemera kubona itumanaho rya Inyigisho yo Kuzamura Urubyiruko kandi numva ko amakuru yanjye azakoreshwa nk’uko amategeko abivuga.",
       submit: "Tanga Isaba",
       submitting: "Itangwa...",
       success: {
         title: "Isaba Yatanzwe!",
         message:
-          "Urakoze ku bushake bwo gukorera ubushake natwe. Tuzasuzuma isaba yawe kandi tukwandikire mu minsi 5-7 y’akazi.",
+          "Urakoze ku bushake bwo gukorera k’ubushake natwe. Tuzasuzuma isaba yawe tukakwandikira mu minsi 5-7 y’akazi.",
       },
     },
     testimonials: {
-      title: "Ibyo Abakorerabushake Bavuga",
+      title: "Amajwi y’Abakorerabushake",
       list: [
         {
           quote:
-            "Gukorera ubushake na YUP byari uburambe butangaje cyane mu buzima bwanjye. Ubufatanye n’abanyeshuri n’abakozi ni ingirakamaro.",
+            "Gukorera k’ubushake na YUP byabaye ibintu by’ingenzi mu buzima bwanjye. Imibanire n’abanyeshuri n’abakozi ni ingenzi cyane.",
           name: "Sarah Johnson",
           role: "Umujyanama w’Uburezi, 2023-2024",
         },
         {
           quote:
-            "Nka mukorerabushake mu itumanaho, nashoboye gukoresha ubushobozi bwanjye mu gufasha kuvuga inkuru z’ingaruka z’ibereyeho buri munsi kuri YUP.",
+            "Nka mukorerabushake mu itumanaho, nashoboye gukoresha ubushobozi bwanjye mu kuvuga amateka y’ingaruka za YUP buri munsi.",
           name: "Michael Nkusi",
           role: "Umukorerabushake mu Itumanaho, 2022-Ubu",
         },
         {
           quote:
-            "Iterambere ry’umwuga nabonye mu gukorera ubushake ryari ritunguranye ariko ry’umwuga. Nakuze kimwe n’abanyeshuri nakoranaga.",
+            "Iterambere ry’umwuga nabonye mu gukorera k’ubushake ryabaye ritunguranye ariko ryiza. Nakuze nk’uko abanyeshuri nakoranye bakuze.",
           name: "Lisa Uwimana",
           role: "Umufasha wa Porogaramu, 2021-2023",
         },
@@ -643,24 +532,24 @@ export const rw = {
       title: "Ibibazo Bikunze Kubazwa",
       list: [
         {
-          question: "Mbifuza kuvuga Ikinyarwanda kugira ngo nkorere ubushake?",
+          question: "Mbese nkeneye kuvuga Ikinyarwanda kugira ngo nkorere k’ubushake?",
           answer:
-            "Nubwo kumenya Ikinyarwanda bifasha mu bikorwa bimwe, ntibikenewe mu myanya yose. Abanyeshuri bacu benshi bavuga Icyongereza, kandi ubufasha mu cyandika burahari igihe bikenewe.",
+            "Nubwo kumenya Ikinyarwanda bifasha mu nshingano zimwe, ntibisabwa mu nshingano zose. Abanyeshuri benshi bavuga Icyongereza, kandi ubufasha mu guhindura ururimi buboneka igihe bikenewe.",
         },
         {
-          question: "Hari igihe gito nshobora gukoramo?",
+          question: "Hari igihe gito cyo kwiyemeza?",
           answer:
-            "Imyanya yacu myinshi yo gukorera ubushake isaba byibuze amezi 3 kugira ngo hagarike ibikorwa byacu n’abifatanyabikorwa.",
+            "Inshingano zacu z’abakorerabushake zikunze gusaba amezi 3 byibuze kugira ngo hakomeze ibikorwa n’abifashije.",
         },
         {
-          question: "Mufite ubuturo ku bakorerabushake b’amahanga?",
+          question: "Mbwirwa aho ntobetera abakorerabushake b’amahanga?",
           answer:
-            "Dushobora gufasha abakorerabushake b’amahanga kubona ubuturo, ariko ntitubaha ubuturo直接.",
+            "Dushobora gufasha abakorerabushake b’amahanga kubona aho batobera, ariko ntitubaha ubuturo.",
         },
         {
-          question: "Nshobora gukorera ubushake kuri interineti?",
+          question: "Nshobora gukorera k’ubushake ndi kure?",
           answer:
-            "Yego, dufite ubushobozi bwinshi bwo gukorera ubushake kuri interineti, by’umwihariko mu bice nk’itumanaho, ubusabe bw’inkunga, n’itegura ry’ingenzi.",
+            "Yego, dufite amahirwe menshi yo gukorera k’ubushake uri kure, cyane cyane mu bintu nk’itumanaho, ukwandika inkunga, n’iteganya ry’ingenzi.",
         },
       ],
       contactButton: "Ufite Ibibazo Byinshi?",
@@ -668,15 +557,15 @@ export const rw = {
     cta: {
       title: "Witeguye Guhindura Ibyo Ufite?",
       description:
-        "Injira mu itsinda ryacu ry’abakorerabushake bashishikarije kandi ufashe gukora impinduka z’icyitegererezo mu buzima bw’urubyiruko mu Rwanda.",
+        "Injira mu itsinda ry’abakorerabushake bashishikarije kandi udufashe gushyiraho impinduka nziza mu buzima bw’urubyiruko mu Rwanda.",
       applyButton: "Saba None",
       contactButton: "Twandikire",
     },
   },
 
   gallery: {
-    title: "Amashusho",
-    description: "Reba amashusho y’ibikorwa byacu, ibirori, n’imiryango tubakira binyuze mu mashusho yacu.",
+    title: "Urubuga rw’Amashusho",
+    description: "Reba amashusho y’ibikorwa byacu, ibirori, n’imiryango tuyikorera mu mashusho yacu.",
     categories: {
       all: "Amashusho Yose",
       events: "Ibirori",
@@ -684,51 +573,7 @@ export const rw = {
       community: "Umuryango",
     },
     images: [
-      {
-        src: "/gallery-1.jpg",
-        alt: "Abanyeshuri mu cyumba cy’ishuri",
-        category: "porogaramu",
-      },
-      {
-        src: "/gallery-2.jpg",
-        alt: "Umunsi wo gusukura umuryango",
-        category: "umuryango",
-      },
-      {
-        src: "/gallery-3.jpg",
-        alt: "Ibirori by’ukwezi bwo gukusanya amafaranga",
-        category: "ibirori",
-      },
-      {
-        src: "/gallery-4.jpg",
-        alt: "Amasomo y’ubumenyi bw’ikoranabuhanga",
-        category: "porogaramu",
-      },
-      {
-        src: "/gallery-5.jpg",
-        alt: "Ishyirahamwe ry’ubuyobozi bw’urubyiruko",
-        category: "ibirori",
-      },
-      {
-        src: "/gallery-6.jpg",
-        alt: "Ibikorwa by’ubutaka bw’umuryango",
-        category: "umuryango",
-      },
-      {
-        src: "/gallery-7.jpg",
-        alt: "Umunsi wa siporo",
-        category: "porogaramu",
-      },
-      {
-        src: "/gallery-8.jpg",
-        alt: "Amahugurwa y’abakorerabushake",
-        category: "ibirori",
-      },
-      {
-        src: "/gallery-9.jpg",
-        alt: "Ibikorwa byo kubaka ishuri",
-        category: "umuryango",
-      },
+      // Amashusho n’ibisobanuro ntibihindurwa kuko ari amabara n’amashusho
     ],
     share: {
       title: "Sangira Amashusho Yawe",
@@ -736,7 +581,7 @@ export const rw = {
         "Ufite amashusho y’ibirori cyangwa ibikorwa byacu? Twifuza kuyabona kandi tuyashyire mu mashusho yacu.",
       placeholder: "Imeyili yawe",
       button: "Shyiraho Amashusho",
-      note: "Mu gushyiraho amashusho, utanga Inyigisho yo Kuzamura Urubyiruko uburenganzira bwo kuyakoresha ku rubuga rwacu n’imbuga nkoranyambaga.",
+      note: "Mu gushyiraho amashusho, utanga Inyigisho yo Kuzamura Urubyiruko uburenganzira bwo kuyakoresha ku rubuga rwacu no ku mbuga nkoranyambaga.",
     },
   },
 
@@ -746,7 +591,7 @@ export const rw = {
       "Ufite ibibazo cyangwa ushaka kwifatanya? Twandikire kandi tuzagusubiza vuba na vuba.",
     form: {
       title: "Ohereza Ubutumwa",
-      description: "Uzuza iyi fomu hano hasi kandi tuzagusubiza mu minsi 1-2 y’akazi.",
+      description: "Uzuza iyi fomu hano tukagusubize mu minsi 1-2 y’akazi.",
       firstName: "Izina ry’Imbere",
       lastName: "Izina ry’Inyuma",
       email: "Imeyili",
@@ -774,42 +619,42 @@ export const rw = {
       },
       hours: {
         title: "Amasaha yo mu Biro",
-        weekdays: "Ku wa Mbere-Ku wa Gatanu: Saa 2:30 - 11:00 z’Ijoro",
-        weekends: "Ku wa Gatandatu: Saa 3:00 - 7:00 z’Umuganda (Ku cyifuzo)",
+        weekdays: "Ku wa Mbere-Ku wa Gatanu: Saa 2h30 - 11h00",
+        weekends: "Ku wa Gatandatu: Saa 3h00 - 7h00 (Ku cyifuzo)",
       },
     },
     faq: {
       title: "Ibibazo Bikunze Kubazwa",
-      description: "Shaka ibisubizo byihuse ku bibazo bikunze kubazwa ku ishyirahamwe ryacu n’ibikorwa byacyo.",
+      description: "Shaka ibisubizo by’ibibazo bikunze kubazwa ku ishyirahamwe ryacu n’ibikorwa byacyo.",
       questions: [
         {
-          question: "Nshobora gutanga ubufasha ku Inyigisho yo Kuzamura Urubyiruko ate?",
+          question: "Nshobora gutanga ubufasha bwanjye kuri Inyigisho yo Kuzamura Urubyiruko ate?",
           answer:
-            "Ushobora gutanga ubufasha kuri interineti binyuze ku rubuga rwacu, mu iposita, cyangwa binyuze kuri mobile money. Sura urupapuro rwacu rwa Tanga Ubufasha kugira ngo umenye byinshi.",
+            "Ushobora gutanga ubufasha kuri interineti binyuze ku rubuga rwacu, mu iposita, cyangwa mu ikoranabuhanga. Sura urupapuro rwacu rwa Tangaho Ubufasha kugira ngo umenye byinshi.",
         },
         {
-          question: "Nshobora gukorera ubushake n’ishyirahamwe ryanyu ate?",
+          question: "Nshobora gukorera k’ubushake n’ishyirahamwe ryanyu ate?",
           answer:
-            "Dutanga ubushobozi butandukanye bwo gukorera ubushake mu Rwanda no kuri interineti. Sura urupapuro rwacu rwa Gukorera Ubushake kugira ngo umenye byinshi kandi usabe.",
+            "Duha amahirwe atandukanye yo gukorera k’ubushake mu Rwanda no kure. Sura urupapuro rwacu rwa Gukorera k’Ubushake kugira ngo umenye byinshi kandi usabe.",
         },
         {
-          question: "Mufite amahugurwa?",
+          question: "Mbwirwa amasomo y’ubushake?",
           answer:
-            "Yego, dutanga amahugurwa ku banyeshuri n’abahize vuba. Twandikire hamwe na CV yawe n’igice cy’ubushobozi wifuza.",
+            "Yego, duha amasomo y’ubushake ku banyeshuri n’abahize vuba aha. Twandikire utwohereze CV yawe n’ahantu ushaka.",
         },
         {
-          question: "Ishuri ryanjye cyangwa ishyirahamwe ryashobora gukorana nanjye ate?",
+          question: "Ishuri ryanjye cyangwa ishyirahamwe ryacu rishobora gukorana nanjye ate?",
           answer:
-            "Turakira ubufatanye n’amashuri, ibigo by’ubucuruzi, n’ibindi bihugu. Twandikire kugira ngo tuganire ku bufatanye bushoboka.",
+            "Turakira gukorana n’amashuri, ibigo by’ubucuruzi, n’ibindi bishyirahamwe. Twandikire kugira ngo tuganire ku buryo bwo gukorana.",
         },
         {
-          question: "Ubufasha burashobora gukurwaho imisoro?",
+          question: "Ubufasha butangwa burashobora gukurwaho imisoro?",
           answer:
-            "Yego, Inyigisho yo Kuzamura Urubyiruko ni ishyirahamwe ritari ryo gukora inyungu ryanditswe, kandi ubufasha burashobora gukurwaho imisoro nk’uko amategeko abiteganya.",
+            "Yego, Inyigisho yo Kuzamura Urubyiruko ni ishyirahamwe ritari rya Leta ryanditswe, kandi ubufasha burashobora gukurwaho imisoro nk’uko amategeko abiteganya.",
         },
         {
-          question: "Nshobora kumenya ibishya ku bikorwa byanyu ate?",
-          answer: "Ushobora kwandika ku makuru yacu, udukurikire ku mbuga nkoranyambaga, cyangwa usuzume urupapuro rwacu rwa Ibirori buri gihe.",
+          question: "Nshobora kumenya ibishya ku bikorwa byanyu bityo?",
+          answer: "Ushobora kwandika kuri lisiti y’amakuru yacu, udukurikire ku mbuga nkoranyambaga, cyangwa usuzume urupapuro rw’Ibirori buri gihe.",
         },
       ],
     },
@@ -818,53 +663,53 @@ export const rw = {
   donate: {
     title: "Tanga Ubufasha",
     description:
-      "Ubutore bwawe butuyambura gukomeza intego zacu zo guteza imbere urubyiruko mu Rwanda binyuze mu burezi n’iterambere ry’umuryango.",
+      "Ubutore bwawe butuyambira gukomeza intego zacu zo guteza imbere urubyiruko mu Rwanda binyuze mu burezi n’iterambere ry’umuryango.",
     impact: {
       title: "Ingaruka Zawe",
       description:
-        "Buri bufasha, nta cyo bigaragara, bufite akamaro gakomeye mu buzima bw’urubyiruko tubakira.",
+        "Buri bufasha, nta ntege nke, bufite ingaruka z’ingenzi mu buzima bw’urubyiruko tuyobora.",
       items: [
         {
           amount: "$25",
-          description: "Butanga ibikoresho by’ishuri ku munyeshuri mu gihembwe",
+          description: "Itanga ibikoresho by’ishuri ku munyeshuri mu gihembwe",
         },
         {
           amount: "$50",
-          description: "Butera inkunga y’ukwezi y’uburezi bw’inyuma y’ishuri ku munyeshuri",
+          description: "Ishyura ukwezi kwigisha umunyeshuri nyuma y’amasomo",
         },
         {
           amount: "$100",
-          description: "Butera inkunga y’amafaranga y’ishuri y’umunyeshuri mu gihembwe",
+          description: "Ishyura amafaranga y’ishuri y’umunyeshuri mu gihembwe",
         },
         {
           amount: "$250",
-          description: "Bufasha ibikorwa by’iterambere ry’umuryango",
+          description: "Ifasha iterambere ry’umuryango",
         },
         {
           amount: "$500",
-          description: "Bufasha mu kubaka ibikorwa remezo by’amazi meza mu muryango",
+          description: "Ifasha kubaka ibikorwa remezo by’amazi meza mu muryango",
         },
         {
           amount: "$1,000",
-          description: "Butera inkunga y’uburezi yuzuye ku munyeshuri mu mwaka",
+          description: "Ishyura inkunga yuzuye y’umunyeshuri mu mwaka",
         },
       ],
     },
     taxInfo: {
       title: "Amakuru y’Imisoro",
       description:
-        "Inyigisho yo Kuzamura Urubyiruko ni ishyirahamwe ritari ryo gukora inyungu ryanditswe 501(c)(3). Ubufasha bwose burashobora gukurwaho imisoro nk’uko amategeko abiteganya. Indangabufasha izatangwa kugira ngo ibike.",
+        "Inyigisho yo Kuzamura Urubyiruko ni ishyirahamwe ritari rya Leta ryanditswe 501(c)(3). Ubufasha bwose burashobora gukurwaho imisoro nk’uko amategeko abiteganya. Urabona inyemezabwishyu y’ibyo wakoze.",
     },
     form: {
       title: "Ifomu yo Gutanga Ubufasha",
       frequency: {
-        label: "Igihe cyo Gutanga Ubufasha",
+        label: "Uko Utanga Ubufasha",
         oneTime: "Rimwe",
         monthly: "Buri Kwezi",
       },
       amount: {
         label: "Amafaranga yo Gutanga",
-        custom: "Amafaranga Yihariye",
+        custom: "Amafaranga Yahitamo",
         customPlaceholder: "Shyiramo amafaranga ($)",
         options: [
           { value: "25", label: "$25" },
@@ -872,7 +717,7 @@ export const rw = {
           { value: "100", label: "$100" },
           { value: "250", label: "$250" },
           { value: "500", label: "$500" },
-          { value: "custom", label: "Yihariye" },
+          { value: "custom", label: "Yahisemo" },
         ],
       },
       payment: {
@@ -881,15 +726,15 @@ export const rw = {
         paypal: "PayPal",
         stripe: "Stripe",
         momo: "MTN MoMo",
-        card_name: "Izina ku Ikarita",
+        card_name: "Izina ry’Ikarita",
         card_number: "Numero y’Ikarita",
-        expiry: "Itariki yo Kurangirira",
+        expiry: "Itariki yo Kurangiza",
         cvc: "CVC",
-        zip: "Kode y’Intara",
+        zip: "Kodi y’Intara",
         phone: "Numero ya MTN Mobile Money",
         paypal_info: "Uzoherezwa kuri PayPal kugira ngo urangize ubufasha bwawe.",
         stripe_info: "Uzoherezwa kuri Stripe kugira ngo urangize ubufasha bwawe.",
-        momo_info: "Uzakira ubutumwa kuri telefoni yawe kugira ngo wemeze ubwishyu.",
+        momo_info: "Uzabona ubutumwa kuri telefoni yawe kugira ngo wemeze ubwishyu.",
       },
       contact: {
         email: "Imeyili",
@@ -898,29 +743,29 @@ export const rw = {
       processing: "Birimo Gukorerwa...",
       submit: "Tanga Ubufasha None",
       disclaimer:
-        "Ibi ni ubufasha bwa burenganzira. Amakuru yawe arimo gukodwa kandi ntazasangirwa n’abandi.",
+        "Ibi ni ubufasha bworoshye. Amakuru yawe arinzwe kandi ntazasangirwa n’abandi.",
     },
     thankYou: {
       title: "Urakoze ku Bufasha Bwawe!",
       description:
-        "Ubutore bwawe bushobora gukora umurimo wacu. Ufasha gukora ubushobozi ku rubyiruko mu Rwanda kandi utanga ubufasha mu mpinduka z’icyitegererezo zigumya amahoro.",
+        "Ubutore bwawe butuma ibikorwa byacu bishoboka. Ufasha gushyiraho amahirwe ku rubyiruko mu Rwanda kandi ugira uruhare mu mpinduka nziza zidahoraho.",
       homeButton: "Garuka ku Ahabanza",
       programsButton: "Reba Porogaramu Zacu",
     },
     other: {
       title: "Uburyo Bubandi bwo Gutanga",
-      description: "Kurenga ku bufasha bwo rimwe cyangwa buri kwezi, hari uburyo bwinshi ubandi ushobora gufasha intego zacu.",
+      description: "Kurenga ku bufasha bwa rimwe cyangwa buri kwezi, hari uburyo bwinshi bwo gufasha intego zacu.",
       ways: [
         {
-          title: "Guhuza Ibigo",
+          title: "Guhuza n’Abikorera",
           description:
-            "Abakoresha benshi bahuza ubufasha bwo gufasha abakozi babo. Reba niba ishyirahamwe ryawe rifite porogaramu yo guhuza ubufasha.",
+            "Abayobozi benshi bahuza ubufasha butangwa n’abakozi babo. Reba niba ishyirahamwe ryawe rifite porogaramu yo guhuza ubufasha.",
           button: "Menya Byinshi",
         },
         {
-          title: "Gutanga Icyatsi",
+          title: "Gutanga mu Bushake",
           description:
-            "Shyiramo Inyigisho yo Kuzamura Urubyiruko mu gutegura icyatsi cyawe kugira ngo ugire ingaruka igumya amahoro ku bizukuru.",
+            "Shyiramo Inyigisho yo Kuzamura Urubyiruko mu gahunda yawe y’umurage kugira ngo uhindure ibintu ku bizukuru bizaza.",
           button: "Menya Byinshi",
         },
         {
@@ -934,29 +779,29 @@ export const rw = {
       title: "Ibibazo ku Bufasha",
       questions: [
         {
-          question: "Ubufasha bwanjye burengera?",
+          question: "Ubufasha bwanjye burinzwe?",
           answer:
-            "Yego, dukoresha uburyo bwo gukodwa bwa kigo n’abakoresha ubufasha bwa burenganzira kugira ngo amakuru yawe arindwe.",
+            "Yego, tukoresha uburyo bwo kurinda amakuru n’ubwishyu bworoshye kugira ngo amakuru yawe arinzwe.",
         },
         {
-          question: "Nshobora gutanga ubufasha niba ndi hanze y’Amerika?",
-          answer: "Yego, twakira ubufasha bwa mahanga binyuze ku ikarita y’ideni, PayPal, n’uburyo bubandi bwo kwishyura.",
+          question: "Nshobora gutanga ubufasha ndi hanze y’Amerika?",
+          answer: "Yego, turakira ubufasha bw’amahanga binyuze ku ikarita, PayPal, n’ubundi buryo bwo kwishyura.",
         },
         {
           question: "Ubufasha bwanjye bukoreshwa ate?",
           answer:
-            "Ubufasha bwawe bugana直接 ku bikorwa byacu, harimo inkunga, ibikorwa by’inyuma y’ishuri, iterambere ry’umuryango, n’ibiciro by’ibikorwa.",
+            "Ubufasha bwawe bugana mu bikorwa byacu, harimo inkunga, ibikorwa bya nyuma y’amasomo, iterambere ry’umuryango, n’ibyangombwa by’ibikorwa.",
         },
         {
           question: "Nshobora kuvuga uko ubufasha bwanjye bukoreshwa?",
           answer:
-            "Yego, ushobora kugena ubufasha bwawe ku bikorwa cyangwa intego yihariye. Twandikire kugira ngo umenye byinshi.",
+            "Yego, ushobora guhitamo ubufasha bwawe bugane ku gikorwa cyangwa intego runaka. Twandikire kugira ngo umenye byinshi.",
         },
       ],
     },
     transparency: {
-      title: "Ukugaragaza kw’Amafaranga",
-      description: "Twiyemeje kugaragaza ibintu by’ukuri no guha akato. N’uko dushyiraho amafaranga twakira:",
+      title: "Kugaragaza Amafaranga",
+      description: "Twiyemeje kugaragaza ibintu mu mucyo no guha ibisobanuro. Uko dukoresha amafaranga tuyabona:",
       stats: [
         {
           value: "85%",
@@ -980,12 +825,12 @@ export const rw = {
 
   footer: {
     description:
-      "Inyigisho yo Kuzamura Urubyiruko (YUP) ni ishyirahamwe ritari ryo gukora inyungu ryashinzwe guteza imbere urubyiruko mu Rwanda binyuze mu burezi, iterambere ry’umuryango, n’ibikorwa bigumya amahoro.",
+      "Inyigisho yo Kuzamura Urubyiruko (YUP) ni ishyirahamwe ritari rya Leta ryashinzwe kugira ngo riteze imbere urubyiruko mu Rwanda binyuze mu burezi, iterambere ry’umuryango, n’ibikorwa bigumya umusaruro.",
     quickLinks: "Amahuza Yihuse",
     contactUs: "Twandikire",
     newsletter: {
-      title: "Amakuru",
-      description: "Wandike kugira ngo umenye ibishya ku murimo wacu n’ibirori bizaza.",
+      title: "Lisiti y’Amakuru",
+      description: "Wandike kugira ngo ubone amakuru y’ibikorwa byacu n’ibirori bizaza.",
       placeholder: "Imeyili yawe",
       button: "Wandika",
     },
@@ -993,14 +838,14 @@ export const rw = {
     thankYou: {
       title: "Urakoze Kwandika!",
       message: "None wanditswe!",
-      description: "Uzakira ibishya ku murimo wacu n’ibirori bizaza.",
+      description: "Uzabona amakuru y’ibikorwa byacu n’ibirori bizaza.",
       closeButton: "Funga",
     },
   },
 
   newsletter: {
-    title: "Wandike ku Makuru Yacu",
-    description: "Guma umenye ibishya ku makuru yacu, ibirori, n’inkuru z’ingaruka.",
+    title: "Wandike kuri Lisiti y’Amakuru Yacu",
+    description: "Komeza umenye amakuru y’ibishya, ibirori, n’amateka y’ingaruka.",
     placeholder: "imeyili@yawe.com",
     subscribeButton: "Wandika",
     subscribingButton: "Birimo Kwandikwa...",
@@ -1008,7 +853,7 @@ export const rw = {
     thankYou: {
       title: "Urakoze Kwandika!",
       message: "None wanditswe!",
-      description: "Uzakira ibishya ku murimo wacu n’ibirori bizaza.",
+      description: "Uzabona amakuru y’ibikorwa byacu n’ibirori bizaza.",
       closeButton: "Funga",
     },
   },
@@ -1022,10 +867,10 @@ export const rw = {
       customAmount: "Shyiramo amafaranga ($)",
       donateButton: "Tanga Ubufasha None",
       processingButton: "Birimo Gukorerwa...",
-      disclaimer: "Ibi ni icyitegererezo. Mu bikorwa by’ukuri, wajyeshwa ku buryo bwo kwishyura bwa burenganzira.",
+      disclaimer: "Ibi ni urugero. Mu bikorwa by’ukuri, wajya kuri serivisi y’ubwishyu yoroshye.",
       thankYou: {
         title: "Urakoze ku Bufasha Bwawe!",
-        message: "Ubufasha bwawe bufite akamaro!",
+        message: "Ubufasha bwawe bufite ingaruka!",
         description: "Urakoze gufasha intego zacu.",
       },
     },
@@ -1035,7 +880,7 @@ export const rw = {
       { value: "100", label: "$100" },
       { value: "250", label: "$250" },
       { value: "500", label: "$500" },
-      { value: "custom", label: "Yihariye" },
+      { value: "custom", label: "Yahisemo" },
     ],
   },
-}
+};

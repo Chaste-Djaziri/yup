@@ -25,7 +25,7 @@ export default function ContactPage() {
 
   return (
     <main className="flex flex-col min-h-screen">
-      <PageHeader title={t.contact.title} description={t.contact.description} backgroundImage="/contact-header.jpg" />
+      <PageHeader title={t.contact.title} description={t.contact.description} backgroundImage="/assets/donation1.jpg" />
 
       <section className="py-12 md:py-24 bg-white">
         <div className="container px-4 md:px-6">

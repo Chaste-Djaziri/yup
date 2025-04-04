@@ -10,24 +10,24 @@ export function Acknowledgments() {
   const acknowledgmentText = {
     en: {
       title: "Acknowledgments",
-      byimana: "Special thanks to Ecoles Des Sciences Byimana for their invaluable support in our mission.",
+      byimana: "Special thanks to Chaste Djaziri for their invaluable support in developing our website.",
       developer: "Website developed by ",
       micorp: "Micorp",
       services: ", a professional software services company.",
     },
     fr: {
       title: "Remerciements",
-      byimana: "Remerciements spéciaux à Ecoles Des Sciences Byimana pour leur soutien inestimable dans notre mission.",
+      byimana: "Remerciements spéciaux à Chaste Djaziri pour leur soutien inestimable dans notre mission.",
       developer: "Site web développé par ",
       micorp: "Micorp",
       services: ", une entreprise de services logiciels professionnels.",
     },
     rw: {
       title: "Gushimira",
-      byimana: "Urakoze cyane Ecoles Des Sciences Byimana kubw'ubufasha butangaje mu butumwa bwacu.",
+      byimana: "Turashimira Chaste Djaziri kubw'ubufasha yatanze mugutuma tugera aho turi.",
       developer: "Urubuga rwakozwe na ",
       micorp: "Micorp",
-      services: ", isosiyete y'umwuga mu bijyanye na software.",
+      services: ", isosiyete y'umwuga mu bijyanye na ikoranabuhanga.",
     },
   }
 

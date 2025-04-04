@@ -32,7 +32,7 @@ export default function EventsPage() {
 
   return (
     <main className="flex flex-col min-h-screen">
-      <PageHeader title={t.events.title} description={t.events.description} backgroundImage="/events-header.jpg" />
+      <PageHeader title={t.events.title} description={t.events.description} backgroundImage="/assets/event-header.jpg" />
 
       <section className="py-12 md:py-24 bg-white">
         <div className="container px-4 md:px-6">

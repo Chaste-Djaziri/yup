@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useLanguage } from "@/contexts/language-context"
 import { dictionaries } from "@/dictionaries"
-import { Facebook, Twitter, Linkedin } from "lucide-react"
+import { Facebook, Linkedin, Instagram } from "lucide-react"
 
 export function TeamSection() {
   const { language } = useLanguage()
@@ -59,9 +59,9 @@ export function TeamSection() {
                     <Facebook className="h-5 w-5" />
                     <span className="sr-only">Facebook</span>
                   </a>
-                  <a href={member.social.twitter} className="text-gray-400 hover:text-primary">
-                    <Twitter className="h-5 w-5" />
-                    <span className="sr-only">Twitter</span>
+                  <a href={member.social.instagram} className="text-gray-400 hover:text-primary">
+                    <Instagram className="h-5 w-5" />
+                    <span className="sr-only">Instagram</span>
                   </a>
                   <a href={member.social.linkedin} className="text-gray-400 hover:text-primary">
                     <Linkedin className="h-5 w-5" />
