@@ -215,14 +215,14 @@ export const en = {
           },
         },
         {
-          name: "Rukundo Joseph",
+          name: "Ngabonziza Danny",
           role: "Co-Founder",
-          bio: "📍 🇷🇼 ʟɪʙʀᴀ ♎ ✟𝐄𝐱𝐨𝐝𝐮𝐬 𝟏𝟒:𝟏𝟒✟.",
-          image: "/assets/people/joe.jfif",
+          bio: "Phil 4:13 🇷🇼 🫡 💯Just be who u are 💯Live young,wild and free 😶Say less and do more Followed by _.3llaaa.__, kk_eisha ",
+          image: "/placeholder.svg",
           social: {
-            facebook: "https://facebook.com/ruzungu_/",
-            instagram: "https://www.instagram.com/ruzungu_/",
-            linkedin: "https://linkedin.com/in/ruzungu_/",
+            facebook: "https://facebook.com/_d.a.n.n.y_05/",
+            instagram: "https://www.instagram.com/_d.a.n.n.y_05/",
+            linkedin: "https://linkedin.com/in/ruzung_d.a.n.n.y_05u_/",
           },
         },
         {
