@@ -56,42 +56,43 @@ export const en = {
       description:
         "Since our founding, we've made a significant difference in the lives of many young people across Rwanda.",
       students: {
-        count: "1,200+",
+        count: "Comming soon",
         title: "Students Supported",
         description: "Through scholarships, school supplies, and educational programs.",
       },
       projects: {
-        count: "45+",
+        count: "Comming soon",
         title: "Community Projects",
         description: "Including clean water initiatives, school renovations, and more.",
       },
       volunteers: {
-        count: "300+",
+        count: "31+",
         title: "Active Volunteers",
         description: "Dedicated individuals helping us achieve our mission.",
       },
     },
     testimonials: {
       title: "Voices of Change",
-      description: "Hear from the people whose lives have been transformed by our programs.",
+      // description: "Hear from the people whose lives have been transformed by our programs.",
+      description: "Cooming soon",
       testimonials: [
-        {
-          quote:
-            "The scholarship from YUP changed my life. I'm now studying computer science and hope to give back to my community.",
-          name: "Jean-Paul Mugisha",
-          role: "Scholarship Recipient",
-        },
-        {
-          quote:
-            "Volunteering with YUP has been the most rewarding experience. The impact we make is visible and meaningful.",
-          name: "Sarah Johnson",
-          role: "International Volunteer",
-        },
-        {
-          quote: "The community center built by YUP has become a hub for learning and growth for our children.",
-          name: "Marie Uwimana",
-          role: "Community Leader",
-        },
+        // {
+        //   quote:
+        //     "The scholarship from YUP changed my life. I'm now studying computer science and hope to give back to my community.",
+        //   name: "Jean-Paul Mugisha",
+        //   role: "Scholarship Recipient",
+        // },
+        // {
+        //   quote:
+        //     "Volunteering with YUP has been the most rewarding experience. The impact we make is visible and meaningful.",
+        //   name: "Sarah Johnson",
+        //   role: "International Volunteer",
+        // },
+        // {
+        //   quote: "The community center built by YUP has become a hub for learning and growth for our children.",
+        //   name: "Marie Uwimana",
+        //   role: "Community Leader",
+        // },
       ],
     },
     events: {
@@ -100,35 +101,35 @@ export const en = {
       viewAllButton: "View All Events",
       events: [
         {
-          title: "Youth Leadership Workshop",
-          date: "June 15, 2025",
-          time: "9:00 AM - 4:00 PM",
+          title: "Youth Uplift Initiative Kickstart",
+          date: "April 17, 2025",
+          time: "12:00 PM - 4:00 PM",
           location: "YUP Community Center, Kigali",
           description:
-            "A day-long workshop focused on developing leadership skills among high school students in Kigali.",
+            "Join us for an elegant day of inspiration and impact. Our annual gala features dinner, entertainment, and powerful stories from the youth we serve.",
           image: "/event-leadership.jpg",
           slug: "youth-leadership-workshop",
         },
-        {
-          title: "Community Clean-up Day",
-          date: "July 8, 2025",
-          time: "8:00 AM - 12:00 PM",
-          location: "Nyamirambo District, Kigali",
-          description:
-            "Join us in cleaning up local parks and streets while fostering community spirit and environmental awareness.",
-          image: "/event-cleanup.jpg",
-          slug: "community-cleanup-day",
-        },
-        {
-          title: "Annual Fundraising Gala",
-          date: "August 22, 2025",
-          time: "6:00 PM - 10:00 PM",
-          location: "Kigali Marriott Hotel",
-          description:
-            "Our biggest fundraising event of the year, featuring dinner, entertainment, and inspiring stories from our beneficiaries.",
-          image: "/event-gala.jpg",
-          slug: "annual-fundraising-gala",
-        },
+        // {
+        //   title: "Community Clean-up Day",
+        //   date: "July 8, 2025",
+        //   time: "8:00 AM - 12:00 PM",
+        //   location: "Nyamirambo District, Kigali",
+        //   description:
+        //     "Join us in cleaning up local parks and streets while fostering community spirit and environmental awareness.",
+        //   image: "/event-cleanup.jpg",
+        //   slug: "community-cleanup-day",
+        // },
+        // {
+        //   title: "Annual Fundraising Gala",
+        //   date: "August 22, 2025",
+        //   time: "6:00 PM - 10:00 PM",
+        //   location: "Kigali Marriott Hotel",
+        //   description:
+        //     "Our biggest fundraising event of the year, featuring dinner, entertainment, and inspiring stories from our beneficiaries.",
+        //   image: "/event-gala.jpg",
+        //   slug: "annual-fundraising-gala",
+        // },
       ],
     },
     donate: {
@@ -157,7 +158,7 @@ export const en = {
     mission: {
       title: "Our Mission & Vision",
       description:
-        "Youth Uplift Initiative was founded in 2015 with a clear mission: to empower young people in Rwanda through education, community development, and sustainable programs that create lasting change. Our vision is a Rwanda where all youth have access to quality education and opportunities to reach their full potential.",
+        "Youth Uplift Initiative was founded in 2025 with a clear mission: to empower young people in Rwanda through education, community development, and sustainable programs that create lasting change. Our vision is a Rwanda where all youth have access to quality education and opportunities to reach their full potential.",
       values: {
         title: "Our Core Values",
         list: [
@@ -185,7 +186,7 @@ export const en = {
     impact: {
       title: "Our Impact",
       description:
-        "Through the dedication of our team and the generosity of our supporters, we've made significant strides in empowering youth across Rwanda.",
+        "Through the dedication of our team and the generosity of our supporters, we will make significant strides in empowering youth across Rwanda.",
       stats: {
         students: "1,200+",
         studentsLabel: "Students Supported",
