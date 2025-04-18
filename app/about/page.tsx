@@ -79,7 +79,7 @@ export default function AboutPage() {
               transition={{ duration: 0.5 }}
             >
               <Image
-                src="/assets/impact.jpg"
+                src="/assets/IMG_3531_jpg.jpeg"
                 alt="Our impact"
                 fill
                 className="object-cover"
