@@ -692,7 +692,9 @@ export const en = {
       subject: "Subject",
       message: "Your Message",
       submitButton: "Send Message",
+      submittingButton: "Submitting...",
       successMessage: "Your message has been sent! We'll get back to you soon.",
+      successTitle: "Message Sent", errorTitle : "Error",
     },
     info: {
       title: "Contact Information",

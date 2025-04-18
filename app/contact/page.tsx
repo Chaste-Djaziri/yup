@@ -1,27 +1,54 @@
 "use client"
 
-import type React from "react"
-
+import { useState, useEffect } from "react"
+import { useActionState } from "react"
+import { useFormStatus } from "react-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { MapPin, Mail, Phone, Clock } from "lucide-react"
+import { MapPin, Mail, Phone, Clock } from 'lucide-react'
 import { motion } from "framer-motion"
 import { useLanguage } from "@/contexts/language-context"
 import { dictionaries } from "@/dictionaries"
 import { PageHeader } from "@/components/page-header"
 import { ContactMap } from "@/components/contact-map"
+import { submitContactForm } from "../actions/contact-actions"
+import { toast } from "@/components/ui/use-toast"
+
+// Submit button with loading state
+function SubmitButton({ text, loadingText }: { text: string; loadingText: string }) {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={pending}>
+      {pending ? loadingText : text}
+    </Button>
+  )
+}
 
 export default function ContactPage() {
   const { language } = useLanguage()
   const t = dictionaries[language]
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-    alert(t.contact.form.successMessage)
-  }
+  const initialState = { success: false, message: "" }
+  const [formState, formAction, isPending] = useActionState(submitContactForm, initialState)
+
+  // Handle form submission result
+  useEffect(() => {
+    if (formState && formState.message) {
+      if (formState.success) {
+        setIsSubmitted(true)
+      } else {
+        toast({
+          title: "Error",
+          description: formState.message,
+          variant: "destructive",
+        })
+      }
+    }
+  }, [formState])
 
   return (
     <main className="flex flex-col min-h-screen">
@@ -38,37 +65,55 @@ export default function ContactPage() {
             >
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">{t.contact.form.title}</h2>
               <p className="text-gray-500 md:text-lg">{t.contact.form.description}</p>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="first-name" className="text-sm sm:text-base">
-                      {t.contact.form.firstName}
-                    </Label>
-                    <Input id="first-name" required className="text-sm sm:text-base h-10 sm:h-11" />
+
+              {isSubmitted ? (
+                <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+                  <h3 className="text-lg font-medium text-green-800 mb-2">
+                    {t.contact.form.successTitle || "Message Sent!"}
+                  </h3>
+                  <p className="text-green-600">{formState.message}</p>
+                </div>
+              ) : (
+                <form action={formAction} className="space-y-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="first-name" className="text-sm sm:text-base">
+                        {t.contact.form.firstName}
+                      </Label>
+                      <Input id="first-name" name="first-name" required className="text-sm sm:text-base h-10 sm:h-11" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="last-name" className="text-sm sm:text-base">
+                        {t.contact.form.lastName}
+                      </Label>
+                      <Input id="last-name" name="last-name" required className="text-sm sm:text-base h-10 sm:h-11" />
+                    </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="last-name" className="text-sm sm:text-base">
-                      {t.contact.form.lastName}
-                    </Label>
-                    <Input id="last-name" required className="text-sm sm:text-base h-10 sm:h-11" />
+                    <Label htmlFor="email">{t.contact.form.email}</Label>
+                    <Input id="email" name="email" type="email" required />
                   </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">{t.contact.form.email}</Label>
-                  <Input id="email" type="email" required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="subject">{t.contact.form.subject}</Label>
-                  <Input id="subject" required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="message">{t.contact.form.message}</Label>
-                  <Textarea id="message" rows={5} required />
-                </div>
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                  {t.contact.form.submitButton}
-                </Button>
-              </form>
+                  <div className="space-y-2">
+                    <Label htmlFor="subject">{t.contact.form.subject}</Label>
+                    <Input id="subject" name="subject" required />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">{t.contact.form.message}</Label>
+                    <Textarea id="message" name="message" rows={5} required />
+                  </div>
+
+                  {formState && !formState.success && formState.message && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-600 text-sm">
+                      {formState.message}
+                    </div>
+                  )}
+
+                  <SubmitButton
+                    text={t.contact.form.submitButton}
+                    loadingText={t.contact.form.submittingButton || "Submitting..."}
+                  />
+                </form>
+              )}
             </motion.div>
             <motion.div
               className="space-y-6"
