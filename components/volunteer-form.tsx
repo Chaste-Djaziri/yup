@@ -1,8 +1,8 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useActionState } from "react"
+import { useFormStatus } from "react-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -11,24 +11,38 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { useLanguage } from "@/contexts/language-context"
 import { dictionaries } from "@/dictionaries"
+import { submitVolunteerApplication } from "@/app/actions/volunteer-actions"
+
+// Submit button with loading state
+function SubmitButton({ text, loadingText }: { text: string; loadingText: string }) {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button
+      type="submit"
+      className="w-full bg-primary hover:bg-primary/90 text-sm sm:text-base h-10 sm:h-12"
+      disabled={pending}
+    >
+      {pending ? loadingText : text}
+    </Button>
+  )
+}
 
 export function VolunteerForm() {
   const { language } = useLanguage()
   const t = dictionaries[language]
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [termsAccepted, setTermsAccepted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+  const initialState = { success: false, message: "" }
+  const [formState, formAction, isPending] = useActionState(submitVolunteerApplication, initialState)
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
+  // Handle form submission result
+  useEffect(() => {
+    if (formState && formState.success) {
       setIsSubmitted(true)
-    }, 1500)
-  }
+    }
+  }, [formState])
 
   if (isSubmitted) {
     return (
@@ -40,19 +54,19 @@ export function VolunteerForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 form-touch-friendly" id="volunteer-form">
+    <form action={formAction} className="space-y-4 form-touch-friendly" id="volunteer-form">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="first-name" className="text-sm sm:text-base">
             {t.volunteer.form.firstName}
           </Label>
-          <Input id="first-name" required className="text-sm sm:text-base h-10 sm:h-11" />
+          <Input id="first-name" name="first-name" required className="text-sm sm:text-base h-10 sm:h-11" />
         </div>
         <div className="space-y-2">
           <Label htmlFor="last-name" className="text-sm sm:text-base">
             {t.volunteer.form.lastName}
           </Label>
-          <Input id="last-name" required className="text-sm sm:text-base h-10 sm:h-11" />
+          <Input id="last-name" name="last-name" required className="text-sm sm:text-base h-10 sm:h-11" />
         </div>
       </div>
 
@@ -60,19 +74,19 @@ export function VolunteerForm() {
         <Label htmlFor="email" className="text-sm sm:text-base">
           {t.volunteer.form.email}
         </Label>
-        <Input id="email" type="email" required className="text-sm sm:text-base h-10 sm:h-11" />
+        <Input id="email" name="email" type="email" required className="text-sm sm:text-base h-10 sm:h-11" />
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="phone" className="text-sm sm:text-base">
           {t.volunteer.form.phone}
         </Label>
-        <Input id="phone" type="tel" className="text-sm sm:text-base h-10 sm:h-11" />
+        <Input id="phone" name="phone" type="tel" className="text-sm sm:text-base h-10 sm:h-11" />
       </div>
       <div className="space-y-2">
         <Label htmlFor="opportunity">{t.volunteer.form.opportunity}</Label>
-        <Select>
-          <SelectTrigger>
+        <Select name="opportunity">
+          <SelectTrigger id="opportunity">
             <SelectValue placeholder={t.volunteer.form.selectOpportunity} />
           </SelectTrigger>
           <SelectContent>
@@ -86,8 +100,8 @@ export function VolunteerForm() {
       </div>
       <div className="space-y-2">
         <Label htmlFor="availability">{t.volunteer.form.availability}</Label>
-        <Select>
-          <SelectTrigger>
+        <Select name="availability">
+          <SelectTrigger id="availability">
             <SelectValue placeholder={t.volunteer.form.selectAvailability} />
           </SelectTrigger>
           <SelectContent>
@@ -100,26 +114,34 @@ export function VolunteerForm() {
       </div>
       <div className="space-y-2">
         <Label htmlFor="skills">{t.volunteer.form.skills}</Label>
-        <Textarea id="skills" placeholder={t.volunteer.form.skillsPlaceholder} />
+        <Textarea id="skills" name="skills" placeholder={t.volunteer.form.skillsPlaceholder} />
       </div>
       <div className="space-y-2">
         <Label htmlFor="motivation">{t.volunteer.form.motivation}</Label>
-        <Textarea id="motivation" placeholder={t.volunteer.form.motivationPlaceholder} required />
+        <Textarea id="motivation" name="motivation" placeholder={t.volunteer.form.motivationPlaceholder} required />
       </div>
       <div className="flex items-start space-x-2">
-        <Checkbox id="terms" />
+        <Checkbox
+          id="terms"
+          name="terms"
+          required
+          checked={termsAccepted}
+          onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
+          value="accepted"
+        />
         <Label htmlFor="terms" className="text-sm font-normal">
           {t.volunteer.form.terms}
         </Label>
       </div>
-      <Button
-        type="submit"
-        className="w-full bg-primary hover:bg-primary/90 text-sm sm:text-base h-10 sm:h-12"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? t.volunteer.form.submitting : t.volunteer.form.submit}
-      </Button>
+
+      {formState && !formState.success && formState.message && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-600 text-sm">{formState.message}</div>
+      )}
+
+      <SubmitButton 
+        text={t.volunteer.form.submit} 
+        loadingText={isPending ? t.volunteer.form.submitting : t.volunteer.form.submit}
+      />
     </form>
   )
 }
-
