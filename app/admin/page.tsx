@@ -3,14 +3,17 @@
 import { useState, useEffect } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { AdminLogin } from "@/components/admin-login"
 import { ContactSubmissionsTable } from "@/components/contact-submissions-table"
 import { VolunteerApplicationsTable } from "@/components/volunteer-applications-table"
 import { isAdminAuthenticated, logoutAdmin } from "@/lib/admin-auth"
+import { Search, RefreshCw } from 'lucide-react'
 
 export default function AdminDashboardPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [searchQuery, setSearchQuery] = useState("")
 
   useEffect(() => {
     // Check if admin is authenticated
@@ -36,12 +39,27 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto p-4 md:p-8">
+        <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
           <Button variant="outline" onClick={handleLogout}>
             Logout
+          </Button>
+        </div>
+
+        <div className="mb-6 flex items-center gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+            <Input
+              placeholder="Search submissions..."
+              className="pl-10"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <Button variant="outline" size="icon">
+            <RefreshCw size={18} />
           </Button>
         </div>
 
@@ -50,13 +68,11 @@ export default function AdminDashboardPage() {
             <TabsTrigger value="contacts">Contact Submissions</TabsTrigger>
             <TabsTrigger value="volunteers">Volunteer Applications</TabsTrigger>
           </TabsList>
-          <TabsContent value="contacts" className="bg-white p-4 rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-4">Contact Submissions</h2>
-            <ContactSubmissionsTable />
+          <TabsContent value="contacts" className="bg-white rounded-lg shadow">
+            <ContactSubmissionsTable searchQuery={searchQuery} />
           </TabsContent>
-          <TabsContent value="volunteers" className="bg-white p-4 rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-4">Volunteer Applications</h2>
-            <VolunteerApplicationsTable />
+          <TabsContent value="volunteers" className="bg-white rounded-lg shadow">
+            <VolunteerApplicationsTable searchQuery={searchQuery} />
           </TabsContent>
         </Tabs>
       </div>

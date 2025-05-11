@@ -1,73 +1,125 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { X } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useInView } from "react-intersection-observer"
+import Image from "next/image"
 
-interface GalleryImage {
+type GalleryImage = {
   src: string
   alt: string
   category: string
 }
 
-interface ImageGalleryProps {
+export function ImageGallery({
+  images,
+  onImageClick,
+}: {
   images: GalleryImage[]
-  onImageClick: (src: string) => void
-}
+  onImageClick?: (src: string) => void
+}) {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [visibleImages, setVisibleImages] = useState<GalleryImage[]>([])
+  const [page, setPage] = useState(1)
+  const imagesPerPage = 12
 
-export function ImageGallery({ images, onImageClick }: ImageGalleryProps) {
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null)
+  // Load images in batches
+  useEffect(() => {
+    setVisibleImages(images.slice(0, page * imagesPerPage))
+  }, [images, page])
+
+  // Intersection observer for infinite scrolling
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: false,
+  })
+
+  // Load more images when the last row comes into view
+  useEffect(() => {
+    if (inView && visibleImages.length < images.length) {
+      setPage((prevPage) => prevPage + 1)
+    }
+  }, [inView, visibleImages.length, images.length])
 
   const handleImageClick = (src: string) => {
-    setLightboxImage(src)
-    onImageClick(src)
+    setSelectedImage(src)
+    if (onImageClick) {
+      onImageClick(src)
+    }
   }
 
-  const closeLightbox = () => {
-    setLightboxImage(null)
+  const closeModal = () => {
+    setSelectedImage(null)
+    if (onImageClick) {
+      onImageClick(null)
+    }
   }
 
   return (
-    <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-        {images.map((image, index) => (
+    <div className="relative">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {visibleImages.map((image, index) => (
           <motion.div
             key={index}
-            className="aspect-square relative rounded-md overflow-hidden cursor-pointer"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: index * 0.05 }}
+            className="relative aspect-square overflow-hidden rounded-lg cursor-pointer"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: (index % 8) * 0.05 }}
             onClick={() => handleImageClick(image.src)}
           >
-            <img
+            <Image
               src={image.src || "/placeholder.svg"}
               alt={image.alt}
-              className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className="object-cover transition-transform duration-300 hover:scale-105"
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFdwI2QOQvhAAAAABJRU5ErkJggg=="
             />
           </motion.div>
         ))}
       </div>
 
-      {lightboxImage && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white hover:bg-white/10"
-            onClick={closeLightbox}
-          >
-            <X className="h-5 w-5 sm:h-6 sm:w-6" />
-            <span className="sr-only">Close</span>
-          </Button>
-          <img
-            src={lightboxImage || "/placeholder.svg"}
-            alt="Enlarged gallery image"
-            className="max-w-full max-h-[80vh] sm:max-h-[90vh] object-contain"
-          />
+      {/* Loading indicator */}
+      {visibleImages.length < images.length && (
+        <div ref={ref} className="flex justify-center mt-8 pb-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
       )}
-    </>
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+          onClick={closeModal}
+        >
+          <div className="relative max-w-4xl max-h-[90vh] w-full">
+            <Image
+              src={selectedImage || "/placeholder.svg"}
+              alt="Enlarged gallery image"
+              width={1200}
+              height={800}
+              className="object-contain max-h-[90vh] w-auto mx-auto"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2"
+              onClick={closeModal}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
-

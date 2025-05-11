@@ -1,11 +1,23 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import { useLanguage } from "@/contexts/language-context"
 import { dictionaries } from "@/dictionaries"
 import { PageHeader } from "@/components/page-header"
 import { ImageGallery } from "@/components/image-gallery"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Skeleton } from "@/components/ui/skeleton"
+
+// Loading fallback component
+function GalleryLoading() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {Array.from({ length: 12 }).map((_, i) => (
+        <Skeleton key={i} className="aspect-square rounded-lg" />
+      ))}
+    </div>
+  )
+}
 
 export default function GalleryPage() {
   const { language } = useLanguage()
@@ -14,7 +26,11 @@ export default function GalleryPage() {
 
   return (
     <main className="flex flex-col min-h-screen">
-      <PageHeader title={t.gallery.title} description={t.gallery.description} backgroundImage="/assets/IMG_3467_jpg.jpeg" />
+      <PageHeader
+        title={t.gallery.title}
+        description={t.gallery.description}
+        backgroundImage="/assets/IMG_3467_jpg.jpeg"
+      />
 
       <section className="py-12 md:py-24 bg-white">
         <div className="container px-4 md:px-6">
@@ -26,31 +42,32 @@ export default function GalleryPage() {
               <TabsTrigger value="community">{t.gallery.categories.community}</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="all">
-              <ImageGallery images={t.gallery.images} onImageClick={setSelectedImage} />
-            </TabsContent>
+            <Suspense fallback={<GalleryLoading />}>
+              <TabsContent value="all">
+                <ImageGallery images={t.gallery.images} onImageClick={setSelectedImage} />
+              </TabsContent>
 
-            <TabsContent value="events">
-              <ImageGallery
-                images={t.gallery.images.filter((img) => img.category === "events")}
-                onImageClick={setSelectedImage}
-              />
-            </TabsContent>
+              <TabsContent value="events">
+                <ImageGallery
+                  images={t.gallery.images.filter((img) => img.category === "events")}
+                  onImageClick={setSelectedImage}
+                />
+              </TabsContent>
 
-            <TabsContent value="programs">
-              <ImageGallery
-                images={t.gallery.images.filter((img) => img.category === "programs")}
-                onImageClick={setSelectedImage}
-              />
-            </TabsContent>
+              <TabsContent value="programs">
+                <ImageGallery
+                  images={t.gallery.images.filter((img) => img.category === "programs")}
+                  onImageClick={setSelectedImage}
+                />
+              </TabsContent>
 
-            <TabsContent value="community">
-              <ImageGallery
-                images={t.gallery.images.filter((img) => img.category === "community")}
-                onImageClick={setSelectedImage}
-              />
-            </TabsContent>
-            {/* <p className="text-gray-500 font-bold">No gallery at the moment</p> */}
+              <TabsContent value="community">
+                <ImageGallery
+                  images={t.gallery.images.filter((img) => img.category === "community")}
+                  onImageClick={setSelectedImage}
+                />
+              </TabsContent>
+            </Suspense>
           </Tabs>
         </div>
       </section>
@@ -83,4 +100,3 @@ export default function GalleryPage() {
     </main>
   )
 }
-
