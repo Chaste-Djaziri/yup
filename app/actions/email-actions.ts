@@ -1,11 +1,20 @@
+// app/actions/email-actions.ts
+
 "use server"
 
 import { Resend } from "resend"
+import { createClient } from "@supabase/supabase-js"
 
 // Initialize Resend with your API key
 const resend = new Resend("re_2gZ9zAcP_K84t1o17rCjxjzLHTYQBAy5u")
 
+// Initialize Supabase client (server-side)
+const supabaseUrl = process.env.SUPABASE_URL!
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+const supabase = createClient(supabaseUrl, supabaseKey)
+
 type EmailParams = {
+  applicationId: string // add applicationId for tracking
   to: string
   firstName: string
   lastName: string
@@ -15,9 +24,43 @@ type EmailParams = {
 
 export async function sendVolunteerEmail(params: EmailParams) {
   try {
-    const { to, firstName, lastName, status, opportunity } = params
+    const { applicationId, to, firstName, lastName, status, opportunity } = params
 
-    // Determine email subject and content based on status
+    // 1. Check if email already sent for this applicationId
+    const { data: existingEmails, error: checkError } = await supabase
+      .from("email_logs")
+      .select("*")
+      .eq("application_id", applicationId)
+      .eq("status", "sent")
+
+    if (checkError) {
+      console.error("Error checking existing emails:", checkError)
+      // You can decide to continue or stop here depending on your policy
+    }
+
+    if (existingEmails && existingEmails.length > 0) {
+      console.log("Email already sent for this application. Skipping send.")
+      return { success: false, message: "Email already sent for this application." }
+    }
+
+    // 2. Insert a pending email log to prevent duplicates in concurrent requests
+    const { error: insertError } = await supabase.from("email_logs").insert([
+      {
+        application_id: applicationId,
+        to_email: to,
+        subject: "", // can fill later after composing email
+        status: "pending",
+        event_type: "pending",
+        created_at: new Date().toISOString(),
+      },
+    ])
+
+    if (insertError) {
+      console.error("Failed to insert pending email log:", insertError)
+      return { success: false, error: insertError.message }
+    }
+
+    // 3. Compose subject and HTML content based on status
     let subject = ""
     let htmlContent = ""
 
@@ -61,19 +104,37 @@ export async function sendVolunteerEmail(params: EmailParams) {
       `
     }
 
-    // Send the email using Resend
+    // 4. Update the pending email log with subject before sending
+    await supabase
+      .from("email_logs")
+      .update({ subject })
+      .eq("application_id", applicationId)
+      .eq("status", "pending")
+
+    // 5. Send the email using Resend
     const { data, error } = await resend.emails.send({
       from: "Youth Uplift Initiative <noreply@youthupliftinitiative.com>",
       to: [to],
       subject: subject,
       html: htmlContent,
-      text: htmlContent.replace(/<[^>]*>/g, ""), // Strip HTML for text version
+      text: htmlContent.replace(/<[^>]*>/g, ""), // Strip HTML tags for plain text
     })
 
     if (error) {
       console.error("Error sending email:", error)
+      // Update email_logs to failed
+      await supabase
+        .from("email_logs")
+        .update({ status: "failed" })
+        .eq("application_id", applicationId)
       return { success: false, error: error.message }
     }
+
+    // 6. Update email_logs record to sent with email_id from Resend response
+    await supabase
+      .from("email_logs")
+      .update({ status: "sent", email_id: data.id, sent_at: new Date().toISOString() })
+      .eq("application_id", applicationId)
 
     return { success: true, data }
   } catch (error) {
