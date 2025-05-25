@@ -205,25 +205,40 @@ export const en = {
         "Meet the dedicated individuals who work tirelessly to fulfill our mission and create positive change.",
       members: [
         {
-          name: "Karambizi Axel",
+          name: "Axel Karambizi",
           role: "Founder",
-          bio: "I'm everything u want but can't have!.",
+          bio: "A dedicated leader committed to inspiring positive change and uplifting communities through compassionate action.",
           image: "/assets/people/axel.jfif",
           social: {
-            facebook: "https://facebook.com/axelkarambizi/",
             instagram: "https://www.instagram.com/axelkarambizi/",
-            linkedin: "https://linkedin.com/in/axelkarambizi/",
+            linkedin: "https://rw.linkedin.com/in/axel-karambizi-1633922a7",
           },
         },
         {
           name: "Ngabonziza Danny",
           role: "Co-Founder",
           bio: "Phil 4:13 🇷🇼 🫡 💯Just be who u are 💯Live young,wild and free 😶Say less and do more Followed by _.3llaaa.__, kk_eisha ",
-          image: "/placeholder.svg",
+          image: "/assets/IMG_3489_jpg.jpeg",
           social: {
-            facebook: "https://facebook.com/_d.a.n.n.y_05/",
             instagram: "https://www.instagram.com/_d.a.n.n.y_05/",
-            linkedin: "https://linkedin.com/in/ruzung_d.a.n.n.y_05u_/",
+          },
+        },
+        {
+          name: "Maniragaba Elissa",
+          role: "Co-Founder",
+          bio: "Phil 4:13 🇷🇼 🫡 💯Just be who u are 💯Live young,wild and free 😶Say less and do more Followed by _.3llaaa.__, kk_eisha ",
+          image: "/assets/IMG_3489_jpg.jpeg",
+          social: {
+            instagram: "https://www.instagram.com/gan_way7/",
+          },
+        },
+        {
+          name: "Rukundo Joseph",
+          role: "Co-Founder",
+          bio: "Phil 4:13 🇷🇼 🫡 💯Just be who u are 💯Live young,wild and free 😶Say less and do more Followed by _.3llaaa.__, kk_eisha ",
+          image: "/assets/IMG_3489_jpg.jpeg",
+          social: {
+            instagram: "https://www.instagram.com/ruzungu_/",
           },
         },
         {
@@ -232,7 +247,6 @@ export const en = {
           bio: "A dedicated individual with a passion for software designing, web development, and game design.",
           image: "/assets/people/chaste.jfif",
           social: {
-            facebook: "https://web.facebook.com/chaste.djaziri/",
             instagram: "https://www.instagram.com/chaste_djaziri/",
             linkedin: "https://www.linkedin.com/in/chaste-djaziri-6bb4b62a5/",
           },
@@ -351,11 +365,11 @@ export const en = {
     list: [
       {
         title: "Youth Uplift Takeoff",
-        date: "April 15, 2025",
-        time: "9:00 AM - 4:00 PM",
+        date: "April 17, 2025",
+        time: "2:00 PM - 4:00 PM",
         location: "Kigali",
         description:
-          "A day-long workshop focused on developing leadership skills among high school students in Kigali.",
+          "The kickstart of our community.",
         image: "/assets/event.jpg",
         slug: "../contact",
       },
@@ -623,11 +637,161 @@ export const en = {
       community: "Community",
     },
     images: [
-      // {
-      //   src: "/gallery-1.jpg",
-      //   alt: "Students in classroom",
-      //   category: "programs",
-      // },
+      {
+        src: "/assets/IMG_3467_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3482_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3485_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3489_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3496_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3499_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3514_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3531_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3543_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3544.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3568.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3573.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3578.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3581.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3587.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3592.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3642.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3644.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3651_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3652_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3660.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3662.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3664.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3667.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3672_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3680.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3697_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3701_jpg.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3709.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3733.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
+      {
+        src: "/assets/IMG_3862.jpeg",
+        alt: "Students in classroom",
+        category: "events",
+      },
       // {
       //   src: "/gallery-2.jpg",
       //   alt: "Community clean-up day",
@@ -705,13 +869,13 @@ export const en = {
       },
       email: {
         title: "Email",
-        general: "info@youthuplift.org",
-        support: "support@youthuplift.org",
+        general: "yupinitiative@gmail.com",
+        support: "yupinitiative@gmail.com",
       },
       phone: {
         title: "Phone",
-        office: "+250 788 123 456",
-        mobile: "+250 733 789 012",
+        office: "+250 788 749 709",
+        mobile: "+250 788 749 709",
       },
       hours: {
         title: "Office Hours",

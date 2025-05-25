@@ -1,3 +1,5 @@
+// components/donate-section.tsx
+
 "use client"
 
 import { useState } from "react"

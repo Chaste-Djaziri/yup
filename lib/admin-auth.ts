@@ -1,3 +1,6 @@
+//lib/admin-auth.ts
+
+
 "use client"
 
 // This is a simple client-side authentication mechanism

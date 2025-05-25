@@ -22,8 +22,8 @@ export default function ProgramsPage() {
       />
 
       <section className="py-12 md:py-24 bg-white">
-        <p className="text-center text-gray-500 font-bold">No programs yet</p>
-        {/* <div className="container px-4 md:px-6">
+        {/* <p className="text-center text-gray-500 font-bold">No programs yet</p> */}
+        <div className="container px-4 md:px-6">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {t.programs.list.map((program, index) => (
               <ProgramCard
@@ -36,7 +36,7 @@ export default function ProgramsPage() {
               />
             ))}
           </div>
-        </div> */}
+        </div>
       </section>
 
       <section className="py-12 md:py-24 bg-gray-100">
@@ -63,7 +63,7 @@ export default function ProgramsPage() {
                 ))}
               </ul>
             </motion.div>
-            {/* <motion.div
+            <motion.div
               className="space-y-4"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -109,12 +109,12 @@ export default function ProgramsPage() {
                   </div>
                 </div>
               </div>
-            </motion.div> */}
+            </motion.div>
             <motion.div className="space-y-4 text-center text-gray-500 font-bold">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
                 {t.programs.outcomes.title}
               </h2>
-              <p>Not yet determined</p>
+              {/* <p>Not yet determined</p> */}
             </motion.div>
           </div>
         </div>
