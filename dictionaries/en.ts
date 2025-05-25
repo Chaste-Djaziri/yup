@@ -205,14 +205,13 @@ export const en = {
         "Meet the dedicated individuals who work tirelessly to fulfill our mission and create positive change.",
       members: [
         {
-          name: "Karambizi Axel",
+          name: "Axel Karambizi",
           role: "Founder",
-          bio: "I'm everything u want but can't have!.",
+          bio: "A dedicated leader committed to inspiring positive change and uplifting communities through compassionate action.",
           image: "/assets/people/axel.jfif",
           social: {
-            facebook: "https://facebook.com/axelkarambizi/",
             instagram: "https://www.instagram.com/axelkarambizi/",
-            linkedin: "https://linkedin.com/in/axelkarambizi/",
+            linkedin: "https://rw.linkedin.com/in/axel-karambizi-1633922a7",
           },
         },
         {
@@ -221,9 +220,25 @@ export const en = {
           bio: "Phil 4:13 🇷🇼 🫡 💯Just be who u are 💯Live young,wild and free 😶Say less and do more Followed by _.3llaaa.__, kk_eisha ",
           image: "/assets/IMG_3489_jpg.jpeg",
           social: {
-            facebook: "https://facebook.com/_d.a.n.n.y_05/",
             instagram: "https://www.instagram.com/_d.a.n.n.y_05/",
-            linkedin: "https://linkedin.com/in/ruzung_d.a.n.n.y_05u_/",
+          },
+        },
+        {
+          name: "Maniragaba Elissa",
+          role: "Co-Founder",
+          bio: "Phil 4:13 🇷🇼 🫡 💯Just be who u are 💯Live young,wild and free 😶Say less and do more Followed by _.3llaaa.__, kk_eisha ",
+          image: "/assets/IMG_3489_jpg.jpeg",
+          social: {
+            instagram: "https://www.instagram.com/gan_way7/",
+          },
+        },
+        {
+          name: "Rukundo Joseph",
+          role: "Co-Founder",
+          bio: "Phil 4:13 🇷🇼 🫡 💯Just be who u are 💯Live young,wild and free 😶Say less and do more Followed by _.3llaaa.__, kk_eisha ",
+          image: "/assets/IMG_3489_jpg.jpeg",
+          social: {
+            instagram: "https://www.instagram.com/ruzungu_/",
           },
         },
         {
@@ -232,7 +247,6 @@ export const en = {
           bio: "A dedicated individual with a passion for software designing, web development, and game design.",
           image: "/assets/people/chaste.jfif",
           social: {
-            facebook: "https://web.facebook.com/chaste.djaziri/",
             instagram: "https://www.instagram.com/chaste_djaziri/",
             linkedin: "https://www.linkedin.com/in/chaste-djaziri-6bb4b62a5/",
           },
@@ -855,13 +869,13 @@ export const en = {
       },
       email: {
         title: "Email",
-        general: "info@youthuplift.org",
-        support: "support@youthuplift.org",
+        general: "yupinitiative@gmail.com",
+        support: "yupinitiative@gmail.com",
       },
       phone: {
         title: "Phone",
-        office: "+250 788 123 456",
-        mobile: "+250 733 789 012",
+        office: "+250 788 749 709",
+        mobile: "+250 788 749 709",
       },
       hours: {
         title: "Office Hours",

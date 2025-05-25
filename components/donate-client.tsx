@@ -1,3 +1,5 @@
+// components/donate-client.tsx
+
 "use client"
 
 import type React from "react"
@@ -230,63 +232,15 @@ export function DonateClient() {
                     </Label>
                     <Tabs defaultValue="card" onValueChange={setPaymentMethod} className="w-full">
                       <TabsList className={`grid w-full ${isMobile ? "grid-cols-2 gap-y-2" : "grid-cols-4"}`}>
-                        <TabsTrigger value="card" className="flex flex-col items-center gap-1 py-2 md:py-3">
-                          <CardIcon className="h-4 w-4 md:h-5 md:w-5" />
-                          <span className="text-xs md:text-sm">{t.donate?.form?.payment?.card || "Card"}</span>
-                        </TabsTrigger>
                         <TabsTrigger value="paypal" className="flex flex-col items-center gap-1 py-2 md:py-3">
                           <PayPalIcon className="h-4 w-4 md:h-5 md:w-5" />
                           <span className="text-xs md:text-sm">{t.donate?.form?.payment?.paypal || "PayPal"}</span>
-                        </TabsTrigger>
-                        <TabsTrigger value="stripe" className="flex flex-col items-center gap-1 py-2 md:py-3">
-                          <StripeIcon className="h-4 w-4 md:h-5 md:w-5" />
-                          <span className="text-xs md:text-sm">{t.donate?.form?.payment?.stripe || "Stripe"}</span>
                         </TabsTrigger>
                         <TabsTrigger value="momo" className="flex flex-col items-center gap-1 py-2 md:py-3">
                           <MomoIcon className="h-4 w-4 md:h-5 md:w-5" />
                           <span className="text-xs md:text-sm">{t.donate?.form?.payment?.momo || "MTN MoMo"}</span>
                         </TabsTrigger>
                       </TabsList>
-
-                      <TabsContent value="card" className="space-y-4 mt-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="card-name" className="text-sm md:text-base">
-                            {t.donate?.form?.payment?.card_name || "Name on Card"}
-                          </Label>
-                          <Input id="card-name" placeholder="John Doe" required className="text-sm md:text-base" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="card-number" className="text-sm md:text-base">
-                            {t.donate?.form?.payment?.card_number || "Card Number"}
-                          </Label>
-                          <Input
-                            id="card-number"
-                            placeholder="1234 5678 9012 3456"
-                            required
-                            className="text-sm md:text-base"
-                          />
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="expiry" className="text-sm md:text-base">
-                              {t.donate?.form?.payment?.expiry || "Expiry Date"}
-                            </Label>
-                            <Input id="expiry" placeholder="MM/YY" required className="text-sm md:text-base" />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="cvc" className="text-sm md:text-base">
-                              {t.donate?.form?.payment?.cvc || "CVC"}
-                            </Label>
-                            <Input id="cvc" placeholder="123" required className="text-sm md:text-base" />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="zip" className="text-sm md:text-base">
-                              {t.donate?.form?.payment?.zip || "Zip Code"}
-                            </Label>
-                            <Input id="zip" placeholder="12345" required className="text-sm md:text-base" />
-                          </div>
-                        </div>
-                      </TabsContent>
 
                       <TabsContent value="paypal" className="space-y-4 mt-4">
                         <div className="flex justify-center p-4 border dark:border-gray-700 rounded-md">
@@ -300,21 +254,6 @@ export function DonateClient() {
                         <p className="text-xs md:text-sm text-center text-gray-500 dark:text-gray-400">
                           {t.donate?.form?.payment?.paypal_info ||
                             "You will be redirected to PayPal to complete your donation."}
-                        </p>
-                      </TabsContent>
-
-                      <TabsContent value="stripe" className="space-y-4 mt-4">
-                        <div className="flex justify-center p-4 border dark:border-gray-700 rounded-md">
-                          <Image
-                            src={isDark ? "/stripe-checkout-dark.png" : "/stripe-checkout.png"}
-                            alt="Stripe Checkout"
-                            width={isMobile ? 150 : 200}
-                            height={isMobile ? 38 : 50}
-                          />
-                        </div>
-                        <p className="text-xs md:text-sm text-center text-gray-500 dark:text-gray-400">
-                          {t.donate?.form?.payment?.stripe_info ||
-                            "You will be redirected to Stripe to complete your donation."}
                         </p>
                       </TabsContent>
 

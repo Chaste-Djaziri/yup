@@ -1,3 +1,5 @@
+// components/donation-model.tsx
+
 "use client"
 
 import type React from "react"
@@ -137,57 +139,15 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
           <Label htmlFor="payment-method">Payment Method</Label>
           <Tabs defaultValue="card" onValueChange={setPaymentMethod} className="w-full">
             <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 gap-y-2 sm:gap-y-0">
-              <TabsTrigger value="card" className="flex flex-col items-center gap-1 py-2 sm:py-3">
-                <CardIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-                <span className="text-xs">{getTranslation(language, "donate.form.payment.card", "Card")}</span>
-              </TabsTrigger>
               <TabsTrigger value="paypal" className="flex flex-col items-center gap-1 py-2 sm:py-3">
                 <PayPalIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 <span className="text-xs">{getTranslation(language, "donate.form.payment.paypal", "PayPal")}</span>
-              </TabsTrigger>
-              <TabsTrigger value="stripe" className="flex flex-col items-center gap-1 py-2 sm:py-3">
-                <StripeIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-                <span className="text-xs">{getTranslation(language, "donate.form.payment.stripe", "Stripe")}</span>
               </TabsTrigger>
               <TabsTrigger value="momo" className="flex flex-col items-center gap-1 py-2 sm:py-3">
                 <MomoIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 <span className="text-xs">{getTranslation(language, "donate.form.payment.momo", "MTN MoMo")}</span>
               </TabsTrigger>
             </TabsList>
-
-            <TabsContent value="card" className="space-y-4 mt-4">
-              <div className="space-y-2">
-                <Label htmlFor="modal-card-name" className="text-sm sm:text-base">
-                  Name on Card
-                </Label>
-                <Input id="modal-card-name" placeholder="John Doe" required className="text-sm sm:text-base" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="modal-card-number" className="text-sm sm:text-base">
-                  Card Number
-                </Label>
-                <Input
-                  id="modal-card-number"
-                  placeholder="1234 5678 9012 3456"
-                  required
-                  className="text-sm sm:text-base"
-                />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="modal-expiry" className="text-sm sm:text-base">
-                    Expiry Date
-                  </Label>
-                  <Input id="modal-expiry" placeholder="MM/YY" required className="text-sm sm:text-base" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="modal-cvc" className="text-sm sm:text-base">
-                    CVC
-                  </Label>
-                  <Input id="modal-cvc" placeholder="123" required className="text-sm sm:text-base" />
-                </div>
-              </div>
-            </TabsContent>
 
             <TabsContent value="paypal" className="space-y-4 mt-4">
               <div className="flex justify-center p-4 border rounded-md">
@@ -200,20 +160,6 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
               </div>
               <p className="text-sm text-center text-gray-500">
                 You will be redirected to PayPal to complete your donation.
-              </p>
-            </TabsContent>
-
-            <TabsContent value="stripe" className="space-y-4 mt-4">
-              <div className="flex justify-center p-4 border rounded-md">
-                <Image
-                  src={isDark ? "/stripe-checkout-dark.png" : "/stripe-checkout.png"}
-                  alt="Stripe Checkout"
-                  width={200}
-                  height={50}
-                />
-              </div>
-              <p className="text-sm text-center text-gray-500">
-                You will be redirected to Stripe to complete your donation.
               </p>
             </TabsContent>
 
