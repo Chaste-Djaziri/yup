@@ -1,32 +1,33 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useLanguage } from "@/contexts/language-context";
-import { dictionaries } from "@/dictionaries";
-import { PageHeader } from "@/components/page-header";
+import { useState, Suspense } from "react"
+import { useLanguage } from "@/contexts/language-context"
+import { dictionaries } from "@/dictionaries"
+import { PageHeader } from "@/components/page-header"
 import dynamic from "next/dynamic";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Skeleton } from "@/components/ui/skeleton"
 
 const ImageGallery = dynamic(() => import("@/components/image-gallery").then(mod => mod.ImageGallery), {
   ssr: false,
   loading: () => <GalleryLoading />,
 });
 
+// Loading fallback component
 function GalleryLoading() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {Array.from({ length: 8 }).map((_, i) => (
+      {Array.from({ length: 12 }).map((_, i) => (
         <Skeleton key={i} className="aspect-square rounded-lg" />
       ))}
     </div>
-  );
+  )
 }
 
 export default function GalleryPage() {
-  const { language } = useLanguage();
-  const t = dictionaries[language];
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { language } = useLanguage()
+  const t = dictionaries[language]
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
   return (
     <main className="flex flex-col min-h-screen">
@@ -46,30 +47,32 @@ export default function GalleryPage() {
               <TabsTrigger value="community">{t.gallery.categories.community}</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="all">
-              <ImageGallery images={t.gallery.images} onImageClick={setSelectedImage} />
-            </TabsContent>
+            <Suspense fallback={<GalleryLoading />}>
+              <TabsContent value="all">
+                <ImageGallery images={t.gallery.images} onImageClick={setSelectedImage} />
+              </TabsContent>
 
-            <TabsContent value="events">
-              <ImageGallery
-                images={t.gallery.images.filter(img => img.category === "events")}
-                onImageClick={setSelectedImage}
-              />
-            </TabsContent>
+              <TabsContent value="events">
+                <ImageGallery
+                  images={t.gallery.images.filter((img) => img.category === "events")}
+                  onImageClick={setSelectedImage}
+                />
+              </TabsContent>
 
-            <TabsContent value="programs">
-              <ImageGallery
-                images={t.gallery.images.filter(img => img.category === "programs")}
-                onImageClick={setSelectedImage}
-              />
-            </TabsContent>
+              <TabsContent value="programs">
+                <ImageGallery
+                  images={t.gallery.images.filter((img) => img.category === "programs")}
+                  onImageClick={setSelectedImage}
+                />
+              </TabsContent>
 
-            <TabsContent value="community">
-              <ImageGallery
-                images={t.gallery.images.filter(img => img.category === "community")}
-                onImageClick={setSelectedImage}
-              />
-            </TabsContent>
+              <TabsContent value="community">
+                <ImageGallery
+                  images={t.gallery.images.filter((img) => img.category === "community")}
+                  onImageClick={setSelectedImage}
+                />
+              </TabsContent>
+            </Suspense>
           </Tabs>
         </div>
       </section>
@@ -78,10 +81,8 @@ export default function GalleryPage() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                {t.gallery.share.title}
-              </h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl lg:text-base xl:text-xl">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{t.gallery.share.title}</h2>
+              <p className="max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 {t.gallery.share.description}
               </p>
             </div>
@@ -102,5 +103,5 @@ export default function GalleryPage() {
         </div>
       </section>
     </main>
-  );
+  )
 }

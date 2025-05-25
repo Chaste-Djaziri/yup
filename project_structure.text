@@ -1,27 +1,48 @@
+- .env
 - .gitignore
 - app
   - about
     - page.tsx
+  - actions
+    - admin-actions.ts
+    - contact-actions.ts
+    - email-actions.ts
+    - volunteer-actions.ts
+  - admin
+    - layout.tsx
+    - loading.tsx
+    - page.tsx
   - contact
+    - loading.tsx
     - page.tsx
   - donate
     - loading.tsx
     - page.tsx
+  - error.tsx
   - events
     - page.tsx
   - favicon.ico
   - gallery
+    - loading.tsx
     - page.tsx
   - globals.css
   - layout.tsx
+  - loading.tsx
+  - not-found.tsx
   - page.tsx
   - programs
     - page.tsx
   - volunteer
+    - loading.tsx
     - page.tsx
+  - webhook
+    - mail
+      - route.ts
 - components
   - acknowledgments.tsx
+  - admin-login.tsx
   - contact-map.tsx
+  - contact-submissions-table.tsx
   - donate-client.tsx
   - donate-section.tsx
   - donation-modal.tsx
@@ -42,6 +63,12 @@
   - program-card.tsx
   - schema-org.tsx
   - scroll-to-top.tsx
+  - skeletons
+    - card-skeleton.tsx
+    - contact-skeleton.tsx
+    - gallery-skeleton.tsx
+    - page-skeleton.tsx
+    - volunteer-skeleton.tsx
   - team-section.tsx
   - testimonial-section.tsx
   - theme-provider.tsx
@@ -99,6 +126,7 @@
     - use-mobile.tsx
     - use-toast.ts
   - upcoming-events.tsx
+  - volunteer-applications-table.tsx
   - volunteer-form.tsx
 - components.json
 - contexts
@@ -113,6 +141,9 @@
   - use-responsive.tsx
   - use-toast.ts
 - lib
+  - admin-auth.ts
+  - supabase-client.ts
+  - supabase-server.ts
   - utils.ts
 - next-env.d.ts
 - next.config.mjs
@@ -137,7 +168,49 @@
     - gallery-header.jpg
     - icon.png
     - icon1.png
+    - IMG_3467_jpg.jpeg
+    - IMG_3482_jpg.jpeg
+    - IMG_3485_jpg.jpeg
+    - IMG_3489_jpg.jpeg
+    - IMG_3496_jpg.jpeg
+    - IMG_3499_jpg.jpeg
+    - IMG_3514_jpg.jpeg
+    - IMG_3531_jpg.jpeg
+    - IMG_3543_jpg.jpeg
+    - IMG_3544.jpeg
+    - IMG_3568.jpeg
+    - IMG_3573.jpeg
+    - IMG_3576.jpeg
+    - IMG_3578.jpeg
+    - IMG_3579.jpeg
+    - IMG_3580_jpg.jpeg
+    - IMG_3581.jpeg
+    - IMG_3584.jpeg
+    - IMG_3587.jpeg
+    - IMG_3592.jpeg
+    - IMG_3642.jpeg
+    - IMG_3644.jpeg
+    - IMG_3650_jpg.jpeg
+    - IMG_3651.jpeg
+    - IMG_3651_jpg.jpeg
+    - IMG_3652.jpeg
+    - IMG_3652_jpg.jpeg
+    - IMG_3660.jpeg
+    - IMG_3662.jpeg
+    - IMG_3664.jpeg
+    - IMG_3667.jpeg
+    - IMG_3672_jpg.jpeg
+    - IMG_3680.jpeg
+    - IMG_3697_jpg.jpeg
+    - IMG_3701_jpg.jpeg
+    - IMG_3709.jpeg
+    - IMG_3733.jpeg
+    - IMG_3862.jpeg
     - impact.jpg
+    - logo
+      - finance.jpg
+      - paypal-seeklogo.png
+      - paypal-seeklogo.svg
     - logo.png
     - marcos-paulo-prado-83JZupwXfhU-unsplash.jpg
     - nico-smit-NLTbKZvl0us-unsplash.jpg
@@ -147,6 +220,13 @@
       - chaste.jfif
       - joe.jfif
     - pexels-brandaohh-3959485.jpg
+    - programs
+      - after-school.jpg
+      - community-dev.jpg
+      - digital-literacy.jpg
+      - scholarship.jpg
+      - vocational-education.jpg
+      - young-leaders.jpg
     - programs-header.jpg
     - united.jpg
   - contact-header.jpg

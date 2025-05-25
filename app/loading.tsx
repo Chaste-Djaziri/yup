@@ -1,0 +1,6 @@
+"use client"
+import { PageSkeleton } from "@/components/skeletons/page-skeleton"
+
+export default function Loading() {
+  return <PageSkeleton />
+}

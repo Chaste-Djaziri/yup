@@ -1,9 +1,12 @@
+// components/image-gallery.tsx
+
 "use client"
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import Image from "next/image"
+import { memo } from "react";
 
 type GalleryImage = {
   src: string
@@ -11,12 +14,12 @@ type GalleryImage = {
   category: string
 }
 
-export function ImageGallery({
+export const ImageGallery = memo(function ImageGallery({
   images,
   onImageClick,
 }: {
-  images: GalleryImage[]
-  onImageClick?: (src: string) => void
+  images: GalleryImage[];
+  onImageClick?: (src: string | null) => void;
 }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [visibleImages, setVisibleImages] = useState<GalleryImage[]>([])
@@ -31,7 +34,7 @@ export function ImageGallery({
   // Intersection observer for infinite scrolling
   const { ref, inView } = useInView({
     threshold: 0.1,
-    triggerOnce: false,
+    triggerOnce: true,
   })
 
   // Load more images when the last row comes into view
@@ -122,4 +125,4 @@ export function ImageGallery({
       )}
     </div>
   )
-}
+});

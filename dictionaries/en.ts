@@ -217,7 +217,7 @@ export const en = {
         {
           name: "Ngabonziza Danny",
           role: "Co-Founder",
-          bio: "Phil 4:13 🇷🇼 🫡 💯Just be who u are 💯Live young,wild and free 😶Say less and do more Followed by _.3llaaa.__, kk_eisha ",
+          bio: "A visionary driven by innovation and compassion, committed to creating lasting social impact and empowering communities. ",
           image: "/assets/IMG_3489_jpg.jpeg",
           social: {
             instagram: "https://www.instagram.com/_d.a.n.n.y_05/",
@@ -226,7 +226,7 @@ export const en = {
         {
           name: "Maniragaba Elissa",
           role: "Co-Founder",
-          bio: "Phil 4:13 🇷🇼 🫡 💯Just be who u are 💯Live young,wild and free 😶Say less and do more Followed by _.3llaaa.__, kk_eisha ",
+          bio: "A passionate changemaker devoted to building stronger futures through kindness, creativity, and collaboration.",
           image: "/assets/IMG_3489_jpg.jpeg",
           social: {
             instagram: "https://www.instagram.com/gan_way7/",
@@ -235,7 +235,7 @@ export const en = {
         {
           name: "Rukundo Joseph",
           role: "Co-Founder",
-          bio: "Phil 4:13 🇷🇼 🫡 💯Just be who u are 💯Live young,wild and free 😶Say less and do more Followed by _.3llaaa.__, kk_eisha ",
+          bio: "An enthusiastic advocate inspired by empathy, dedicated to uplifting lives and fostering meaningful connections.",
           image: "/assets/IMG_3489_jpg.jpeg",
           social: {
             instagram: "https://www.instagram.com/ruzungu_/",
@@ -1143,5 +1143,19 @@ export const en = {
       { value: "custom", label: "Custom" },
     ],
   },
+
+  submittingButton: "Submitting...",
+  successTitle: "Message Sent",
+  errorTitle: "Error",
+  notFound: {
+    title: "Page Not Found",
+    description:
+      "Sorry, we couldn't find the page you're looking for. It might have been moved, deleted, or you entered the wrong URL.",
+    homeButton: "Go Home",
+    contactButton: "Contact Us",
+    backButton: "Go Back",
+    helpfulLinksTitle: "You might be looking for:",
+    footerMessage: "If you believe this is an error, please contact our support team.",
+  }
 }
 
