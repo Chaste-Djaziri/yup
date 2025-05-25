@@ -272,42 +272,42 @@ export const en = {
         title: "Education Scholarships",
         description:
           "We provide comprehensive scholarships to talented students from disadvantaged backgrounds, covering tuition, books, uniforms, and mentorship.",
-        image: "/program-scholarships.jpg",
+        image: "/assets/programs/scholarship.jpg",
         slug: "education-scholarships",
       },
       {
         title: "After-School Programs",
         description:
           "Our after-school programs offer tutoring, arts, sports, and leadership development to keep youth engaged and learning beyond the classroom.",
-        image: "/program-afterschool.jpg",
+        image: "/assets/programs/after-school.jpg",
         slug: "after-school-programs",
       },
       {
         title: "Digital Literacy",
         description:
           "We equip young people with essential technology skills through computer labs, coding classes, and digital entrepreneurship training.",
-        image: "/program-digital.jpg",
+        image: "/assets/programs/digital-literacy.jpg",
         slug: "digital-literacy",
       },
       {
         title: "Community Development",
         description:
           "We work with local communities to improve infrastructure, water access, and create sustainable development projects led by community members.",
-        image: "/program-community.jpg",
+        image: "/assets/programs/community-dev.jpg",
         slug: "community-development",
       },
       {
         title: "Youth Leadership",
         description:
           "Our leadership program identifies and nurtures young leaders through workshops, mentorship, and practical community service projects.",
-        image: "/program-leadership.jpg",
+        image: "/assets/programs/young-leaders.jpg",
         slug: "youth-leadership",
       },
       {
         title: "Vocational Training",
         description:
           "We provide practical skills training in various trades, helping youth develop marketable skills for employment or entrepreneurship.",
-        image: "/program-vocational.jpg",
+        image: "/assets/programs/vocational-education.jpg",
         slug: "vocational-training",
       },
     ],
