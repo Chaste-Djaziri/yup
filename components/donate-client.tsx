@@ -233,7 +233,7 @@ export function DonateClient() {
                     <Tabs defaultValue="card" onValueChange={setPaymentMethod} className="w-full">
                       <TabsList className={`grid w-full ${isMobile ? "grid-cols-2 gap-y-2" : "grid-cols-4"}`}>
                         <TabsTrigger value="paypal" className="flex flex-col items-center gap-1 py-2 md:py-3">
-                          <PayPalIcon className="h-4 w-4 md:h-5 md:w-5" />
+                          <Image src={"/assets/logo/paypal-seeklogo.svg"} alt="" width={"20"} height={30} />
                           <span className="text-xs md:text-sm">{t.donate?.form?.payment?.paypal || "PayPal"}</span>
                         </TabsTrigger>
                         <TabsTrigger value="momo" className="flex flex-col items-center gap-1 py-2 md:py-3">
@@ -262,12 +262,7 @@ export function DonateClient() {
                           <Label htmlFor="phone-number" className="text-sm md:text-base">
                             {t.donate?.form?.payment?.phone || "MTN Mobile Money Number"}
                           </Label>
-                          <Input
-                            id="phone-number"
-                            placeholder="+250 78 123 4567"
-                            required
-                            className="text-sm md:text-base"
-                          />
+                          <p>Pay to this Number: +250 788 749 709</p>
                         </div>
                         <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">
                           {t.donate?.form?.payment?.momo_info ||
@@ -275,26 +270,6 @@ export function DonateClient() {
                         </p>
                       </TabsContent>
                     </Tabs>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm md:text-base">
-                      {t.donate?.form?.contact?.email || "Email Address"}
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="john@example.com"
-                      required
-                      className="text-sm md:text-base"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-sm md:text-base">
-                      {t.donate?.form?.contact?.name || "Full Name"}
-                    </Label>
-                    <Input id="name" placeholder="John Doe" required className="text-sm md:text-base" />
                   </div>
 
                   <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="mt-6">
