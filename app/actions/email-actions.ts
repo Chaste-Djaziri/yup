@@ -12,6 +12,8 @@ const resend = new Resend("re_2gZ9zAcP_K84t1o17rCjxjzLHTYQBAy5u")
 const supabaseUrl = process.env.SUPABASE_URL!
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
 const supabase = createClient(supabaseUrl, supabaseKey)
+const senderEmail = "Youth Uplift Initiative <noreply@yupinitiative.com>"
+
 
 type EmailParams = {
   applicationId: string // add applicationId for tracking
@@ -113,7 +115,7 @@ export async function sendVolunteerEmail(params: EmailParams) {
 
     // 5. Send the email using Resend
     const { data, error } = await resend.emails.send({
-      from: "Youth Uplift Initiative <noreply@youthupliftinitiative.com>",
+      from: senderEmail,
       to: [to],
       subject: subject,
       html: htmlContent,
