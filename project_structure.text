@@ -12,6 +12,10 @@
     - layout.tsx
     - loading.tsx
     - page.tsx
+  - cancel
+    - page.tsx
+  - completed
+    - page.tsx
   - contact
     - loading.tsx
     - page.tsx
@@ -145,6 +149,7 @@
   - supabase-client.ts
   - supabase-server.ts
   - utils.ts
+- netlify.toml
 - next-env.d.ts
 - next.config.mjs
 - package-lock.json

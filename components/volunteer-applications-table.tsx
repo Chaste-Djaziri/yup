@@ -98,13 +98,14 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
     try {
       setSendingEmail(true)
       const result = await sendVolunteerEmail({
+        applicationId: application.id,       // <-- here
         to: application.email,
         firstName: application.first_name,
         lastName: application.last_name,
         status,
         opportunity: application.opportunity || "Volunteer position",
       })
-
+    
       if (result.success) {
         toast({
           title: "Email sent",
