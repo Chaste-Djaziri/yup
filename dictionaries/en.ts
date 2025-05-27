@@ -227,7 +227,7 @@ export const en = {
           name: "Maniragaba Elissa",
           role: "Co-Founder",
           bio: "A passionate changemaker devoted to building stronger futures through kindness, creativity, and collaboration.",
-          image: "/assets/IMG_3489_jpg.jpeg",
+          image: "/assets/people/boston.jfif",
           social: {
             instagram: "https://www.instagram.com/gan_way7/",
           },
@@ -236,7 +236,7 @@ export const en = {
           name: "Rukundo Joseph",
           role: "Co-Founder",
           bio: "An enthusiastic advocate inspired by empathy, dedicated to uplifting lives and fostering meaningful connections.",
-          image: "/assets/IMG_3489_jpg.jpeg",
+          image: "/assets/people/joe.jfif",
           social: {
             instagram: "https://www.instagram.com/ruzungu_/",
           },
