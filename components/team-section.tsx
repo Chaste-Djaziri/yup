@@ -55,10 +55,6 @@ export function TeamSection() {
                 <p className="text-gray-500 text-sm mb-2">{member.role}</p>
                 <p className="text-gray-500 mb-4">{member.bio}</p>
                 <div className="flex space-x-3">
-                  <a href={member.social.facebook} className="text-gray-400 hover:text-primary">
-                    <Facebook className="h-5 w-5" />
-                    <span className="sr-only">Facebook</span>
-                  </a>
                   <a href={member.social.instagram} className="text-gray-400 hover:text-primary">
                     <Instagram className="h-5 w-5" />
                     <span className="sr-only">Instagram</span>
