@@ -1,6 +1,6 @@
 export const rw = {
   siteName: "Umushinga wo Guteza Imbere Urubyiruko",
-  siteNameShort: "UGI",
+  siteNameShort: "YUP",
 
   nav: {
     home: "Ahabanza",

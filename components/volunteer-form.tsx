@@ -33,11 +33,16 @@ export function VolunteerForm() {
   const t = dictionaries[language]
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [termsAccepted, setTermsAccepted] = useState(false)
+  const [selectedOpportunityTitle, setSelectedOpportunityTitle] = useState<string | null>(null)
 
   const initialState = { success: false, message: "" }
   const [formState, formAction, isPending] = useActionState(submitVolunteerApplication, initialState)
 
-  // Handle form submission result
+  // Find selected opportunity details
+  const selectedOpportunity = t.volunteer.opportunities.list.find(
+    (opp) => opp.title === selectedOpportunityTitle
+  )
+
   useEffect(() => {
     if (formState && formState.success) {
       setIsSubmitted(true)
@@ -83,9 +88,26 @@ export function VolunteerForm() {
         </Label>
         <Input id="phone" name="phone" type="tel" className="text-sm sm:text-base h-10 sm:h-11" />
       </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="country">{t.volunteer.form.country}</Label>
+        <Select name="country" required>
+          <SelectTrigger id="country">
+            <SelectValue placeholder={t.volunteer.form.selectCountry} />
+          </SelectTrigger>
+          <SelectContent>
+            {t.volunteer.countries.map((country, index) => (
+              <SelectItem key={index} value={country}>
+                {country}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
       <div className="space-y-2">
         <Label htmlFor="opportunity">{t.volunteer.form.opportunity}</Label>
-        <Select name="opportunity">
+        <Select name="opportunity" onValueChange={(value) => setSelectedOpportunityTitle(value)}>
           <SelectTrigger id="opportunity">
             <SelectValue placeholder={t.volunteer.form.selectOpportunity} />
           </SelectTrigger>
@@ -97,7 +119,15 @@ export function VolunteerForm() {
             ))}
           </SelectContent>
         </Select>
+        {selectedOpportunity && (
+          <div className="bg-muted/40 border border-border text-muted-foreground rounded-md p-4 mt-2 text-sm space-y-2">
+            <p><strong>Description:</strong> {selectedOpportunity.description}</p>
+            <p><strong>Commitment:</strong> {selectedOpportunity.commitment}</p>
+            <p><strong>Skills Needed:</strong> {selectedOpportunity.skills.join(", ")}</p>
+          </div>
+        )}
       </div>
+
       <div className="space-y-2">
         <Label htmlFor="availability">{t.volunteer.form.availability}</Label>
         <Select name="availability">
@@ -112,14 +142,17 @@ export function VolunteerForm() {
           </SelectContent>
         </Select>
       </div>
+
       <div className="space-y-2">
         <Label htmlFor="skills">{t.volunteer.form.skills}</Label>
         <Textarea id="skills" name="skills" placeholder={t.volunteer.form.skillsPlaceholder} />
       </div>
+
       <div className="space-y-2">
         <Label htmlFor="motivation">{t.volunteer.form.motivation}</Label>
         <Textarea id="motivation" name="motivation" placeholder={t.volunteer.form.motivationPlaceholder} required />
       </div>
+
       <div className="flex items-start space-x-2">
         <Checkbox
           id="terms"
@@ -138,8 +171,8 @@ export function VolunteerForm() {
         <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-600 text-sm">{formState.message}</div>
       )}
 
-      <SubmitButton 
-        text={t.volunteer.form.submit} 
+      <SubmitButton
+        text={t.volunteer.form.submit}
         loadingText={isPending ? t.volunteer.form.submitting : t.volunteer.form.submit}
       />
     </form>
