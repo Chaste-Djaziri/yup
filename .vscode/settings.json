@@ -1,5 +1,12 @@
 {
     "githubPullRequests.ignoredPullRequestBranches": [
         "Master"
+    ],
+    "deno.enable": false,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.disableAutomaticTypeAcquisition": true,
+    "typescript.preferences.autoImportFileExcludePatterns": [
+        "supabase/functions/*"
     ]
 }

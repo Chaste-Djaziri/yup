@@ -1,6 +1,6 @@
 export const fr = {
   siteName: "Initiative de Promotion de la Jeunesse",
-  siteNameShort: "IPJ",
+  siteNameShort: "YUP",
 
   nav: {
     home: "Accueil",

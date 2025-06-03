@@ -16,6 +16,7 @@ type VolunteerApplication = {
   last_name: string
   email: string
   phone: string
+  country: string // ✅ Add this line
   opportunity: string
   availability: string
   skills: string
@@ -287,6 +288,9 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
                   <p>
                     <span className="font-medium">Phone:</span> {selectedApplication.phone || "Not provided"}
                   </p>
+                  <p>
+                    <span className="font-medium">Country:</span> {selectedApplication.country || "Not provided"}
+                  </p>
                 </div>
               </div>
               <div className="bg-gray-50 p-4 rounded-lg">
@@ -310,6 +314,7 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
                 {selectedApplication.motivation}
               </div>
             </div>
+            <div className="text-xs text-gray-500 truncate">From: {selectedApplication.country || "Not specified"}</div>
 
             <div className="border-t pt-4">
               <div className="flex items-center justify-between">

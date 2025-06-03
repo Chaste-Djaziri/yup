@@ -486,57 +486,108 @@ export const en = {
     opportunities: {
       title: "Volunteer Opportunities",
       description: "We offer a variety of volunteer roles to match different skills, interests, and time commitments.",
-      skills: "Required Skills",
-      applyButton: "Apply Now",
+      skills: "Preferred Skills",
+      applyButton: "Join Us",
       list: [
         {
-          title: "Education Mentor",
+          title: "Youth Mentor",
           description:
-            "Work directly with students to provide academic support, career guidance, and personal development mentoring.",
-          commitment: "4-6 hours weekly, 3+ months",
-          skills: ["Teaching", "Patience", "Communication"],
-          location: "Kigali, Rwanda",
+            "Guide young people in making smart academic and life choices through weekly mentorship sessions.",
+          commitment: "3–5 hours weekly, 3+ months",
+          skills: ["Empathy", "Listening", "Coaching"],
+          location: "Kigali, Rwanda"
         },
         {
-          title: "Program Assistant",
+          title: "Digital Literacy Trainer",
           description:
-            "Support our program coordinators in implementing activities, tracking outcomes, and engaging with participants.",
-          commitment: "10-15 hours weekly, 6+ months",
-          skills: ["Organization", "Adaptability", "Teamwork"],
-          location: "Kigali, Rwanda",
+            "Help community members, especially youth, gain basic computer and internet skills.",
+          commitment: "5–8 hours weekly, 2+ months",
+          skills: ["Basic ICT", "Patience", "Clear Communication"],
+          location: "Kigali, Rwanda"
         },
         {
-          title: "Communications Volunteer",
-          description: "Help tell our story through social media, photography, videography, and content creation.",
-          commitment: "5-10 hours weekly, flexible",
-          skills: ["Writing", "Social Media", "Photography"],
-          location: "Remote or Kigali",
-        },
-        {
-          title: "IT & Technology Support",
+          title: "Health & Hygiene Educator",
           description:
-            "Assist with maintaining our computer labs, teaching digital literacy, and supporting our technology infrastructure.",
-          commitment: "8-12 hours weekly, 3+ months",
-          skills: ["Technical", "Problem-solving", "Teaching"],
-          location: "Kigali, Rwanda",
+            "Conduct health talks and awareness sessions on hygiene, nutrition, and wellbeing.",
+          commitment: "2–4 hours weekly, campaign-based",
+          skills: ["Public Speaking", "Health Knowledge", "Community Engagement"],
+          location: "Kigali, Rwanda"
         },
         {
-          title: "Event Volunteer",
-          description: "Help organize and run community events, workshops, and fundraisers.",
+          title: "Community Outreach Volunteer",
+          description:
+            "Spread awareness about our programmes, assist with registrations, and engage with local leaders.",
+          commitment: "5–10 hours per week, flexible",
+          skills: ["Communication", "Local Language Skills", "Teamwork"],
+          location: "Kigali, Rwanda"
+        },
+        {
+          title: "Creative Arts Facilitator",
+          description:
+            "Run workshops in music, painting, dance, or drama for children and teens as a form of expression.",
+          commitment: "3–6 hours weekly, 2+ months",
+          skills: ["Artistic Skill", "Creativity", "Working with Youth"],
+          location: "Kigali, Rwanda"
+        },
+        {
+          title: "Media & Content Assistant",
+          description:
+            "Capture events, write stories, manage social media, or design graphics and posters.",
+          commitment: "4–6 hours weekly, flexible",
+          skills: ["Content Creation", "Photography", "Graphic Design"],
+          location: "Remote or Kigali"
+        },
+        {
+          title: "Fundraising Support Volunteer",
+          description:
+            "Assist in planning, promoting, and running fundraising activities and campaigns.",
+          commitment: "Flexible, event-based",
+          skills: ["Event Planning", "Marketing", "Communication"],
+          location: "Remote or Kigali"
+        },
+        {
+          title: "Youth Club Facilitator",
+          description:
+            "Organise and lead discussions on leadership, entrepreneurship, and life skills for teens.",
+          commitment: "3–5 hours weekly, school terms",
+          skills: ["Leadership", "Facilitation", "Inspiration"],
+          location: "Kigali, Rwanda"
+        },
+        {
+          title: "Green Volunteer",
+          description:
+            "Participate in environmental projects like cleanups, tree planting, and sustainability campaigns.",
           commitment: "As needed for events",
-          skills: ["Organization", "Energy", "People Skills"],
-          location: "Kigali, Rwanda",
+          skills: ["Teamwork", "Eco-awareness", "Initiative"],
+          location: "Kigali, Rwanda"
         },
         {
-          title: "Professional Skills Volunteer",
+          title: "Translation & Interpretation Volunteer",
           description:
-            "Contribute specialized skills in areas like grant writing, accounting, legal services, or strategic planning.",
+            "Help translate documents and provide interpretation for community events or international communications.",
           commitment: "Flexible, project-based",
-          skills: ["Professional Expertise", "Adaptability"],
-          location: "Remote or Kigali",
+          skills: ["Kinyarwanda-English Translation", "Cultural Sensitivity", "Accuracy"],
+          location: "Remote or Kigali"
         },
-      ],
+        {
+          title: "Logistics & Supplies Coordinator",
+          description:
+            "Assist with managing and distributing materials during programmes and community events.",
+          commitment: "As needed, especially before events",
+          skills: ["Organisation", "Punctuality", "Reliability"],
+          location: "Kigali, Rwanda"
+        },
+        {
+          title: "Library & Literacy Assistant",
+          description:
+            "Support young readers by managing book donations, reading sessions, and promoting literacy.",
+          commitment: "3–5 hours weekly, 3+ months",
+          skills: ["Reading", "Teaching", "Library Skills"],
+          location: "Kigali, Rwanda"
+        }
+      ]
     },
+
     form: {
       title: "Volunteer Application",
       description:
@@ -547,6 +598,8 @@ export const en = {
       phone: "Phone Number",
       opportunity: "Preferred Opportunity",
       selectOpportunity: "Select an opportunity",
+      country: "Residence Country",
+      selectCountry: "Select your country",
       availability: "Availability",
       selectAvailability: "Select your availability",
       availabilityOptions: {
@@ -569,6 +622,33 @@ export const en = {
           "Thank you for your interest in volunteering with us. We'll review your application and contact you within 5-7 business days.",
       },
     },
+    countries: [
+      "Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina",
+      "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus",
+      "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia, Plurinational State of", "Bonaire, Sint Eustatius and Saba", "Bosnia and Herzegovina", "Botswana", "Bouvet Island",
+      "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada",
+      "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo",
+      "Congo, The Democratic Republic of the", "Cook Islands", "Costa Rica", "Croatia", "Cuba", "Curaçao", "Cyprus", "Czechia", "Côte d'Ivoire", "Denmark",
+      "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini",
+      "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon",
+      "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam",
+      "Guatemala", "Guernsey", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard Island and McDonald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong",
+      "Hungary", "Iceland", "India", "Indonesia", "Iran, Islamic Republic of", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy",
+      "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kuwait",
+      "Kyrgyzstan", "Lao People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
+      "Macao", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania",
+      "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco",
+      "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Caledonia", "New Zealand", "Nicaragua", "Niger",
+      "Nigeria", "Niue", "Norfolk Island", "North Macedonia", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Palestine, State of",
+      "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar",
+      "Romania", "Russian Federation", "Rwanda", "Réunion", "Saint Barthélemy", "Saint Helena, Ascension and Tristan da Cunha", "Saint Kitts and Nevis", "Saint Lucia", "Saint Martin (French part)", "Saint Pierre and Miquelon",
+      "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore",
+      "Sint Maarten (Dutch part)", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "South Sudan", "Spain", "Sri Lanka",
+      "Sudan", "Suriname", "Svalbard and Jan Mayen", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan, Province of China", "Tajikistan", "Tanzania, United Republic of", "Thailand",
+      "Timor-Leste", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu",
+      "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela, Bolivarian Republic of",
+      "Viet Nam", "Virgin Islands, British", "Virgin Islands, U.S.", "Wallis and Futuna", "Western Sahara", "Yemen", "Zambia", "Zimbabwe", "Åland Islands"
+    ],
     testimonials: {
       title: "Volunteer Testimonials",
       list: [
