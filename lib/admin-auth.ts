@@ -1,13 +1,12 @@
-//lib/admin-auth.ts
-
-
 "use client"
+
+import { cookies } from "next/headers"
 
 // This is a simple client-side authentication mechanism
 // For production, you would want a more secure solution
 
 const AUTH_KEY = "yup_admin_auth"
-const SECRET_PASSWORD = "YupInitiative@2O25" // Change this to your desired password
+const SECRET_PASSWORD = "YupAdmin2024!" // Change this to your desired password
 
 export function authenticateAdmin(password: string): boolean {
   if (password === SECRET_PASSWORD) {
