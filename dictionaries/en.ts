@@ -11,6 +11,7 @@ export const en = {
     gallery: "Gallery",
     contact: "Contact",
     donate: "Donate",
+    admin: "Admin",
   },
 
   theme: {

@@ -1,5 +1,6 @@
 "use client"
 
+import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ArrowRight, CheckCircle } from "lucide-react"
@@ -9,6 +10,12 @@ import { dictionaries } from "@/dictionaries"
 import { PageHeader } from "@/components/page-header"
 import { VolunteerForm } from "@/components/volunteer-form"
 import { OpportunityCard } from "@/components/opportunity-card"
+
+export const metadata: Metadata = {
+  title: "Volunteer With Us | Youth Uplift Initiative",
+  description:
+    "Join our team of dedicated volunteers and make a meaningful impact in the lives of youth in Rwanda.",
+}
 
 export default function VolunteerPage() {
   const { language } = useLanguage()

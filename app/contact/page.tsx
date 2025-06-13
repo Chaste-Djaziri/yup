@@ -1,5 +1,6 @@
 "use client"
 
+import type { Metadata } from "next"
 import { useState, useEffect } from "react"
 import { useActionState } from "react"
 import { useFormStatus } from "react-dom"
@@ -15,6 +16,12 @@ import { PageHeader } from "@/components/page-header"
 import { ContactMap } from "@/components/contact-map"
 import { submitContactForm } from "../actions/contact-actions"
 import { toast } from "@/components/ui/use-toast"
+
+export const metadata: Metadata = {
+  title: "Contact Us | Youth Uplift Initiative",
+  description:
+    "Have questions or want to get involved? Reach out to us and we'll get back to you as soon as possible.",
+}
 
 // Submit button with loading state
 function SubmitButton({ text, loadingText }: { text: string; loadingText: string }) {
