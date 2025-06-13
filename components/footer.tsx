@@ -103,6 +103,11 @@ export function Footer() {
                   {t.nav.donate}
                 </Link>
               </li>
+              <li>
+                <Link href="/admin" className="text-gray-400 hover:text-white">
+                  {t.nav.admin}
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="space-y-4">
