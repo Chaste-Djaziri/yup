@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import {
   Dialog,
   DialogContent,
@@ -16,9 +18,10 @@ import {
   getVolunteerApplications,
   updateVolunteerStatus,
   deleteVolunteerApplication,
+  updateVolunteerFields,
 } from "@/app/actions/admin-actions"
 import { formatDistanceToNow } from "date-fns"
-import { ChevronLeft, RefreshCw, Inbox, Trash2, Archive, Mail, Send, AlertCircle } from "lucide-react"
+import { ChevronLeft, RefreshCw, Inbox, Trash2, Archive, Mail, Send, AlertCircle, Edit, Save } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { sendVolunteerEmail } from "@/app/actions/email-actions"
 import { toast } from "@/components/ui/use-toast"
@@ -37,6 +40,7 @@ type VolunteerApplication = {
   motivation: string
   terms: boolean
   created_at: string
+  updated_at?: string
   status: string
 }
 
@@ -50,6 +54,14 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [processingAction, setProcessingAction] = useState(false)
   const [requestInfoDialogOpen, setRequestInfoDialogOpen] = useState(false)
+  const [updateFieldsDialogOpen, setUpdateFieldsDialogOpen] = useState(false)
+  const [updatedFields, setUpdatedFields] = useState<{
+    country?: string
+    phone?: string
+    skills?: string
+    opportunity?: string
+    availability?: string
+  }>({})
 
   const fetchApplications = async () => {
     setLoading(true)
@@ -164,6 +176,70 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
     } finally {
       setProcessingAction(false)
     }
+  }
+
+  const handleUpdateFields = async () => {
+    if (!selectedApplication) return
+
+    setProcessingAction(true)
+    console.log("Updating fields for application with ID:", selectedApplication.id, "Fields:", updatedFields)
+
+    try {
+      const result = await updateVolunteerFields(selectedApplication.id, updatedFields)
+
+      if (result.success) {
+        // Update the local state
+        const updatedApplications = applications.map((application) =>
+          application.id === selectedApplication.id
+            ? { ...application, ...updatedFields, updated_at: new Date().toISOString() }
+            : application,
+        )
+        setApplications(updatedApplications)
+
+        // Update selected application
+        setSelectedApplication({ ...selectedApplication, ...updatedFields, updated_at: new Date().toISOString() })
+
+        setUpdateFieldsDialogOpen(false)
+        setUpdatedFields({}) // Reset the form
+
+        toast({
+          title: "Fields updated",
+          description: "The volunteer application has been updated successfully",
+        })
+      } else {
+        console.error("Update operation failed:", result.error)
+        setError(result.error || "Failed to update fields")
+        toast({
+          title: "Error",
+          description: result.error || "Failed to update fields",
+          variant: "destructive",
+        })
+      }
+    } catch (error) {
+      console.error("Exception during update operation:", error)
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred while updating the application",
+        variant: "destructive",
+      })
+    } finally {
+      setProcessingAction(false)
+    }
+  }
+
+  const openUpdateFieldsDialog = () => {
+    if (!selectedApplication) return
+
+    // Initialize the form with current values
+    setUpdatedFields({
+      country: selectedApplication.country || "",
+      phone: selectedApplication.phone || "",
+      skills: selectedApplication.skills || "",
+      opportunity: selectedApplication.opportunity || "",
+      availability: selectedApplication.availability || "",
+    })
+
+    setUpdateFieldsDialogOpen(true)
   }
 
   const sendEmailNotification = async (application: VolunteerApplication, status: string) => {
@@ -388,6 +464,12 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
                 <span>Send Email</span>
               </Button>
 
+              {/* Update Fields Button */}
+              <Button variant="outline" size="sm" onClick={openUpdateFieldsDialog} className="flex items-center gap-1">
+                <Edit size={16} className="mr-1" />
+                <span>Update Fields</span>
+              </Button>
+
               {hasMissingInformation(selectedApplication) && (
                 <Dialog open={requestInfoDialogOpen} onOpenChange={setRequestInfoDialogOpen}>
                   <DialogTrigger asChild>
@@ -464,7 +546,14 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
                     <div className="text-sm text-gray-500">{selectedApplication.email}</div>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500">{new Date(selectedApplication.created_at).toLocaleString()}</div>
+                <div className="text-sm text-gray-500">
+                  <div>Created: {new Date(selectedApplication.created_at).toLocaleDateString()}</div>
+                  {selectedApplication.updated_at && (
+                    <div className="text-green-600">
+                      Updated: {new Date(selectedApplication.updated_at).toLocaleDateString()}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -592,6 +681,11 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
                       Send Status Notification Email
                     </Button>
 
+                    <Button variant="outline" className="w-full justify-start" onClick={openUpdateFieldsDialog}>
+                      <Edit size={16} className="mr-2" />
+                      Update Application Fields
+                    </Button>
+
                     {hasMissingInformation(selectedApplication) && (
                       <Button
                         variant="outline"
@@ -626,6 +720,114 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
           </div>
         </div>
       )}
+
+      {/* Update Fields Dialog */}
+      <Dialog open={updateFieldsDialogOpen} onOpenChange={setUpdateFieldsDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Update Application Fields</DialogTitle>
+            <DialogDescription>
+              Update the missing or incorrect information for this volunteer application.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <label htmlFor="country" className="text-sm font-medium">
+                Country
+              </label>
+              <Input
+                id="country"
+                value={updatedFields.country || ""}
+                onChange={(e) => setUpdatedFields({ ...updatedFields, country: e.target.value })}
+                placeholder="Country"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="phone" className="text-sm font-medium">
+                Phone Number
+              </label>
+              <Input
+                id="phone"
+                value={updatedFields.phone || ""}
+                onChange={(e) => setUpdatedFields({ ...updatedFields, phone: e.target.value })}
+                placeholder="Phone Number"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="opportunity" className="text-sm font-medium">
+                Opportunity
+              </label>
+              <Select
+                value={updatedFields.opportunity || ""}
+                onValueChange={(value) => setUpdatedFields({ ...updatedFields, opportunity: value })}
+              >
+                <SelectTrigger id="opportunity">
+                  <SelectValue placeholder="Select opportunity" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Teaching Assistant">Teaching Assistant</SelectItem>
+                  <SelectItem value="Mentor">Mentor</SelectItem>
+                  <SelectItem value="Event Coordinator">Event Coordinator</SelectItem>
+                  <SelectItem value="Social Media Manager">Social Media Manager</SelectItem>
+                  <SelectItem value="Administrative Support">Administrative Support</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="availability" className="text-sm font-medium">
+                Availability
+              </label>
+              <Select
+                value={updatedFields.availability || ""}
+                onValueChange={(value) => setUpdatedFields({ ...updatedFields, availability: value })}
+              >
+                <SelectTrigger id="availability">
+                  <SelectValue placeholder="Select availability" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="weekdays">Weekdays</SelectItem>
+                  <SelectItem value="evenings">Evenings</SelectItem>
+                  <SelectItem value="weekends">Weekends</SelectItem>
+                  <SelectItem value="flexible">Flexible</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="skills" className="text-sm font-medium">
+                Skills & Experience
+              </label>
+              <Textarea
+                id="skills"
+                value={updatedFields.skills || ""}
+                onChange={(e) => setUpdatedFields({ ...updatedFields, skills: e.target.value })}
+                placeholder="Skills & Experience"
+                rows={4}
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setUpdateFieldsDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleUpdateFields} disabled={processingAction}>
+              {processingAction ? (
+                <span>Saving...</span>
+              ) : (
+                <>
+                  <Save size={16} className="mr-2" />
+                  Save Changes
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
