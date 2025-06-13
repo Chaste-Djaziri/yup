@@ -14,7 +14,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    // Optimize images in production for faster loading
+    unoptimized: process.env.NODE_ENV === "development",
   },
   experimental: {
     webpackBuildWorker: true,

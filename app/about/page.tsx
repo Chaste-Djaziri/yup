@@ -1,5 +1,6 @@
 "use client";
 
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -10,6 +11,12 @@ import { dictionaries } from "@/dictionaries";
 import { TeamSection } from "@/components/team-section";
 import { HistoryTimeline } from "@/components/history-timeline";
 import { PageHeader } from "@/components/page-header";
+
+export const metadata: Metadata = {
+  title: "About Us | Youth Uplift Initiative",
+  description:
+    "Learn about our organization, our mission, and the people behind Youth Uplift Initiative.",
+};
 
 export default function AboutPage() {
   const { language } = useLanguage();
