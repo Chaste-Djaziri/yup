@@ -127,6 +127,49 @@ export async function updateVolunteerStatus(id: string, status: string) {
   }
 }
 
+// New function to update volunteer application fields
+export async function updateVolunteerFields(id: string, fields: {
+  country?: string;
+  phone?: string;
+  skills?: string;
+  opportunity?: string;
+  availability?: string;
+  [key: string]: any;
+}) {
+  try {
+    console.log("Updating volunteer application fields for ID:", id, "Fields:", fields)
+    
+    // Filter out undefined values
+    const filteredFields = Object.fromEntries(
+      Object.entries(fields).filter(([_, value]) => value !== undefined)
+    )
+    
+    if (Object.keys(filteredFields).length === 0) {
+      return { success: false, error: "No fields to update" }
+    }
+    
+    // Add updated_at timestamp
+    filteredFields.updated_at = new Date().toISOString()
+    
+    const { error } = await supabase
+      .from("volunteer_applications")
+      .update(filteredFields)
+      .eq("id", id)
+
+    if (error) {
+      console.error("Error updating volunteer fields:", error)
+      return { success: false, error: error.message }
+    }
+
+    console.log("Successfully updated volunteer application fields for ID:", id)
+    revalidatePath("/admin-dashboard-x7z9q5")
+    return { success: true, error: null }
+  } catch (error) {
+    console.error("Error in updateVolunteerFields:", error)
+    return { success: false, error: "An unexpected error occurred" }
+  }
+}
+
 export async function deleteVolunteerApplication(id: string) {
   try {
     console.log("Attempting to delete volunteer application with ID:", id)
