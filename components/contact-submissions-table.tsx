@@ -1,13 +1,16 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { getContactSubmissions, updateContactStatus } from "@/app/actions/admin-actions"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { getContactSubmissions, updateContactStatus, deleteContactSubmission, blockEmail } from "@/app/actions/admin-actions"
 import { formatDistanceToNow } from "date-fns"
-import { ChevronLeft, ChevronRight, Inbox, Star, Trash2, Archive, Mail, AlertCircle, RefreshCw } from 'lucide-react'
+import { ChevronLeft, Inbox, Trash2, Archive, Mail, RefreshCw, ShieldAlert } from 'lucide-react'
 import { Badge } from "@/components/ui/badge"
+import { toast } from "@/components/ui/use-toast"
 
 type ContactSubmission = {
   id: string
@@ -26,6 +29,10 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [selectedSubmission, setSelectedSubmission] = useState<ContactSubmission | null>(null)
+  const [blockDialogOpen, setBlockDialogOpen] = useState(false)
+  const [blockReason, setBlockReason] = useState("")
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [processingAction, setProcessingAction] = useState(false)
 
   const fetchSubmissions = async () => {
     setLoading(true)
@@ -52,7 +59,7 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
           submission.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           submission.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
           submission.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          submission.message.toLowerCase().includes(searchQuery.toLowerCase())
+          submission.message.toLowerCase().includes(searchQuery.toLowerCase()),
       )
       setFilteredSubmissions(filtered)
     } else {
@@ -65,16 +72,80 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
     if (result.success) {
       // Update the local state
       const updatedSubmissions = submissions.map((submission) =>
-        submission.id === id ? { ...submission, status } : submission
+        submission.id === id ? { ...submission, status } : submission,
       )
       setSubmissions(updatedSubmissions)
-      
+
       // Update selected submission if it's the one being modified
       if (selectedSubmission && selectedSubmission.id === id) {
         setSelectedSubmission({ ...selectedSubmission, status })
       }
+
+      toast({
+        title: "Status updated",
+        description: `Submission status changed to ${status}`,
+      })
     } else {
       setError(result.error || "Failed to update status")
+      toast({
+        title: "Error",
+        description: result.error || "Failed to update status",
+        variant: "destructive",
+      })
+    }
+  }
+
+  const handleDeleteSubmission = async () => {
+    if (!selectedSubmission) return
+
+    setProcessingAction(true)
+    const result = await deleteContactSubmission(selectedSubmission.id)
+    setProcessingAction(false)
+    
+    if (result.success) {
+      // Remove from local state
+      const updatedSubmissions = submissions.filter((submission) => submission.id !== selectedSubmission.id)
+      setSubmissions(updatedSubmissions)
+      setFilteredSubmissions(filteredSubmissions.filter((submission) => submission.id !== selectedSubmission.id))
+      setSelectedSubmission(null)
+      setDeleteDialogOpen(false)
+      
+      toast({
+        title: "Submission deleted",
+        description: "The contact submission has been permanently deleted",
+      })
+    } else {
+      setError(result.error || "Failed to delete submission")
+      toast({
+        title: "Error",
+        description: result.error || "Failed to delete submission",
+        variant: "destructive",
+      })
+    }
+  }
+
+  const handleBlockEmail = async () => {
+    if (!selectedSubmission) return
+
+    setProcessingAction(true)
+    const result = await blockEmail(selectedSubmission.email, blockReason)
+    setProcessingAction(false)
+    
+    if (result.success) {
+      setBlockDialogOpen(false)
+      setBlockReason("")
+      
+      toast({
+        title: "Email blocked",
+        description: `${selectedSubmission.email} has been added to the blocked list`,
+      })
+    } else {
+      setError(result.error || "Failed to block email")
+      toast({
+        title: "Error",
+        description: result.error || "Failed to block email",
+        variant: "destructive",
+      })
     }
   }
 
@@ -100,13 +171,29 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "new":
-        return <Badge variant="default" className="bg-blue-500">New</Badge>
+        return (
+          <Badge variant="default" className="bg-blue-500">
+            New
+          </Badge>
+        )
       case "in-progress":
-        return <Badge variant="default" className="bg-yellow-500">In Progress</Badge>
+        return (
+          <Badge variant="default" className="bg-yellow-500">
+            In Progress
+          </Badge>
+        )
       case "completed":
-        return <Badge variant="default" className="bg-green-500">Completed</Badge>
+        return (
+          <Badge variant="default" className="bg-green-500">
+            Completed
+          </Badge>
+        )
       case "archived":
-        return <Badge variant="default" className="bg-gray-500">Archived</Badge>
+        return (
+          <Badge variant="default" className="bg-gray-500">
+            Archived
+          </Badge>
+        )
       default:
         return null
     }
@@ -115,12 +202,14 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
   return (
     <div className="flex flex-col md:flex-row h-[calc(100vh-220px)]">
       {/* List View */}
-      <div className={`w-full ${selectedSubmission ? 'hidden md:block md:w-1/3' : 'w-full'} border-r overflow-auto`}>
+      <div className={`w-full ${selectedSubmission ? "hidden md:block md:w-1/3" : "w-full"} border-r overflow-auto`}>
         <div className="p-4 border-b flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Inbox size={18} />
             <span className="font-medium">Inbox</span>
-            <Badge variant="outline" className="ml-2">{filteredSubmissions.length}</Badge>
+            <Badge variant="outline" className="ml-2">
+              {filteredSubmissions.length}
+            </Badge>
           </div>
           <Button variant="ghost" size="sm" onClick={fetchSubmissions}>
             <RefreshCw size={16} />
@@ -131,7 +220,7 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
             <div
               key={submission.id}
               className={`p-4 cursor-pointer hover:bg-gray-50 ${
-                selectedSubmission?.id === submission.id ? 'bg-blue-50' : ''
+                selectedSubmission?.id === submission.id ? "bg-blue-50" : ""
               }`}
               onClick={() => setSelectedSubmission(submission)}
             >
@@ -156,18 +245,82 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
 
       {/* Detail View */}
       {selectedSubmission ? (
-        <div className={`w-full ${selectedSubmission ? 'block md:w-2/3' : 'hidden'} overflow-auto`}>
+        <div className={`w-full ${selectedSubmission ? "block md:w-2/3" : "hidden"} overflow-auto`}>
           <div className="p-4 border-b flex items-center justify-between">
             <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setSelectedSubmission(null)}>
               <ChevronLeft size={16} />
               Back
             </Button>
             <div className="flex items-center gap-2">
+              <Dialog open={blockDialogOpen} onOpenChange={setBlockDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="ghost" size="sm" className="flex items-center gap-1">
+                    <ShieldAlert size={16} className="text-red-500" />
+                    <span>Block</span>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Block Email</DialogTitle>
+                    <DialogDescription>
+                      This will block all future submissions from {selectedSubmission.email}. This action can be reversed from the Blocked Emails tab.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="py-4">
+                    <label className="block text-sm font-medium mb-2">Reason for blocking</label>
+                    <Textarea
+                      placeholder="Enter reason for blocking this email"
+                      value={blockReason}
+                      onChange={(e) => setBlockReason(e.target.value)}
+                      className="w-full"
+                    />
+                  </div>
+                  <DialogFooter>
+                    <Button variant="outline" onClick={() => setBlockDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button 
+                      variant="destructive" 
+                      onClick={handleBlockEmail}
+                      disabled={processingAction || !blockReason.trim()}
+                    >
+                      {processingAction ? "Processing..." : "Block Email"}
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="ghost" size="sm" className="flex items-center gap-1">
+                    <Trash2 size={16} className="text-red-500" />
+                    <span>Delete</span>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Delete Submission</DialogTitle>
+                    <DialogDescription>
+                      Are you sure you want to delete this submission? This action cannot be undone.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button 
+                      variant="destructive" 
+                      onClick={handleDeleteSubmission}
+                      disabled={processingAction}
+                    >
+                      {processingAction ? "Processing..." : "Delete Submission"}
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+
               <Button variant="ghost" size="icon">
                 <Archive size={16} />
-              </Button>
-              <Button variant="ghost" size="icon">
-                <Trash2 size={16} />
               </Button>
               <Button variant="ghost" size="icon">
                 <Mail size={16} />
@@ -190,9 +343,7 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
                     <div className="text-sm text-gray-500">{selectedSubmission.email}</div>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500">
-                  {new Date(selectedSubmission.created_at).toLocaleString()}
-                </div>
+                <div className="text-sm text-gray-500">{new Date(selectedSubmission.created_at).toLocaleString()}</div>
               </div>
             </div>
             <div className="mb-6 whitespace-pre-wrap bg-gray-50 p-4 rounded-lg min-h-[200px]">

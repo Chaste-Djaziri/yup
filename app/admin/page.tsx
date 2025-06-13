@@ -7,8 +7,10 @@ import { Input } from "@/components/ui/input"
 import { AdminLogin } from "@/components/admin-login"
 import { ContactSubmissionsTable } from "@/components/contact-submissions-table"
 import { VolunteerApplicationsTable } from "@/components/volunteer-applications-table"
+import { AcceptedMembersTable } from "@/components/accepted-members-table"
+import { BlockedEmailsTable } from "@/components/blocked-emails-table"
 import { isAdminAuthenticated, logoutAdmin } from "@/lib/admin-auth"
-import { Search, RefreshCw } from 'lucide-react'
+import { Search, RefreshCw, Users, Mail, UserCheck, ShieldAlert } from 'lucide-react'
 
 export default function AdminDashboardPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -65,14 +67,34 @@ export default function AdminDashboardPage() {
 
         <Tabs defaultValue="contacts" className="w-full">
           <TabsList className="mb-6">
-            <TabsTrigger value="contacts">Contact Submissions</TabsTrigger>
-            <TabsTrigger value="volunteers">Volunteer Applications</TabsTrigger>
+            <TabsTrigger value="contacts" className="flex items-center gap-2">
+              <Mail size={16} />
+              <span>Contact Submissions</span>
+            </TabsTrigger>
+            <TabsTrigger value="volunteers" className="flex items-center gap-2">
+              <Users size={16} />
+              <span>Volunteer Applications</span>
+            </TabsTrigger>
+            <TabsTrigger value="accepted" className="flex items-center gap-2">
+              <UserCheck size={16} />
+              <span>Accepted Members</span>
+            </TabsTrigger>
+            <TabsTrigger value="blocked" className="flex items-center gap-2">
+              <ShieldAlert size={16} />
+              <span>Blocked Emails</span>
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="contacts" className="bg-white rounded-lg shadow">
             <ContactSubmissionsTable searchQuery={searchQuery} />
           </TabsContent>
           <TabsContent value="volunteers" className="bg-white rounded-lg shadow">
             <VolunteerApplicationsTable searchQuery={searchQuery} />
+          </TabsContent>
+          <TabsContent value="accepted" className="bg-white rounded-lg shadow">
+            <AcceptedMembersTable searchQuery={searchQuery} />
+          </TabsContent>
+          <TabsContent value="blocked" className="bg-white rounded-lg shadow">
+            <BlockedEmailsTable searchQuery={searchQuery} />
           </TabsContent>
         </Tabs>
       </div>

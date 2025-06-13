@@ -1,12 +1,8 @@
 "use server"
-
-import { createClient } from "@supabase/supabase-js"
+import { createServerSupabaseClient } from "@/lib/supabase-server"
 import { revalidatePath } from "next/cache"
-
-// Initialize Supabase client (server-side)
-const supabaseUrl = process.env.SUPABASE_URL!
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
-const supabase = createClient(supabaseUrl, supabaseKey)
+import { isEmailBlocked } from "./admin-actions"
+import { sendContactEmail } from "./email-actions"
 
 export type SubmissionResult = {
   success: boolean
@@ -15,22 +11,31 @@ export type SubmissionResult = {
 
 export async function submitContactForm(prevState: any, formData: FormData): Promise<SubmissionResult> {
   try {
-    // Extract form data
     const firstName = formData.get("first-name") as string
     const lastName = formData.get("last-name") as string
     const email = formData.get("email") as string
     const subject = formData.get("subject") as string
     const message = formData.get("message") as string
 
-    // Validate form data
+    // Validate required fields
     if (!firstName || !lastName || !email || !subject || !message) {
       return {
         success: false,
-        message: "All fields are required",
+        message: "All fields are required.",
+      }
+    }
+
+    // Check if email is blocked
+    const blockedCheck = await isEmailBlocked(email)
+    if (blockedCheck.isBlocked) {
+      return {
+        success: false,
+        message: "This email address has been blocked from submitting forms.",
       }
     }
 
     // Insert data into Supabase
+    const supabase = createServerSupabaseClient()
     const { error } = await supabase.from("contact_submissions").insert([
       {
         first_name: firstName,
@@ -50,12 +55,15 @@ export async function submitContactForm(prevState: any, formData: FormData): Pro
       }
     }
 
+    // Send notification email to admin
+    await sendContactEmail(email, subject, message)
+
     // Revalidate the contact page
     revalidatePath("/contact")
 
     return {
       success: true,
-      message: "Your message has been sent successfully!",
+      message: "Your message has been sent successfully! We'll get back to you soon.",
     }
   } catch (error) {
     console.error("Error in submitContactForm:", error)
