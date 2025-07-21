@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://youthuplift.org",
+    url: "https://yupinitiative..com/",
     title: "Youth Uplift Initiative | Empowering Youth in Rwanda",
     description:
       "Youth Uplift Initiative (YUP) is a charity-based community for helping those in need, based in Rwanda.",
