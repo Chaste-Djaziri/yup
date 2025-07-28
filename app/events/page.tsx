@@ -1,6 +1,5 @@
 "use client"
 
-import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Calendar, MapPin, Clock, ArrowRight } from "lucide-react"
@@ -10,12 +9,6 @@ import { dictionaries } from "@/dictionaries"
 import { PageHeader } from "@/components/page-header"
 import { EventCard } from "@/components/event-card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-export const metadata: Metadata = {
-  title: "Events & Activities | Youth Uplift Initiative",
-  description:
-    "Join us at our upcoming events and activities to support our cause and connect with our community.",
-}
 
 export default function EventsPage() {
   const { language } = useLanguage()

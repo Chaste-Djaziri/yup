@@ -1,6 +1,5 @@
 "use client"
 
-import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ArrowRight, CheckCircle } from "lucide-react"
