@@ -1,19 +1,20 @@
-"use server"
+// path: /app/utils/email.ts
+"use server";
 
-import { Resend } from "resend"
-import { createEmailLog } from "@/app/actions/admin-actions"
+import { Resend } from "resend";
+import { createEmailLog } from "@/app/actions/admin-actions";
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 type VolunteerEmailParams = {
-  to: string
-  firstName: string
-  lastName: string
-  status: string
-  opportunity: string
-  country?: string
-  missingFields?: string
-}
+  to: string;
+  firstName: string;
+  lastName: string;
+  status: string;
+  opportunity: string;
+  country?: string;
+  missingFields?: string;
+};
 
 export async function sendVolunteerEmail({
   to,
@@ -22,14 +23,14 @@ export async function sendVolunteerEmail({
   status,
   opportunity,
   missingFields,
-  country, // Destructure country from the parameters
+  country,
 }: VolunteerEmailParams) {
   try {
-    let subject = ""
-    let htmlContent = ""
+    let subject = "";
+    let htmlContent = "";
 
     if (status === "info-request") {
-      subject = "Additional Information Needed for Your Volunteer Application"
+      subject = "Additional Information Needed for Your Volunteer Application";
       htmlContent = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2>Hello ${firstName} ${lastName},</h2>
@@ -38,43 +39,56 @@ export async function sendVolunteerEmail({
           <ul>
             ${missingFields
               ?.split(", ")
-              .map((field) => `<li>${field.charAt(0).toUpperCase() + field.slice(1)}</li>`)
+              .map(
+                (field) =>
+                  `<li>${field.charAt(0).toUpperCase() + field.slice(1)}</li>`
+              )
               .join("")}
           </ul>
           <p>Please reply to this email with the requested information at your earliest convenience.</p>
           <p>Thank you for your cooperation!</p>
           <p>Best regards,<br>Youth Uplift Initiative Team</p>
         </div>
-      `
+      `;
     } else if (status === "accepted") {
-      // Currency conversion rates (approximate)
-      const currencyConversions: Record<string, { currency: string; symbol: string; rate: number }> = {
+      const currencyConversions: Record<
+        string,
+        { currency: string; symbol: string; rate: number }
+      > = {
         Rwanda: { currency: "RWF", symbol: "RWF", rate: 1 },
         Uganda: { currency: "UGX", symbol: "UGX", rate: 25 },
         Kenya: { currency: "KES", symbol: "KSh", rate: 8 },
         Tanzania: { currency: "TZS", symbol: "TSh", rate: 16 },
         Burundi: { currency: "BIF", symbol: "BIF", rate: 14 },
-        "Democratic Republic of Congo": { currency: "CDF", symbol: "FC", rate: 140 },
+        "Democratic Republic of Congo": {
+          currency: "CDF",
+          symbol: "FC",
+          rate: 140,
+        },
         "South Sudan": { currency: "SSP", symbol: "SSP", rate: 9 },
         "United States": { currency: "USD", symbol: "$", rate: 0.0085 },
         "United Kingdom": { currency: "GBP", symbol: "£", rate: 0.0067 },
         Canada: { currency: "CAD", symbol: "C$", rate: 0.012 },
         France: { currency: "EUR", symbol: "€", rate: 0.0078 },
         Germany: { currency: "EUR", symbol: "€", rate: 0.0078 },
-      }
+      };
 
-      // Default to USD if country not found
-      const countryInfo = currencyConversions[country || ""] || { currency: "USD", symbol: "$", rate: 0.0085 }
+      const countryInfo = currencyConversions[country || ""] || {
+        currency: "USD",
+        symbol: "$",
+        rate: 0.0085,
+      };
 
-      // Calculate the amount in the local currency (12,000 RWF)
-      const rwfAmount = 12000
-      const localAmount = Math.round(rwfAmount * countryInfo.rate)
+      const rwfAmount = 12000;
+      const localAmount = Math.round(rwfAmount * countryInfo.rate);
+      const formattedLocalAmount = localAmount
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      const formattedRwfAmount = rwfAmount
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-      // Format the amount with commas for thousands
-      const formattedLocalAmount = localAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      const formattedRwfAmount = rwfAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-
-      subject = "Congratulations! Your Volunteer Application Has Been Accepted"
+      subject = "Congratulations! Your Volunteer Application Has Been Accepted";
       htmlContent = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2>Hello ${firstName} ${lastName},</h2>
@@ -86,14 +100,20 @@ export async function sendVolunteerEmail({
             <p>As part of joining our team, all members receive a YUP t-shirt. There is a membership fee of <strong>${formattedRwfAmount} RWF</strong> (approximately <strong>${countryInfo.symbol}${formattedLocalAmount} ${countryInfo.currency}</strong> in your local currency) to cover the cost of the t-shirt and membership materials.</p>
             <p>Payment details will be provided by our volunteer coordinator during your orientation.</p>
           </div>
+
+          <p>To stay updated and connect with fellow volunteers, please join our official WhatsApp group here: 
+            <a href="https://chat.whatsapp.com/HTLozMKdQCmC1H5fJ3INK7?mode=ac_t" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold;">
+              Join WhatsApp Group
+            </a>
+          </p>
           
           <p>Our volunteer coordinator will be in touch with you shortly to discuss next steps and provide you with more information about orientation and your volunteer schedule.</p>
           <p>Thank you for your willingness to contribute to our mission of empowering youth in Rwanda.</p>
           <p>Best regards,<br>Youth Uplift Initiative Team</p>
         </div>
-      `
+      `;
     } else if (status === "rejected") {
-      subject = "Update on Your Volunteer Application"
+      subject = "Update on Your Volunteer Application";
       htmlContent = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2>Hello ${firstName} ${lastName},</h2>
@@ -103,9 +123,9 @@ export async function sendVolunteerEmail({
           <p>Thank you again for your interest in supporting our mission.</p>
           <p>Best regards,<br>Youth Uplift Initiative Team</p>
         </div>
-      `
+      `;
     } else {
-      subject = "Update on Your Volunteer Application"
+      subject = "Update on Your Volunteer Application";
       htmlContent = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2>Hello ${firstName} ${lastName},</h2>
@@ -115,37 +135,40 @@ export async function sendVolunteerEmail({
           <p>If you have any questions, please don't hesitate to contact us.</p>
           <p>Best regards,<br>Youth Uplift Initiative Team</p>
         </div>
-      `
+      `;
     }
 
     const { data, error } = await resend.emails.send({
       from: "Youth Uplift Initiative <noreply@yupinitiative.com>",
       to: [to],
-      subject: subject,
+      subject,
       html: htmlContent,
-    })
+    });
 
-    // Log the email
     await createEmailLog({
       recipient: to,
-      subject: subject,
+      subject,
       status: error ? "failed" : "sent",
       error: error ? JSON.stringify(error) : null,
-    })
+    });
 
     if (error) {
-      console.error("Error sending email:", error)
-      return { success: false, error: "Failed to send email" }
+      console.error("Error sending email:", error);
+      return { success: false, error: "Failed to send email" };
     }
 
-    return { success: true, data }
+    return { success: true, data };
   } catch (error) {
-    console.error("Error in sendVolunteerEmail:", error)
-    return { success: false, error: "An unexpected error occurred" }
+    console.error("Error in sendVolunteerEmail:", error);
+    return { success: false, error: "An unexpected error occurred" };
   }
 }
 
-export async function sendContactEmail(to: string, subject: string, message: string) {
+export async function sendContactEmail(
+  to: string,
+  subject: string,
+  message: string
+) {
   try {
     const htmlContent = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
@@ -155,43 +178,41 @@ export async function sendContactEmail(to: string, subject: string, message: str
         <h3>Message:</h3>
         <p>${message.replace(/\n/g, "<br>")}</p>
       </div>
-    `
+    `;
 
     const { data, error } = await resend.emails.send({
       from: "Youth Uplift Initiative <noreply@yupinitiative.com>",
-      to: ["chastedjaziri@gmail.com"], // Admin email
+      to: ["chastedjaziri@gmail.com"],
       replyTo: to,
       subject: `Contact Form: ${subject}`,
       html: htmlContent,
-    })
+    });
 
-    // Log the email
     await createEmailLog({
       recipient: "chastedjaziri@gmail.com",
       subject: `Contact Form: ${subject}`,
       status: error ? "failed" : "sent",
       error: error ? JSON.stringify(error) : null,
-    })
+    });
 
     if (error) {
-      console.error("Error sending email:", error)
-      return { success: false, error: "Failed to send email" }
+      console.error("Error sending email:", error);
+      return { success: false, error: "Failed to send email" };
     }
 
-    return { success: true, data }
+    return { success: true, data };
   } catch (error) {
-    console.error("Error in sendContactEmail:", error)
-    return { success: false, error: "An unexpected error occurred" }
+    console.error("Error in sendContactEmail:", error);
+    return { success: false, error: "An unexpected error occurred" };
   }
 }
 
 export async function sendDailyCountdownEmail() {
   try {
-    // Calculate days until 2026
-    const today = new Date()
-    const targetDate = new Date("2026-01-01T00:00:00")
-    const timeRemaining = targetDate.getTime() - today.getTime()
-    const daysRemaining = Math.ceil(timeRemaining / (1000 * 60 * 60 * 24))
+    const today = new Date();
+    const targetDate = new Date("2026-01-01T00:00:00");
+    const timeRemaining = targetDate.getTime() - today.getTime();
+    const daysRemaining = Math.ceil(timeRemaining / (1000 * 60 * 60 * 24));
 
     const htmlContent = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; text-align: center; padding: 20px;">
@@ -206,31 +227,30 @@ export async function sendDailyCountdownEmail() {
           This is an automated message. Please do not reply to this email.
         </p>
       </div>
-    `
+    `;
 
     const { data, error } = await resend.emails.send({
       from: "Youth Uplift Initiative <noreply@yupinitiative.com>",
       to: ["chastedjaziri@gmail.com"],
       subject: `Daily Countdown: ${daysRemaining} Days Until 2026`,
       html: htmlContent,
-    })
+    });
 
-    // Log the email
     await createEmailLog({
       recipient: "chastedjaziri@gmail.com",
       subject: `Daily Countdown: ${daysRemaining} Days Until 2026`,
       status: error ? "failed" : "sent",
       error: error ? JSON.stringify(error) : null,
-    })
+    });
 
     if (error) {
-      console.error("Error sending countdown email:", error)
-      return { success: false, error: "Failed to send countdown email" }
+      console.error("Error sending countdown email:", error);
+      return { success: false, error: "Failed to send countdown email" };
     }
 
-    return { success: true, data }
+    return { success: true, data };
   } catch (error) {
-    console.error("Error in sendDailyCountdownEmail:", error)
-    return { success: false, error: "An unexpected error occurred" }
+    console.error("Error in sendDailyCountdownEmail:", error);
+    return { success: false, error: "An unexpected error occurred" };
   }
 }
