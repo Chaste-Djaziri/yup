@@ -1,3 +1,4 @@
+// path: /app/layout.tsx
 import type React from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -17,11 +18,42 @@ export const metadata: Metadata = {
   description:
     "Youth Uplift Initiative (YUP) is a charity-based community for helping those in need, based in Rwanda.",
   keywords: [
-    "charity", "Rwanda", "youth empowerment", "education", "community development", "nonprofit", "volunteer", "donate",
-    "aide humanitaire", "jeunesse", "éducation", "développement communautaire", "ONG", "bénévolat", "don", "entraide",
-    "ubufasha", "urubyiruko", "kwigisha", "iterambere ry'umuryango", "gukorera bushake", "gutanga inkunga", "gufasha abandi",
-    "assistance", "solidarité", "humanitarian aid", "development", "support", "impact social", "caring", "hope",
-    "impuhwe", "ubwuzuzanye", "gushyigikira", "intego", "indashyikirwa"
+    "charity",
+    "Rwanda",
+    "youth empowerment",
+    "education",
+    "community development",
+    "nonprofit",
+    "volunteer",
+    "donate",
+    "aide humanitaire",
+    "jeunesse",
+    "éducation",
+    "développement communautaire",
+    "ONG",
+    "bénévolat",
+    "don",
+    "entraide",
+    "ubufasha",
+    "urubyiruko",
+    "kwigisha",
+    "iterambere ry'umuryango",
+    "gukorera bushake",
+    "gutanga inkunga",
+    "gufasha abandi",
+    "assistance",
+    "solidarité",
+    "humanitarian aid",
+    "development",
+    "support",
+    "impact social",
+    "caring",
+    "hope",
+    "impuhwe",
+    "ubwuzuzanye",
+    "gushyigikira",
+    "intego",
+    "indashyikirwa",
   ],
   authors: [{ name: "Youth Uplift Initiative" }],
   creator: "Youth Uplift Initiative",
@@ -89,8 +121,22 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        <meta name="google-site-verification" content="v3pNA_S_M2JBWaKjHfRTJFp_FLXl_x9lVjE4Kz2oYRM" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+        />
+        <meta
+          name="google-site-verification"
+          content="v3pNA_S_M2JBWaKjHfRTJFp_FLXl_x9lVjE4Kz2oYRM"
+        />
+
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7327796904513190"
+          crossOrigin="anonymous"
+        />
+
         <SchemaOrg />
       </head>
       <body>
