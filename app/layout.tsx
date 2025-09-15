@@ -125,6 +125,11 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
         />
+        {/* Performance hints for third-party origins */}
+        <link rel="preconnect" href="https://www.paypal.com" />
+        <link rel="preconnect" href="https://www.paypalobjects.com" />
+        <link rel="dns-prefetch" href="https://www.paypal.com" />
+        <link rel="dns-prefetch" href="https://www.paypalobjects.com" />
         <meta
           name="google-site-verification"
           content="v3pNA_S_M2JBWaKjHfRTJFp_FLXl_x9lVjE4Kz2oYRM"

@@ -1,21 +1,35 @@
-"use client"
-
-import { useParams } from "next/navigation"
-import { useLanguage } from "@/contexts/language-context"
-import { dictionaries } from "@/dictionaries"
-import { PageHeader } from "@/components/page-header"
-import { Calendar, Clock, MapPin } from "lucide-react"
+import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
+import { Calendar, Clock, MapPin } from "lucide-react"
+import { PageHeader } from "@/components/page-header"
+import { dictionaries } from "@/dictionaries"
 import { Button } from "@/components/ui/button"
 
-export default function EventDetailsPage() {
-  const params = useParams()
-  const slug = Array.isArray(params?.slug) ? params.slug[0] : (params?.slug as string)
-  const { language } = useLanguage()
-  const t = dictionaries[language]
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const t = dictionaries.en
+  const all = [...(t.events?.list || []), ...(t.home?.events?.events || [])]
+  const event: any = all.find((e: any) => e.slug === params.slug)
+  if (!event) return { title: "Event | Youth Uplift Initiative" }
+  const url = `https://yupinitiative.com/events/${event.slug}`
+  return {
+    title: `${event.title} | Events`,
+    description: event.description,
+    alternates: { canonical: url },
+    openGraph: {
+      title: event.title,
+      description: event.description,
+      url,
+      images: event.image ? [{ url: event.image, width: 1200, height: 630 }] : undefined,
+      type: "article",
+    },
+  }
+}
 
-  const event = t.events.list.find((e: any) => e.slug === slug) ||
-    t.home?.events?.events?.find?.((e: any) => e.slug === slug)
+export default function EventDetailsPage({ params }: { params: { slug: string } }) {
+  const t = dictionaries.en
+  const all = [...(t.events?.list || []), ...(t.home?.events?.events || [])]
+  const event: any = all.find((e: any) => e.slug === params.slug)
 
   if (!event) {
     return (
@@ -35,8 +49,8 @@ export default function EventDetailsPage() {
       <PageHeader title={event.title} description={event.description} backgroundImage={event.image || "/assets/event-header.jpg"} />
       <section className="py-12 md:py-24 bg-white">
         <div className="container px-4 md:px-6 max-w-4xl">
-          <div className="aspect-video mb-6 rounded-lg overflow-hidden">
-            <img src={event.image || "/assets/event.jpg"} alt={event.title} className="object-cover w-full h-full" />
+          <div className="aspect-video mb-6 rounded-lg overflow-hidden relative">
+            <Image src={event.image || "/assets/event.jpg"} alt={event.title} fill className="object-cover" />
           </div>
           <div className="grid gap-2 text-gray-700">
             <div className="flex items-center gap-2"><Calendar className="h-4 w-4" /><span>{event.date}</span></div>
@@ -52,4 +66,3 @@ export default function EventDetailsPage() {
     </main>
   )
 }
-

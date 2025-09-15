@@ -9,6 +9,7 @@ import { dictionaries } from "@/dictionaries"
 import { PageHeader } from "@/components/page-header"
 import { EventCard } from "@/components/event-card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Image from "next/image"
 
 export default function EventsPage() {
   const { language } = useLanguage()
@@ -138,10 +139,13 @@ export default function EventsPage() {
                 {t.events.featured.event ? (
                   <div>
                     <div className="aspect-video relative rounded-md overflow-hidden mb-4">
-                      <img
+                      <Image
                         src={t.events.featured.event.image || "/placeholder.svg"}
                         alt={t.events.featured.event.title}
-                        className="object-cover w-full h-full"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover"
+                        loading="lazy"
                       />
                     </div>
                     <h4 className="text-lg font-bold">{t.events.featured.event.title}</h4>

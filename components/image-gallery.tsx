@@ -24,7 +24,7 @@ export const ImageGallery = memo(function ImageGallery({
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [visibleImages, setVisibleImages] = useState<GalleryImage[]>([])
   const [page, setPage] = useState(1)
-  const imagesPerPage = 12
+  const imagesPerPage = 8
 
   // Load images in batches
   useEffect(() => {

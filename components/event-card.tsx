@@ -6,6 +6,7 @@ import { Calendar, MapPin, Clock, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 import { useLanguage } from "@/contexts/language-context"
 import { dictionaries } from "@/dictionaries"
+import Image from "next/image"
 
 interface EventCardProps {
   title: string
@@ -41,10 +42,13 @@ export function EventCard({
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <div className="aspect-video relative">
-        <img
+        <Image
           src={image || "/placeholder.svg"}
           alt={title}
-          className={`object-cover w-full h-full ${isPast ? "grayscale" : ""}`}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className={`object-cover ${isPast ? "grayscale" : ""}`}
+          loading="lazy"
         />
         {isPast && (
           <div className="absolute top-2 right-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">
@@ -76,4 +80,3 @@ export function EventCard({
     </motion.div>
   )
 }
-

@@ -8,18 +8,18 @@ export function SchemaOrg() {
           "@type": "NGO",
           name: "Youth Uplift Initiative",
           alternateName: "YUP",
-          url: "https://youthuplift.com",
-          logo: "https://youthuplift.com/assets/logo.png",
+          url: "https://yupinitiative.com",
+          logo: "https://yupinitiative.com/assets/logo.png",
           sameAs: [
-            "https://facebook.com/youthuplift",
-            "https://twitter.com/youthuplift",
-            "https://instagram.com/youthuplift",
+            "https://facebook.com/yupinitiative",
+            "https://twitter.com/yupinitiative",
+            "https://instagram.com/yupinitiative",
           ],
           contactPoint: {
             "@type": "ContactPoint",
-            telephone: "+250-794-578-640",
+            telephone: "+250-788-749-709",
             contactType: "customer service",
-            email: "info@youthuplift.com",
+            email: "yupinitiative@gmail.com",
             areaServed: "Rwanda",
           },
           address: {
@@ -35,4 +35,3 @@ export function SchemaOrg() {
     />
   )
 }
-
