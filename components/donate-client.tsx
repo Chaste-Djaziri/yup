@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -15,11 +15,7 @@ import Image from "next/image"
 import { MomoIcon } from "@/components/payment-icons"
 import { useMobile } from "@/hooks/use-mobile"
 
-declare global {
-  interface Window {
-    PayPal: any
-  }
-}
+declare global {}
 
 export function DonateClient() {
   const { language } = useLanguage()
@@ -51,40 +47,7 @@ export function DonateClient() {
     }
   }
 
-  // Load PayPal script
-  useEffect(() => {
-    if (paymentMethod === "paypal") {
-      const script = document.createElement("script")
-      script.src = "https://www.paypalobjects.com/donate/sdk/donate-sdk.js"
-      script.charset = "UTF-8"
-      script.onload = () => {
-        if (window.PayPal) {
-          // Clear any existing PayPal button
-          const container = document.getElementById("donate-button")
-          if (container) {
-            container.innerHTML = ""
-          }
-
-          window.PayPal.Donation.Button({
-            env: "production",
-            hosted_button_id: "LGLZ8EBKCFP9W",
-            image: {
-              src: "https://pics.paypal.com/00/s/OTJjZmE3OGYtNzE0OS00NGFlLTg4MjctYzA1NzkzMjAyZGNi/file.PNG",
-              alt: "Donate with PayPal button",
-              title: "PayPal - The safer, easier way to pay online!",
-            },
-          }).render("#donate-button")
-        }
-      }
-      document.head.appendChild(script)
-
-      return () => {
-        if (document.head.contains(script)) {
-          document.head.removeChild(script)
-        }
-      }
-    }
-  }, [paymentMethod])
+  // PayPal SDK not required; using hosted form button
 
   if (isSubmitted) {
     return (
@@ -294,9 +257,17 @@ export function DonateClient() {
                           <p className="text-sm text-gray-600">Pay securely with your PayPal account or credit card</p>
                         </div>
                         <div className="flex justify-center">
-                          <div id="donate-button-container">
-                            <div id="donate-button"></div>
-                          </div>
+                          <form action="https://www.paypal.com/donate" method="post" target="_top">
+                            <input type="hidden" name="hosted_button_id" value="VPHGNSNKUX7XE" />
+                            <input
+                              type="image"
+                              src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+                              name="submit"
+                              title="PayPal - The safer, easier way to pay online!"
+                              alt="Donate with PayPal button"
+                            />
+                            <img alt="" src="https://www.paypal.com/en_RW/i/scr/pixel.gif" width="1" height="1" />
+                          </form>
                         </div>
                       </div>
                     </TabsContent>

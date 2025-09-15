@@ -63,7 +63,7 @@ export function UpcomingEvents() {
                 <h3 className="text-lg sm:text-xl font-bold">{event.title}</h3>
                 <p className="mt-2 text-gray-500 dark:text-gray-400 text-sm sm:text-base">{event.description}</p>
                 <div className="mt-4">
-                  <Link href={`/events/${event.title.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <Link href={`/events/${(event.slug || event.title.toLowerCase().replace(/\s+/g, "-")).toString()}`}>
                     <Button variant="outline" size="sm" className="text-xs sm:text-sm">
                       {getTranslation(language, "events.eventDetails.learnMoreButton", "Learn More")}
                     </Button>
@@ -84,4 +84,3 @@ export function UpcomingEvents() {
     </section>
   )
 }
-

@@ -8,6 +8,7 @@ import { useLanguage } from "@/contexts/language-context";
 import { dictionaries } from "@/dictionaries";
 import { PageHeader } from "@/components/page-header";
 import { ProgramCard } from "@/components/program-card";
+import { SDGBanner } from "@/components/sdg-banner";
 
 export default function ProgramsPage() {
   const { language } = useLanguage();
@@ -119,6 +120,8 @@ export default function ProgramsPage() {
           </div>
         </div>
       </section>
+
+      <SDGBanner />
 
       <section className="py-12 md:py-24 bg-white">
         <div className="container px-4 md:px-6">

@@ -102,6 +102,26 @@ export const en = {
       viewAllButton: "View All Events",
       events: [
         {
+          title: "Weekend Skills for Children (Norrsken)",
+          date: "Every Weekend",
+          time: "10:00 AM - 12:00 PM",
+          location: "Norrsken, Kigali",
+          description: "We provide free skills training to children at Norrsken every weekend.",
+          image: "/assets/event.jpg",
+          slug: "weekend-skills-for-children-(norrsken)",
+          recurring: true,
+        },
+        {
+          title: "YUP Friday Fellowship",
+          date: "Every Friday",
+          time: "9:00 PM",
+          location: "Kigali / Online",
+          description: "Join us every Friday at 9pm for YUP fellowships to share moments and inspire one another in faith.",
+          image: "/assets/event.jpg",
+          slug: "yup-friday-fellowship",
+          recurring: true,
+        },
+        {
           title: "Youth Uplift Initiative Kickstart",
           date: "April 17, 2025",
           time: "12:00 PM - 4:00 PM",
@@ -109,7 +129,7 @@ export const en = {
           description:
             "Join us for an elegant day of inspiration and impact. Our annual gala features dinner, entertainment, and powerful stories from the youth we serve.",
           image: "/event-leadership.jpg",
-          slug: "youth-leadership-workshop",
+          slug: "youth-uplift-takeoff",
         },
         // {
         //   title: "Community Clean-up Day",
@@ -365,6 +385,28 @@ export const en = {
     noPast: "No past events to display.",
     list: [
       {
+        title: "Weekend Skills for Children (Norrsken)",
+        date: "Every Weekend",
+        time: "10:00 AM - 12:00 PM",
+        location: "Norrsken, Kigali",
+        description:
+          "We provide free skills training to children at Norrsken every weekend.",
+        image: "/assets/event.jpg",
+        slug: "weekend-skills-for-children-(norrsken)",
+        recurring: true,
+      },
+      {
+        title: "YUP Friday Fellowship",
+        date: "Every Friday",
+        time: "9:00 PM",
+        location: "Kigali / Online",
+        description:
+          "Join us every Friday at 9pm for YUP fellowships to share moments and inspire one another in faith.",
+        image: "/assets/event.jpg",
+        slug: "yup-friday-fellowship",
+        recurring: true,
+      },
+      {
         title: "Youth Uplift Takeoff",
         date: "April 17, 2025",
         time: "2:00 PM - 4:00 PM",
@@ -372,7 +414,7 @@ export const en = {
         description:
           "The kickstart of our community.",
         image: "/assets/event.jpg",
-        slug: "../contact",
+        slug: "youth-uplift-takeoff",
       },
       // {
       //   title: "Community Clean-up Day",
@@ -441,14 +483,14 @@ export const en = {
     featured: {
       title: "Featured Event",
       event: {
-        title: "Youth Uplift Initiative Takeoff",
-        date: "April 15, 2025",
-        time: "3:00 AM - 4:00 PM",
-        location: "Kigali",
+        title: "YUP Friday Fellowship",
+        date: "Every Friday",
+        time: "9:00 PM",
+        location: "Kigali / Online",
         description:
-          "Join us for an elegant day of inspiration and impact. Our annual gala features dinner, entertainment, and powerful stories from the youth we serve.",
+          "Join us every Friday at 9pm for YUP fellowships to share moments and inspire one another in faith.",
         image: "/assets/event.jpg",
-        slug: "../contact",
+        slug: "yup-friday-fellowship",
       },
       learnMoreButton: "Learn More",
       noEvent: "No featured event at this time.",
@@ -1239,4 +1281,3 @@ export const en = {
     footerMessage: "If you believe this is an error, please contact our support team.",
   }
 }
-

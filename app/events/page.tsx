@@ -20,13 +20,15 @@ export default function EventsPage() {
   // Filter events into upcoming and past
   const upcomingEvents = t.events.list.filter((event) => {
     const eventDate = new Date(event.date)
-    return eventDate >= currentDate
+    const isValidDate = !isNaN(eventDate.getTime())
+    return event.recurring === true || (isValidDate && eventDate >= currentDate)
   })
 
   const pastEvents = t.events.list
     .filter((event) => {
       const eventDate = new Date(event.date)
-      return eventDate < currentDate
+      const isValidDate = !isNaN(eventDate.getTime())
+      return isValidDate && eventDate < currentDate
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
@@ -199,4 +201,3 @@ export default function EventsPage() {
     </main>
   )
 }
-

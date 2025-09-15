@@ -86,6 +86,26 @@ export const fr = {
       viewAllButton: "Voir tous les événements",
       events: [
         {
+          title: "Compétences pour enfants le week-end (Norrsken)",
+          date: "Chaque week-end",
+          time: "10h00 - 12h00",
+          location: "Norrsken, Kigali",
+          description: "Nous offrons gratuitement des formations aux enfants chaque week-end à Norrsken.",
+          image: "/assets/event.jpg",
+          slug: "weekend-skills-for-children-(norrsken)",
+          recurring: true,
+        },
+        {
+          title: "Fellowship du vendredi YUP",
+          date: "Chaque vendredi",
+          time: "21h00",
+          location: "Kigali / En ligne",
+          description: "Rejoignez-nous chaque vendredi à 21h pour des moments de partage et d’inspiration dans la foi.",
+          image: "/assets/event.jpg",
+          slug: "yup-friday-fellowship",
+          recurring: true,
+        },
+        {
           title: "Lancement de l’Initiative de Promotion de la Jeunesse",
           date: "17 avril 2025",
           time: "12h00 - 16h00",
@@ -93,7 +113,7 @@ export const fr = {
           description:
             "Participez à une journée élégante d’inspiration et d’impact. Notre gala annuel comprend un dîner, des animations et des témoignages puissants de la jeunesse que nous soutenons.",
           image: "/event-leadership.jpg",
-          slug: "youth-leadership-workshop",
+          slug: "youth-uplift-takeoff",
         },
       ],
     },
@@ -332,13 +352,34 @@ export const fr = {
     noPast: "Aucun événement passé à afficher.",
     list: [
       {
+        title: "Compétences pour enfants le week-end (Norrsken)",
+        date: "Chaque week-end",
+        time: "10h00 - 12h00",
+        location: "Norrsken, Kigali",
+        description: "Nous offrons gratuitement des formations aux enfants chaque week-end à Norrsken.",
+        image: "/assets/event.jpg",
+        slug: "weekend-skills-for-children-(norrsken)",
+        recurring: true,
+      },
+      {
+        title: "Fellowship du vendredi YUP",
+        date: "Chaque vendredi",
+        time: "21h00",
+        location: "Kigali / En ligne",
+        description:
+          "Rejoignez-nous chaque vendredi à 21h pour des moments de partage et d’inspiration dans la foi.",
+        image: "/assets/event.jpg",
+        slug: "yup-friday-fellowship",
+        recurring: true,
+      },
+      {
         title: "Décollage de l’Initiative de Promotion de la Jeunesse",
         date: "17 avril 2025",
         time: "14h00 - 16h00",
         location: "Kigali",
         description: "Le lancement de notre communauté.",
         image: "/assets/event.jpg",
-        slug: "../contact",
+        slug: "youth-uplift-takeoff",
       },
     ],
     host: {
@@ -357,14 +398,14 @@ export const fr = {
     featured: {
       title: "Événement en vedette",
       event: {
-        title: "Décollage de l’Initiative de Promotion de la Jeunesse",
-        date: "15 avril 2025",
-        time: "03h00 - 16h00",
-        location: "Kigali",
+        title: "Fellowship du vendredi YUP",
+        date: "Chaque vendredi",
+        time: "21h00",
+        location: "Kigali / En ligne",
         description:
-          "Participez à une journée élégante d’inspiration et d’impact. Notre gala annuel comprend un dîner, des animations et des témoignages puissants de la jeunesse que nous soutenons.",
+          "Rejoignez-nous chaque vendredi à 21h pour des moments de partage et d’inspiration dans la foi.",
         image: "/assets/event.jpg",
-        slug: "../contact",
+        slug: "yup-friday-fellowship",
       },
       learnMoreButton: "En savoir plus",
       noEvent: "Aucun événement en vedette pour le moment.",

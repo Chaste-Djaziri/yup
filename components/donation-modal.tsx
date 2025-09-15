@@ -12,11 +12,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import { MomoIcon } from "@/components/payment-icons"
 
-declare global {
-  interface Window {
-    PayPal: any
-  }
-}
+declare global {}
 
 interface DonationModalProps {
   isOpen: boolean
@@ -49,39 +45,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
     }
   }
 
-  // Load PayPal script when modal opens and PayPal is selected
-  useEffect(() => {
-    if (isOpen && paymentMethod === "paypal") {
-      const script = document.createElement("script")
-      script.src = "https://www.paypalobjects.com/donate/sdk/donate-sdk.js"
-      script.charset = "UTF-8"
-      script.onload = () => {
-        if (window.PayPal) {
-          const container = document.getElementById("modal-donate-button")
-          if (container) {
-            container.innerHTML = ""
-          }
-
-          window.PayPal.Donation.Button({
-            env: "production",
-            hosted_button_id: "LGLZ8EBKCFP9W",
-            image: {
-              src: "https://pics.paypal.com/00/s/OTJjZmE3OGYtNzE0OS00NGFlLTg4MjctYzA1NzkzMjAyZGNi/file.PNG",
-              alt: "Donate with PayPal button",
-              title: "PayPal - The safer, easier way to pay online!",
-            },
-          }).render("#modal-donate-button")
-        }
-      }
-      document.head.appendChild(script)
-
-      return () => {
-        if (document.head.contains(script)) {
-          document.head.removeChild(script)
-        }
-      }
-    }
-  }, [isOpen, paymentMethod])
+  // SDK not required; using hosted PayPal form
 
   // Reset form when modal closes
   useEffect(() => {
@@ -244,7 +208,17 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
                           </div>
                         </div>
                         <div className="flex justify-center">
-                          <div id="modal-donate-button"></div>
+                          <form action="https://www.paypal.com/donate" method="post" target="_top">
+                            <input type="hidden" name="hosted_button_id" value="VPHGNSNKUX7XE" />
+                            <input
+                              type="image"
+                              src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+                              name="submit"
+                              title="PayPal - The safer, easier way to pay online!"
+                              alt="Donate with PayPal button"
+                            />
+                            <img alt="" src="https://www.paypal.com/en_RW/i/scr/pixel.gif" width="1" height="1" />
+                          </form>
                         </div>
                         <p className="text-xs text-gray-500 text-center mt-2">Pay with PayPal account or credit card</p>
                       </div>

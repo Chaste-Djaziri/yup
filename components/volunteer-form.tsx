@@ -152,11 +152,12 @@ export function VolunteerForm() {
           <Input id="email" name="email" type="email" required className="text-sm sm:text-base h-10 sm:h-11" />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1">
           <Label htmlFor="phone" className="text-sm sm:text-base">
-            {t.volunteer.form.phone}
+            {t.volunteer.form.phone} <span className="text-xs text-muted-foreground">(WhatsApp preferred)</span>
           </Label>
-          <Input id="phone" name="phone" type="tel" className="text-sm sm:text-base h-10 sm:h-11" />
+          <Input id="phone" name="phone" type="tel" className="text-sm sm:text-base h-10 sm:h-11" placeholder="e.g. +2507xxxxxxx (WhatsApp)" />
+          <p className="text-xs text-muted-foreground">If possible, share a WhatsApp-enabled number for quicker coordination.</p>
         </div>
 
         <div className="space-y-2">

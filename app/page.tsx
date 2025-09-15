@@ -9,6 +9,7 @@ import { ImpactSection } from "@/components/impact-section"
 import { TestimonialSection } from "@/components/testimonial-section"
 import { UpcomingEvents } from "@/components/upcoming-events"
 import { DonateSection } from "@/components/donate-section"
+import { VideosSection } from "@/components/videos-section"
 import { useLanguage } from "@/contexts/language-context"
 import { dictionaries } from "@/dictionaries"
 
@@ -21,6 +22,7 @@ export default function Home() {
       <HeroSection />
       <MissionSection />
       <ImpactSection />
+      <VideosSection />
       <TestimonialSection />
       <UpcomingEvents />
       <DonateSection />
@@ -50,4 +52,3 @@ export default function Home() {
     </main>
   )
 }
-
