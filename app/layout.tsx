@@ -2,7 +2,6 @@
 import type React from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/contexts/language-context";
 import type { Metadata } from "next";
 import "./globals.css";
@@ -145,18 +144,16 @@ export default function RootLayout({
         <SchemaOrg />
       </head>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <LanguageProvider>
-            <div className="relative flex min-h-screen flex-col">
-              <ScrollToTop />
-              <Navbar />
-              <div className="flex-1">
-                <PageTransition>{children}</PageTransition>
-              </div>
-              <Footer />
+        <LanguageProvider>
+          <div className="relative flex min-h-screen flex-col">
+            <ScrollToTop />
+            <Navbar />
+            <div className="flex-1">
+              <PageTransition>{children}</PageTransition>
             </div>
-          </LanguageProvider>
-        </ThemeProvider>
+            <Footer />
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );

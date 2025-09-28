@@ -26,9 +26,9 @@ const goals: Goal[] = [
 
 export function SDGBanner() {
   return (
-    <section className="w-full py-10 bg-white dark:bg-gray-900">
+    <section className="w-full py-10 bg-white">
       <div className="container px-4 md:px-6">
-        <h3 className="text-center text-2xl md:text-3xl font-bold mb-8 text-gray-900 dark:text-gray-100">
+        <h3 className="text-center text-2xl md:text-3xl font-bold mb-8 text-gray-900">
           SUSTAINABLE DEVELOPMENT GOALS
         </h3>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 gap-4 place-items-center">

@@ -13,14 +13,6 @@ export const fr = {
     donate: "Faire un don",
     admin: "Admin",
   },
-
-  theme: {
-    select: "Choisir un thème",
-    light: "Clair",
-    dark: "Sombre",
-    system: "Système",
-  },
-
   language: {
     select: "Choisir la langue",
     en: "Anglais",

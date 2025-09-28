@@ -30,7 +30,7 @@ export function ImpactSection() {
   }
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
+    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
       <div className="container px-4 md:px-6">
         <motion.div
           className="flex flex-col items-center justify-center space-y-4 text-center"
@@ -42,7 +42,7 @@ export function ImpactSection() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter">
               {t.home.impact.title}
             </h2>
-            <p className="max-w-[700px] text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg mx-auto">
+            <p className="max-w-[700px] text-gray-500 text-sm sm:text-base md:text-lg mx-auto">
               {t.home.impact.description}
             </p>
           </div>
@@ -55,38 +55,38 @@ export function ImpactSection() {
           animate={inView ? "visible" : "hidden"}
         >
           <motion.div
-            className="flex flex-col items-center justify-center space-y-2 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm"
+            className="flex flex-col items-center justify-center space-y-2 bg-white p-6 rounded-lg shadow-sm"
             variants={itemVariants}
           >
             <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary">
               {t.home.impact.students.count}
             </span>
             <h3 className="text-lg sm:text-xl font-medium">{t.home.impact.students.title}</h3>
-            <p className="text-gray-500 dark:text-gray-400 text-center text-sm sm:text-base">
+            <p className="text-gray-500 text-center text-sm sm:text-base">
               {t.home.impact.students.description}
             </p>
           </motion.div>
           <motion.div
-            className="flex flex-col items-center justify-center space-y-2 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm"
+            className="flex flex-col items-center justify-center space-y-2 bg-white p-6 rounded-lg shadow-sm"
             variants={itemVariants}
           >
             <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary">
               {t.home.impact.projects.count}
             </span>
             <h3 className="text-lg sm:text-xl font-medium">{t.home.impact.projects.title}</h3>
-            <p className="text-gray-500 dark:text-gray-400 text-center text-sm sm:text-base">
+            <p className="text-gray-500 text-center text-sm sm:text-base">
               {t.home.impact.projects.description}
             </p>
           </motion.div>
           <motion.div
-            className="flex flex-col items-center justify-center space-y-2 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm"
+            className="flex flex-col items-center justify-center space-y-2 bg-white p-6 rounded-lg shadow-sm"
             variants={itemVariants}
           >
             <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary">
               {t.home.impact.volunteers.count}
             </span>
             <h3 className="text-lg sm:text-xl font-medium">{t.home.impact.volunteers.title}</h3>
-            <p className="text-gray-500 dark:text-gray-400 text-center text-sm sm:text-base">
+            <p className="text-gray-500 text-center text-sm sm:text-base">
               {t.home.impact.volunteers.description}
             </p>
           </motion.div>
@@ -95,4 +95,3 @@ export function ImpactSection() {
     </section>
   )
 }
-

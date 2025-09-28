@@ -35,7 +35,7 @@ export default function AboutPage() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter">
                 {t.about.mission.title}
               </h2>
-              <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg">
+              <p className="text-gray-500 text-sm sm:text-base md:text-lg">
                 {t.about.mission.description}
               </p>
               <h3 className="text-xl font-bold">

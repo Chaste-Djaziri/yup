@@ -12,7 +12,7 @@ export default function DonationCancelled() {
   const t = dictionaries[language]
 
   return (
-    <main className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <main className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <motion.div
           className="max-w-md w-full text-center"
@@ -21,7 +21,7 @@ export default function DonationCancelled() {
           transition={{ duration: 0.5 }}
         >
           <motion.div
-            className="rounded-full bg-orange-100 dark:bg-orange-900/20 p-6 mb-6 mx-auto w-fit"
+            className="rounded-full bg-orange-100 p-6 mb-6 mx-auto w-fit"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -30,7 +30,7 @@ export default function DonationCancelled() {
           </motion.div>
 
           <motion.h1
-            className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white"
+            className="text-3xl md:text-4xl font-bold mb-4 text-gray-900"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -39,7 +39,7 @@ export default function DonationCancelled() {
           </motion.h1>
 
           <motion.p
-            className="text-lg text-gray-600 dark:text-gray-300 mb-8"
+            className="text-lg text-gray-600 mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -69,11 +69,11 @@ export default function DonationCancelled() {
               </Link>
             </div>
 
-            <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+            <div className="mt-8 p-4 bg-blue-50 rounded-lg">
+              <h3 className="font-semibold text-blue-900 mb-2">
                 {t.donate?.cancelled?.otherWays?.title || "Other Ways to Help"}
               </h3>
-              <p className="text-sm text-blue-700 dark:text-blue-200 mb-3">
+              <p className="text-sm text-blue-700 mb-3">
                 {t.donate?.cancelled?.otherWays?.description ||
                   "Even if you can't donate right now, there are other ways to support our mission:"}
               </p>

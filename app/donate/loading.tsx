@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 export default function DonateLoading() {
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="w-full h-[300px] bg-gray-200 dark:bg-gray-800 animate-pulse" />
+      <div className="w-full h-[300px] bg-gray-200 animate-pulse" />
 
       <div className="container px-4 md:px-6 py-8">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
@@ -27,4 +27,3 @@ export default function DonateLoading() {
     </div>
   )
 }
-

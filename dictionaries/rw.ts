@@ -13,14 +13,6 @@ export const rw = {
     donate: "Tanga Inkunga",
     admin: "Admin",
   },
-
-  theme: {
-    select: "Hitamo insanganyamatsiko",
-    light: "Ifite urumuri",
-    dark: "Ifite umukara",
-    system: "Sisitemu",
-  },
-
   language: {
     select: "Hitamo ururimi",
     en: "Icyongereza",

@@ -42,13 +42,13 @@ export function NewsletterSignup({ isOpen, onClose }: NewsletterSignupProps) {
         onClose={onClose}
       >
         <div className="flex flex-col items-center justify-center py-8 text-center">
-          <div className="rounded-full bg-green-100 p-3 dark:bg-green-900/20">
-            <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
+          <div className="rounded-full bg-green-100 p-3">
+            <CheckCircle className="h-8 w-8 text-green-600" />
           </div>
           <h3 className="mt-4 text-lg font-medium">
             {getTranslation(language, "newsletter.thankYou.message", "You're now subscribed!")}
           </h3>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-2 text-sm text-gray-500">
             {getTranslation(
               language,
               "newsletter.thankYou.description",
@@ -100,4 +100,3 @@ export function NewsletterSignup({ isOpen, onClose }: NewsletterSignupProps) {
     </Modal>
   )
 }
-

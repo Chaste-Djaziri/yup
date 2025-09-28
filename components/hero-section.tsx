@@ -13,7 +13,7 @@ export function HeroSection() {
   const t = dictionaries[language]
 
   return (
-    <section className="w-full py-8 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <section className="w-full py-8 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-b from-white to-gray-100">
       <div className="container px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
           <motion.div
@@ -26,7 +26,7 @@ export function HeroSection() {
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl/none font-bold tracking-tighter">
                 {t.home.hero.title}
               </h1>
-              <p className="max-w-[600px] text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg lg:text-xl">
+              <p className="max-w-[600px] text-gray-500 text-sm sm:text-base md:text-lg lg:text-xl">
                 {t.home.hero.subtitle}
               </p>
             </div>
@@ -72,4 +72,3 @@ export function HeroSection() {
     </section>
   )
 }
-

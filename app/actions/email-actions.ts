@@ -254,3 +254,53 @@ export async function sendDailyCountdownEmail() {
     return { success: false, error: "An unexpected error occurred" };
   }
 }
+
+export async function sendCustomEmail({
+  to,
+  subject,
+  message,
+}: {
+  to: string
+  subject: string
+  message: string
+}) {
+  try {
+    const recipient = to.trim()
+    const emailSubject = subject.trim()
+    const emailMessage = message.trim()
+
+    if (!recipient || !emailSubject || !emailMessage) {
+      return { success: false, error: "All fields are required" }
+    }
+
+    const htmlContent = `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+        <p>${emailMessage.replace(/\n/g, "<br>")}</p>
+      </div>
+    `
+
+    const { data, error } = await resend.emails.send({
+      from: "Youth Uplift Initiative <noreply@yupinitiative.com>",
+      to: [recipient],
+      subject: emailSubject,
+      html: htmlContent,
+    })
+
+    await createEmailLog({
+      recipient,
+      subject: emailSubject,
+      status: error ? "failed" : "sent",
+      error: error ? JSON.stringify(error) : null,
+    })
+
+    if (error) {
+      console.error("Error sending custom email:", error)
+      return { success: false, error: "Failed to send email" }
+    }
+
+    return { success: true, data }
+  } catch (error) {
+    console.error("Error in sendCustomEmail:", error)
+    return { success: false, error: "An unexpected error occurred" }
+  }
+}

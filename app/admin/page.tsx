@@ -1,21 +1,28 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useTransition, type FormEvent } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { AdminLogin } from "@/components/admin-login"
 import { ContactSubmissionsTable } from "@/components/contact-submissions-table"
 import { VolunteerApplicationsTable } from "@/components/volunteer-applications-table"
 import { AcceptedMembersTable } from "@/components/accepted-members-table"
 import { BlockedEmailsTable } from "@/components/blocked-emails-table"
 import { isAdminAuthenticated, logoutAdmin } from "@/lib/admin-auth"
-import { Search, RefreshCw, Users, Mail, UserCheck, ShieldAlert } from 'lucide-react'
+import { sendCustomEmail } from "@/app/actions/email-actions"
+import { toast } from "@/components/ui/use-toast"
+import { Search, RefreshCw, Users, Mail, UserCheck, ShieldAlert, Send } from 'lucide-react'
 
 export default function AdminDashboardPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
+  const [emailTo, setEmailTo] = useState("")
+  const [emailSubject, setEmailSubject] = useState("")
+  const [emailMessage, setEmailMessage] = useState("")
+  const [isSending, startTransition] = useTransition()
 
   useEffect(() => {
     // Check if admin is authenticated
@@ -30,6 +37,34 @@ export default function AdminDashboardPage() {
   const handleLogout = () => {
     logoutAdmin()
     setIsAuthenticated(false)
+  }
+
+  const handleEmailSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    startTransition(async () => {
+      const result = await sendCustomEmail({
+        to: emailTo,
+        subject: emailSubject,
+        message: emailMessage,
+      })
+
+      if (result.success) {
+        toast({
+          title: "Email sent",
+          description: "Your message has been delivered successfully.",
+        })
+        setEmailTo("")
+        setEmailSubject("")
+        setEmailMessage("")
+      } else {
+        toast({
+          title: "Unable to send email",
+          description: result.error ?? "Please try again later.",
+          variant: "destructive",
+        })
+      }
+    })
   }
 
   if (isLoading) {
@@ -83,6 +118,10 @@ export default function AdminDashboardPage() {
               <ShieldAlert size={16} />
               <span>Blocked Emails</span>
             </TabsTrigger>
+            <TabsTrigger value="custom-email" className="flex items-center gap-2">
+              <Send size={16} />
+              <span>Send Email</span>
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="contacts" className="bg-white rounded-lg shadow">
             <ContactSubmissionsTable searchQuery={searchQuery} />
@@ -95,6 +134,55 @@ export default function AdminDashboardPage() {
           </TabsContent>
           <TabsContent value="blocked" className="bg-white rounded-lg shadow">
             <BlockedEmailsTable searchQuery={searchQuery} />
+          </TabsContent>
+          <TabsContent value="custom-email" className="bg-white rounded-lg shadow p-6">
+            <form onSubmit={handleEmailSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="emailTo" className="text-sm font-medium text-gray-700">
+                  Recipient email
+                </label>
+                <Input
+                  id="emailTo"
+                  type="email"
+                  placeholder="recipient@example.com"
+                  value={emailTo}
+                  onChange={(event) => setEmailTo(event.target.value)}
+                  required
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <label htmlFor="emailSubject" className="text-sm font-medium text-gray-700">
+                  Subject
+                </label>
+                <Input
+                  id="emailSubject"
+                  placeholder="Subject line"
+                  value={emailSubject}
+                  onChange={(event) => setEmailSubject(event.target.value)}
+                  required
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <label htmlFor="emailMessage" className="text-sm font-medium text-gray-700">
+                  Message
+                </label>
+                <Textarea
+                  id="emailMessage"
+                  placeholder="Type your message"
+                  value={emailMessage}
+                  onChange={(event) => setEmailMessage(event.target.value)}
+                  required
+                  className="mt-1 min-h-[200px]"
+                />
+              </div>
+              <div className="flex justify-end">
+                <Button type="submit" disabled={isSending}>
+                  {isSending ? "Sending..." : "Send Email"}
+                </Button>
+              </div>
+            </form>
           </TabsContent>
         </Tabs>
       </div>

@@ -13,14 +13,6 @@ export const en = {
     donate: "Donate",
     admin: "Admin",
   },
-
-  theme: {
-    select: "Select theme",
-    light: "Light",
-    dark: "Dark",
-    system: "System",
-  },
-
   language: {
     select: "Select language",
     en: "English",

@@ -27,7 +27,7 @@ export function DonateSection() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter">
               {getTranslation(language, "home.donate.title", "Make a Difference Today")}
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg max-w-[800px] mx-auto">
+            <p className="text-gray-500 text-sm sm:text-base md:text-lg max-w-[800px] mx-auto">
               {getTranslation(
                 language,
                 "home.donate.description",
@@ -49,4 +49,3 @@ export function DonateSection() {
     </section>
   )
 }
-

@@ -22,15 +22,15 @@ export function TestimonialSection() {
         </div>
         <div className="grid grid-cols-1 gap-6 sm:gap-8 mt-8 md:mt-12 sm:grid-cols-2 lg:grid-cols-3">
           {t.home.testimonials.testimonials.map((testimonial, index) => (
-            <div key={index} className="flex flex-col p-5 sm:p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <div key={index} className="flex flex-col p-5 sm:p-6 bg-gray-50 rounded-lg">
               <div className="flex items-start space-x-3 sm:space-x-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-200 dark:bg-gray-700" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-200" />
                 <div>
                   <h3 className="text-base sm:text-lg font-bold">{testimonial.name}</h3>
-                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
+                  <p className="text-xs sm:text-sm text-gray-500">{testimonial.role}</p>
                 </div>
               </div>
-              <blockquote className="mt-3 sm:mt-4 text-gray-500 dark:text-gray-400 text-sm sm:text-base">
+              <blockquote className="mt-3 sm:mt-4 text-gray-500 text-sm sm:text-base">
                 "{testimonial.quote}"
               </blockquote>
             </div>
@@ -40,4 +40,3 @@ export function TestimonialSection() {
     </section>
   )
 }
-

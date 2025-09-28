@@ -60,7 +60,7 @@ function VideoCard({ src, title }: { src: string; title: string }) {
           <button
             aria-label={playing ? "Pause" : "Play"}
             onClick={togglePlay}
-            className="opacity-90 hover:opacity-100 transition rounded-full bg-white/90 dark:bg-gray-800/90 p-3 shadow-md"
+            className="opacity-90 hover:opacity-100 transition rounded-full bg-white/90 p-3 shadow-md"
           >
             {playing ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
           </button>
@@ -70,17 +70,17 @@ function VideoCard({ src, title }: { src: string; title: string }) {
             <button
               aria-label={muted ? "Unmute" : "Mute"}
               onClick={toggleMute}
-              className="rounded-full bg-white/90 dark:bg-gray-800/90 p-1.5 shadow"
+              className="rounded-full bg-white/90 p-1.5 shadow"
             >
               {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
             </button>
-            <div className="flex-1 h-1.5 rounded bg-white/60 dark:bg-gray-700 cursor-pointer" onClick={onSeek}>
+            <div className="flex-1 h-1.5 rounded bg-white/60 cursor-pointer" onClick={onSeek}>
               <div className="h-full rounded bg-primary" style={{ width: `${progress}%` }} />
             </div>
           </div>
         </div>
       </div>
-      <p className="mt-2 text-sm text-gray-700 dark:text-gray-300 text-center">{title}</p>
+      <p className="mt-2 text-sm text-gray-700 text-center">{title}</p>
     </div>
   )
 }
@@ -92,12 +92,12 @@ export function VideosSection() {
   ]
 
   return (
-    <section className="w-full py-12 md:py-24 bg-gray-50 dark:bg-gray-900">
+    <section className="w-full py-12 md:py-24 bg-gray-50">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-gray-900 dark:text-gray-100">Stories in Motion</h2>
-            <p className="max-w-[700px] text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-gray-900">Stories in Motion</h2>
+            <p className="max-w-[700px] text-gray-500 text-sm sm:text-base md:text-lg mx-auto">
               Short clips from our activities and community moments.
             </p>
           </div>

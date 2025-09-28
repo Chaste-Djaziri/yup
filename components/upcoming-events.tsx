@@ -54,14 +54,14 @@ export function UpcomingEvents() {
         </div>
         <div className="grid grid-cols-1 gap-6 sm:gap-8 mt-8 md:mt-12 sm:grid-cols-2 lg:grid-cols-3">
           {events.map((event, index) => (
-            <div key={index} className="flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden">
+            <div key={index} className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
               <div className="p-1 bg-primary text-white text-center">
                 <Calendar className="h-3 w-3 sm:h-4 sm:w-4 inline-block mr-1" />
                 <span className="text-xs sm:text-sm">{event.date}</span>
               </div>
               <div className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold">{event.title}</h3>
-                <p className="mt-2 text-gray-500 dark:text-gray-400 text-sm sm:text-base">{event.description}</p>
+                <p className="mt-2 text-gray-500 text-sm sm:text-base">{event.description}</p>
                 <div className="mt-4">
                   <Link href={`/events/${(event.slug || event.title.toLowerCase().replace(/\s+/g, "-")).toString()}`}>
                     <Button variant="outline" size="sm" className="text-xs sm:text-sm">

@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { NewsletterSignup } from "@/components/newsletter-signup";
-import { useTheme } from "next-themes";
 import { useLanguage } from "@/contexts/language-context";
 import { dictionaries } from "@/dictionaries";
 // Import the Acknowledgments component
@@ -20,10 +19,8 @@ import { Acknowledgments } from "@/components/acknowledgments";
 
 export function Footer() {
   const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false);
-  const { theme } = useTheme();
   const { language } = useLanguage();
   const t = dictionaries[language];
-  const isDark = theme === "dark";
 
   return (
     <footer className="w-full bg-gray-900 text-white">
@@ -134,7 +131,7 @@ export function Footer() {
               <button
                 type="button"
                 onClick={() => setIsNewsletterModalOpen(true)}
-                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200 hover:scale-105 dark:bg-white dark:text-black dark:hover:bg-gray-200 text-sm md:text-base"
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200 hover:scale-105 text-sm md:text-base"
               >
                 {t.footer.newsletter.button}
               </button>
