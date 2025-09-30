@@ -19,7 +19,7 @@ export function SchemaOrg() {
             "@type": "ContactPoint",
             telephone: "+250-788-749-709",
             contactType: "customer service",
-            email: "yupinitiative@gmail.com",
+            email: "contact.yupinitiative@gmail.com",
             areaServed: "Rwanda",
           },
           address: {

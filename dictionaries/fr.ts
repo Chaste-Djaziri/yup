@@ -670,8 +670,8 @@ export const fr = {
       },
       email: {
         title: "Email",
-        general: "yupinitiative@gmail.com",
-        support: "yupinitiative@gmail.com",
+        general: "contact.yupinitiative@gmail.com",
+        support: "contact.yupinitiative@gmail.com",
       },
       phone: {
         title: "Téléphone",
