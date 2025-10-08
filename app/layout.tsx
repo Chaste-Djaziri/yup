@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://youthuplift.org"),
+  metadataBase: new URL("https://yupinitiative.com"),
   alternates: {
     canonical: "/",
     languages: {
