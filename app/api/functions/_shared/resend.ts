@@ -13,7 +13,7 @@ export const getResend = () => {
 };
 
 export const getResendConfig = () => ({
-  from: process.env.RESEND_FROM_EMAIL || "YUP Initiative <noreply@yupinitiative.com>",
+  from: process.env.RESEND_FROM_EMAIL || "YUP Initiative <noreply@support.yupinitiative.com>",
   adminEmail: process.env.ADMIN_NOTIFICATION_EMAIL || "contact.yupinitiative@gmail.com",
   communitySegmentId: process.env.RESEND_COMMUNITY_SEGMENT_ID || "",
   nonCommunitySegmentId: process.env.RESEND_NONE_COMMUNITY_SEGMENT_ID || "",
