@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
-import { getPublishedEventBySlug } from "@/lib/events-server";
 import { buildMetadata, seoByRoute } from "@/seo/meta";
+import { resolvePublishedEventBySlug } from "@/lib/events-server";
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const event = await getPublishedEventBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const resolved = await resolvePublishedEventBySlug(slug);
 
-  if (!event) {
+  if (!resolved.event) {
     return buildMetadata(seoByRoute.events);
   }
 
   return buildMetadata(
     {
-      title: `${event.title} | Youth Uplift Initiative`,
-      description: event.summary || event.description || seoByRoute.events.description,
-      path: `/events/${event.slug}`,
-      image: event.image_url || undefined,
+      title: `${resolved.event.title} | Youth Uplift Initiative`,
+      description: resolved.event.summary || resolved.event.description || seoByRoute.events.description,
+      path: `/events/${resolved.event.slug}`,
+      image: resolved.event.image_url || undefined,
     },
     "article",
   );

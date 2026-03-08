@@ -1,11 +1,8 @@
-"use client";
-
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { DetailPageSkeleton } from "@/components/skeletons/content-loading";
-import { usePublicEventBySlug } from "@/hooks/usePublicEvents";
+import { resolvePublishedEventBySlug } from "@/lib/events-server";
 
 const formatEventDate = (value: string) => {
   const date = new Date(value);
@@ -19,34 +16,19 @@ const formatEventTime = (value: string) => {
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 };
 
-export default function EventDetailPage() {
-  const params = useParams<{ slug: string }>();
-  const { data: event, isLoading } = usePublicEventBySlug(params.slug);
+export default async function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const resolved = await resolvePublishedEventBySlug(slug);
 
-  if (isLoading) {
-    return (
-      <>
-        <Navbar />
-        <DetailPageSkeleton />
-        <Footer />
-      </>
-    );
+  if (!resolved.event || !resolved.canonicalSlug) {
+    notFound();
   }
 
-  if (!event) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <section className="container mx-auto px-4 py-16 lg:px-8">
-          <p className="text-sm text-foreground/70">Event not found.</p>
-          <Link href="/events" className="mt-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">
-            Back to Events
-          </Link>
-        </section>
-        <Footer />
-      </div>
-    );
+  if (resolved.matchedAlias && resolved.canonicalSlug !== slug) {
+    redirect(`/events/${resolved.canonicalSlug}`);
   }
+
+  const event = resolved.event;
 
   return (
     <div className="min-h-screen">

@@ -10,9 +10,38 @@ export async function POST(req: Request) {
     const body = (await req.json()) as Record<string, any>;
     if (!body.id) throw new Error("Event id is required");
 
+    const supabase = getServiceClient();
+
+    const { data: existingEvent, error: existingEventError } = await supabase
+      .from("events")
+      .select("*")
+      .eq("id", body.id)
+      .single();
+    if (existingEventError) throw existingEventError;
+
+    const requestedSlug = typeof body.slug === "string" ? body.slug : existingEvent.slug;
+    const normalizedSlug = toSlug(requestedSlug);
+    if (!normalizedSlug) throw new Error("Valid slug is required");
+
+    const { data: slugEventMatch, error: slugEventError } = await supabase
+      .from("events")
+      .select("id")
+      .eq("slug", normalizedSlug)
+      .maybeSingle();
+    if (slugEventError) throw slugEventError;
+    if (slugEventMatch && slugEventMatch.id !== body.id) throw new Error("Slug already exists for another event");
+
+    const { data: slugAliasMatch, error: slugAliasError } = await supabase
+      .from("event_slug_aliases")
+      .select("event_id")
+      .eq("alias_slug", normalizedSlug)
+      .maybeSingle();
+    if (slugAliasError) throw slugAliasError;
+    if (slugAliasMatch && slugAliasMatch.event_id !== body.id) throw new Error("Slug is reserved by a legacy event URL");
+
     const updatePayload: Record<string, unknown> = {
       title: body.title,
-      slug: body.slug || (body.title ? toSlug(body.title) : undefined),
+      slug: normalizedSlug,
       summary: body.summary,
       description: body.description,
       location: body.location,
@@ -26,9 +55,15 @@ export async function POST(req: Request) {
 
     Object.keys(updatePayload).forEach((k) => updatePayload[k] === undefined && delete updatePayload[k]);
 
-    const supabase = getServiceClient();
     const { data, error } = await supabase.from("events").update(updatePayload).eq("id", body.id).select("*").single();
     if (error) throw error;
+
+    if (existingEvent.slug !== data.slug) {
+      const { error: aliasInsertError } = await supabase
+        .from("event_slug_aliases")
+        .upsert({ event_id: data.id, alias_slug: existingEvent.slug }, { onConflict: "alias_slug" });
+      if (aliasInsertError) throw aliasInsertError;
+    }
 
     await supabase.from("admin_audit_logs").insert({ actor_id: user.id, action: "update", entity: "events", entity_id: data.id, metadata: updatePayload });
 

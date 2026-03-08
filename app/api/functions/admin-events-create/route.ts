@@ -11,9 +11,30 @@ export async function POST(req: Request) {
     ensure(body.title, "Title is required");
     ensure(body.event_start, "event_start is required");
 
+    const normalizedSlug = toSlug(body.slug || body.title);
+    ensure(normalizedSlug, "Valid slug is required");
+
+    const supabase = getServiceClient();
+
+    const { data: slugEventMatch, error: slugEventError } = await supabase
+      .from("events")
+      .select("id")
+      .eq("slug", normalizedSlug)
+      .maybeSingle();
+    if (slugEventError) throw slugEventError;
+    if (slugEventMatch) throw new Error("Slug already exists for another event");
+
+    const { data: slugAliasMatch, error: slugAliasError } = await supabase
+      .from("event_slug_aliases")
+      .select("id")
+      .eq("alias_slug", normalizedSlug)
+      .maybeSingle();
+    if (slugAliasError) throw slugAliasError;
+    if (slugAliasMatch) throw new Error("Slug is reserved by a legacy event URL");
+
     const payload = {
       title: body.title,
-      slug: body.slug || toSlug(body.title),
+      slug: normalizedSlug,
       summary: body.summary ?? null,
       description: body.description ?? null,
       location: body.location ?? null,
@@ -26,7 +47,6 @@ export async function POST(req: Request) {
       created_by: user.id,
     };
 
-    const supabase = getServiceClient();
     const { data, error } = await supabase.from("events").insert(payload).select("*").single();
     if (error) throw error;
     await supabase.from("admin_audit_logs").insert({ actor_id: user.id, action: "create", entity: "events", entity_id: data.id, metadata: payload });

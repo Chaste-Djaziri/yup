@@ -34,3 +34,43 @@ export async function getPublishedEventBySlug(slug: string): Promise<DbEvent | n
     return null;
   }
 }
+
+export async function resolvePublishedEventBySlug(
+  slug: string,
+): Promise<{ event: DbEvent | null; canonicalSlug: string | null; matchedAlias: boolean }> {
+  try {
+    const supabase = getServiceClient();
+    const { data: direct } = await supabase
+      .from("events")
+      .select(EVENT_SELECT)
+      .eq("status", "published")
+      .eq("slug", slug)
+      .maybeSingle();
+
+    if (direct) {
+      const event = direct as DbEvent;
+      return { event, canonicalSlug: event.slug, matchedAlias: false };
+    }
+
+    const { data: alias } = await supabase
+      .from("event_slug_aliases")
+      .select("event_id")
+      .eq("alias_slug", slug)
+      .maybeSingle();
+
+    if (!alias?.event_id) return { event: null, canonicalSlug: null, matchedAlias: false };
+
+    const { data: resolved } = await supabase
+      .from("events")
+      .select(EVENT_SELECT)
+      .eq("id", alias.event_id)
+      .eq("status", "published")
+      .maybeSingle();
+
+    if (!resolved) return { event: null, canonicalSlug: null, matchedAlias: false };
+    const event = resolved as DbEvent;
+    return { event, canonicalSlug: event.slug, matchedAlias: true };
+  } catch {
+    return { event: null, canonicalSlug: null, matchedAlias: false };
+  }
+}
