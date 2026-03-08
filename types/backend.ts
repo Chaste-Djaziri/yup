@@ -65,6 +65,8 @@ export type EmailLog = {
   recipient_email: string | null;
   subject: string | null;
   status: string;
+  provider_message_id?: string | null;
+  payload?: Record<string, unknown> | null;
   created_at: string;
 };
 
