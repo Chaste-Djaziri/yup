@@ -1,4 +1,5 @@
 import { getServiceClient } from "@/lib/supabase-server";
+import { renderEmailTemplate } from "../_shared/email-template";
 import { getResend, getResendConfig, isResendEnabled, normalizeEmail, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 import { ensure } from "../_shared/utils";
@@ -33,7 +34,11 @@ export async function POST(req: Request) {
           from: senderFrom("volunteer"),
           to: cfg.adminEmail,
           subject,
-          html: `<h2>New volunteer application</h2><p><strong>Name:</strong> ${body.firstName} ${body.lastName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Phone:</strong> ${body.phone ?? "N/A"}</p><p><strong>Country:</strong> ${body.country ?? "N/A"}</p><p><strong>Opportunity:</strong> ${body.opportunity ?? "N/A"}</p><p><strong>Motivation:</strong><br/>${body.motivation}</p>`,
+          html: renderEmailTemplate({
+            title: "New Volunteer Application",
+            subtitle: "A new volunteer application was submitted.",
+            bodyHtml: `<p><strong>Name:</strong> ${body.firstName} ${body.lastName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Phone:</strong> ${body.phone ?? "N/A"}</p><p><strong>Country:</strong> ${body.country ?? "N/A"}</p><p><strong>Opportunity:</strong> ${body.opportunity ?? "N/A"}</p><p><strong>Motivation:</strong><br/>${body.motivation}</p>`,
+          }),
         }),
       );
       await supabase.from("email_logs").insert({

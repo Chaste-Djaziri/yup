@@ -1,4 +1,5 @@
 import { getServiceClient, requireAuth } from "@/lib/supabase-server";
+import { renderEmailTemplate } from "../_shared/email-template";
 import { getResend, getResendConfig, isResendEnabled, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 
@@ -44,7 +45,11 @@ export async function POST(req: Request) {
           segmentId: segment.segmentId,
           from: senderFrom("newsletter"),
           subject: body.subject,
-          html: body.html,
+          html: renderEmailTemplate({
+            title: body.subject,
+            subtitle: "Community update from Youth Uplift Initiative",
+            bodyHtml: body.html,
+          }),
         });
 
         const broadcastId = created.data?.id;

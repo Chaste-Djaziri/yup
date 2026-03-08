@@ -1,4 +1,5 @@
 import { getServiceClient } from "@/lib/supabase-server";
+import { renderEmailTemplate } from "../_shared/email-template";
 import { getResend, getResendConfig, isResendEnabled, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 import { ensure } from "../_shared/utils";
@@ -21,7 +22,11 @@ export async function POST(req: Request) {
           from: senderFrom("contact"),
           to: cfg.adminEmail,
           subject,
-          html: `<h2>New contact submission</h2><p><strong>Name:</strong> ${body.firstName} ${body.lastName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Subject:</strong> ${body.subject}</p><p><strong>Message:</strong><br/>${body.message}</p>`,
+          html: renderEmailTemplate({
+            title: "New Contact Submission",
+            subtitle: "A new message was submitted from the website contact form.",
+            bodyHtml: `<p><strong>Name:</strong> ${body.firstName} ${body.lastName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Subject:</strong> ${body.subject}</p><p><strong>Message:</strong><br/>${body.message}</p>`,
+          }),
         }),
       );
       await supabase.from("email_logs").insert({

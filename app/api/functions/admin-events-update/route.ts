@@ -1,4 +1,5 @@
 import { getServiceClient, requireAuth } from "@/lib/supabase-server";
+import { renderEmailTemplate } from "../_shared/email-template";
 import { getResend, getResendConfig, isResendEnabled, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 import { toSlug } from "../_shared/utils";
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
       const cfg = getResendConfig();
       if (cfg.communitySegmentId) {
         const broadcastResult = await runResendSafe(async () => {
-          const broadcast = await resend.broadcasts.create({ segmentId: cfg.communitySegmentId, from: senderFrom("newsletter"), subject: `Event Update: ${data.title}`, html: `<h2>${data.title}</h2><p>${data.summary ?? ""}</p><p>${data.description ?? ""}</p><p><a href="${data.registration_url ?? "https://yupinitiative.com/events"}">Register</a></p>` });
+          const broadcast = await resend.broadcasts.create({ segmentId: cfg.communitySegmentId, from: senderFrom("newsletter"), subject: `Event Update: ${data.title}`, html: renderEmailTemplate({ title: `Event Update: ${data.title}`, subtitle: data.summary ?? "There is an update to a YUP event.", bodyHtml: `<p>${data.description ?? ""}</p>`, ctaLabel: "View Event", ctaUrl: data.registration_url ?? "https://yupinitiative.com/events" }) });
           if (!broadcast.data?.id) throw new Error("Broadcast id missing");
           await resend.broadcasts.send(broadcast.data.id, {});
           return broadcast.data.id;

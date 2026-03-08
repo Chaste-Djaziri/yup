@@ -1,4 +1,5 @@
 import { getServiceClient, requireAuth } from "@/lib/supabase-server";
+import { plainTextToHtml, renderEmailTemplate } from "../_shared/email-template";
 import { getResend, isResendEnabled, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 
@@ -26,7 +27,11 @@ export async function POST(req: Request) {
           from: senderFrom("partnerships"),
           to: data.email,
           subject,
-          html: `<p>Hello ${data.full_name},</p><p>${body.message}</p>`,
+          html: renderEmailTemplate({
+            title: "Response From Youth Uplift Initiative",
+            subtitle: "Thank you for your partnership interest.",
+            bodyHtml: `<p>Hello ${data.full_name},</p><p>${plainTextToHtml(body.message)}</p>`,
+          }),
         }),
       );
 

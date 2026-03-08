@@ -1,4 +1,5 @@
 import { getServiceClient, requireAuth } from "@/lib/supabase-server";
+import { renderEmailTemplate } from "../_shared/email-template";
 import { addToSegmentSafe, ensureAudienceContact, getResend, getResendConfig, isResendEnabled, normalizeEmail, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 
@@ -13,11 +14,19 @@ export async function POST(req: Request) {
     if (error) throw error;
 
     let subject = "Volunteer application update";
-    let html = `<p>Hello ${data.first_name}, your volunteer application status is now <strong>${body.status}</strong>.</p>`;
+    let html = renderEmailTemplate({
+      title: "Volunteer Application Update",
+      subtitle: "Status update from Youth Uplift Initiative",
+      bodyHtml: `<p>Hello ${data.first_name}, your volunteer application status is now <strong>${body.status}</strong>.</p>`,
+    });
 
     if (body.status === "accepted") {
       subject = "Your volunteer application has been accepted";
-      html = `<p>Hello ${data.first_name},</p><p>Great news! Your volunteer application has been accepted.</p><p>Please join our WhatsApp group to receive onboarding updates and coordination details:</p><p><a href="https://chat.whatsapp.com/FtXWp0oMLhVCw2RLx9TuXR?mode=gi_t" target="_blank" rel="noreferrer">Join the YUP Volunteer WhatsApp Group</a></p><p>We will contact you with next steps shortly.</p>`;
+      html = renderEmailTemplate({
+        title: "Volunteer Application Accepted",
+        subtitle: "Welcome to the YUP volunteer community",
+        bodyHtml: `<p>Hello ${data.first_name},</p><p>Great news! Your volunteer application has been accepted.</p><p>Please join our WhatsApp group to receive onboarding updates and coordination details:</p><p><a href=\"https://chat.whatsapp.com/FtXWp0oMLhVCw2RLx9TuXR?mode=gi_t\" target=\"_blank\" rel=\"noreferrer\">Join the YUP Volunteer WhatsApp Group</a></p><p>We will contact you with next steps shortly.</p>`,
+      });
 
       const normalizedEmail = normalizeEmail(data.email);
       await supabase.from("newsletter_subscribers").upsert({ email: normalizedEmail, source: "volunteer_accept", linked_volunteer_id: data.id }, { onConflict: "email" });
@@ -46,7 +55,11 @@ export async function POST(req: Request) {
 
     if (body.status === "rejected") {
       subject = "Your volunteer application update";
-      html = `<p>Hello ${data.first_name},</p><p>Thank you for applying. At this time your application was not accepted.</p><p>We encourage you to apply again in the future.</p>`;
+      html = renderEmailTemplate({
+        title: "Volunteer Application Update",
+        subtitle: "Thank you for applying to volunteer with YUP",
+        bodyHtml: `<p>Hello ${data.first_name},</p><p>Thank you for applying. At this time your application was not accepted.</p><p>We encourage you to apply again in the future.</p>`,
+      });
     }
 
     if ((body.status === "accepted" || body.status === "rejected") && isResendEnabled()) {

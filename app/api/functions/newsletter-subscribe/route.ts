@@ -1,4 +1,5 @@
 import { getServiceClient } from "@/lib/supabase-server";
+import { renderEmailTemplate } from "../_shared/email-template";
 import { addToSegmentSafe, ensureAudienceContact, getResend, getResendConfig, isResendEnabled, normalizeEmail, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 import { ensure } from "../_shared/utils";
@@ -21,7 +22,11 @@ export async function POST(req: Request) {
           from: senderFrom("newsletter"),
           to: cfg.adminEmail,
           subject: "New newsletter subscription",
-          html: `<h2>New newsletter subscriber</h2><p><strong>Email:</strong> ${email}</p>`,
+          html: renderEmailTemplate({
+            title: "New Newsletter Subscriber",
+            subtitle: "A visitor joined the newsletter from the website.",
+            bodyHtml: `<p><strong>Email:</strong> ${email}</p>`,
+          }),
         }),
       );
       await supabase.from("email_logs").insert({

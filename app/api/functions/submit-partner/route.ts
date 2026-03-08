@@ -1,4 +1,5 @@
 import { getServiceClient } from "@/lib/supabase-server";
+import { renderEmailTemplate } from "../_shared/email-template";
 import { getResend, getResendConfig, isResendEnabled, normalizeEmail, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 import { ensure } from "../_shared/utils";
@@ -49,7 +50,11 @@ export async function POST(req: Request) {
           from: senderFrom("partnerships"),
           to: cfg.adminEmail,
           subject,
-          html: `<h2>New partnership inquiry</h2><p><strong>Name:</strong> ${body.fullName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Organization:</strong> ${body.organizationName}</p><p><strong>Partner type:</strong> ${body.partnerType}</p><p><strong>Goal:</strong> ${body.partnershipGoal}</p><p><strong>Phone:</strong> ${body.phone ?? "N/A"}</p><p><strong>Website:</strong> ${body.website ?? "N/A"}</p><p><strong>Country:</strong> ${body.country ?? "N/A"}</p><p><strong>Message:</strong><br/>${body.message}</p>`,
+          html: renderEmailTemplate({
+            title: "New Partnership Inquiry",
+            subtitle: "A new partnership request was submitted from the website.",
+            bodyHtml: `<p><strong>Name:</strong> ${body.fullName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Organization:</strong> ${body.organizationName}</p><p><strong>Partner type:</strong> ${body.partnerType}</p><p><strong>Goal:</strong> ${body.partnershipGoal}</p><p><strong>Phone:</strong> ${body.phone ?? "N/A"}</p><p><strong>Website:</strong> ${body.website ?? "N/A"}</p><p><strong>Country:</strong> ${body.country ?? "N/A"}</p><p><strong>Message:</strong><br/>${body.message}</p>`,
+          }),
         }),
       );
 
