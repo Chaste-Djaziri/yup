@@ -40,6 +40,7 @@ export const siteData = {
     { label: "Volunteer", href: "/volunteer" },
     { label: "Partner", href: "/partner-with-us" },
     { label: "Gallery", href: "/gallery" },
+    { label: "FAQ", href: "/faq" },
     { label: "Contact", href: "/contact" },
   ] as NavItem[],
   footerColumns: [
@@ -50,6 +51,7 @@ export const siteData = {
         { label: "About", href: "/about" },
         { label: "Programs", href: "/programs" },
         { label: "Events", href: "/events" },
+        { label: "FAQ", href: "/faq" },
       ],
     },
     {

@@ -67,6 +67,12 @@ export const seoByRoute = {
       "Support Youth Uplift Initiative through donations that expand education and community opportunities for youth in Rwanda.",
     path: "/donate",
   },
+  faq: {
+    title: "FAQ | Youth Uplift Initiative",
+    description:
+      "Find answers to common questions about Youth Uplift Initiative programs, volunteering, events, partnerships, donations, and contact support.",
+    path: "/faq",
+  },
 } satisfies Record<string, SeoConfig>;
 
 export const absoluteUrl = (path: string) => new URL(path, SEO_BASE_URL).toString();
