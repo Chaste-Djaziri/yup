@@ -49,3 +49,16 @@ export type EmailLog = {
   status: string;
   created_at: string;
 };
+
+export type DbGalleryImage = {
+  id: string;
+  title: string;
+  category: "events" | "programs" | "community";
+  image_url: string;
+  cloudinary_public_id: string | null;
+  sort_order: number;
+  is_visible: boolean;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+};

@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/lib/supabase";
 import { invokeFunction } from "@/lib/edge";
 import { uploadImageToCloudinary } from "@/lib/cloudinary";
-import type { ContactSubmission, DbEvent, EmailLog, VolunteerApplication } from "@/types/backend";
+import type { ContactSubmission, DbEvent, DbGalleryImage, EmailLog, VolunteerApplication } from "@/types/backend";
 
 const defaultEvent = {
   title: "",
@@ -24,6 +24,13 @@ const defaultEvent = {
   status: "draft",
 };
 
+const defaultGalleryForm = {
+  title: "",
+  category: "events" as "events" | "programs" | "community",
+  sort_order: 0,
+  is_visible: true,
+};
+
 const AdminPage = () => {
   const [loading, setLoading] = useState(true);
   const [sessionReady, setSessionReady] = useState(false);
@@ -35,12 +42,18 @@ const AdminPage = () => {
   const [contacts, setContacts] = useState<ContactSubmission[]>([]);
   const [volunteers, setVolunteers] = useState<VolunteerApplication[]>([]);
   const [events, setEvents] = useState<DbEvent[]>([]);
+  const [galleryImages, setGalleryImages] = useState<DbGalleryImage[]>([]);
   const [logs, setLogs] = useState<EmailLog[]>([]);
   const [adminError, setAdminError] = useState("");
 
   const [replyMessage, setReplyMessage] = useState<Record<string, string>>({});
   const [eventForm, setEventForm] = useState(defaultEvent);
   const [eventImage, setEventImage] = useState<File | null>(null);
+  const [galleryForm, setGalleryForm] = useState(defaultGalleryForm);
+  const [galleryImageFile, setGalleryImageFile] = useState<File | null>(null);
+  const [galleryDrafts, setGalleryDrafts] = useState<
+    Record<string, { title: string; category: "events" | "programs" | "community"; sort_order: number; is_visible: boolean }>
+  >({});
   const [busy, setBusy] = useState(false);
 
   const allowSignup = process.env.NODE_ENV === "development";
@@ -62,16 +75,18 @@ const AdminPage = () => {
   const fetchAdminData = async () => {
     try {
       setAdminError("");
-      const [contactsRes, volunteersRes, eventsRes, logsRes] = await Promise.all([
+      const [contactsRes, volunteersRes, eventsRes, galleryRes, logsRes] = await Promise.all([
         invokeFunction<{ contacts: ContactSubmission[] }>("admin-contacts-list"),
         invokeFunction<{ volunteers: VolunteerApplication[] }>("admin-volunteers-list"),
         invokeFunction<{ events: DbEvent[] }>("admin-events-list"),
+        invokeFunction<{ images: DbGalleryImage[] }>("admin-gallery-list"),
         invokeFunction<{ logs: EmailLog[] }>("admin-email-logs-list"),
       ]);
 
       setContacts(contactsRes.contacts || []);
       setVolunteers(volunteersRes.volunteers || []);
       setEvents(eventsRes.events || []);
+      setGalleryImages(galleryRes.images || []);
       setLogs(logsRes.logs || []);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to load admin data";
@@ -218,6 +233,63 @@ const AdminPage = () => {
     }
   };
 
+  const handleCreateGalleryImage = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!galleryImageFile) {
+      setAdminError("Please select an image file for gallery upload.");
+      return;
+    }
+
+    setBusy(true);
+    try {
+      setAdminError("");
+      const uploaded = await uploadImageToCloudinary(galleryImageFile);
+      await invokeFunction("admin-gallery-create", {
+        ...galleryForm,
+        image_url: uploaded.secureUrl,
+        cloudinary_public_id: uploaded.publicId,
+      });
+
+      setGalleryForm(defaultGalleryForm);
+      setGalleryImageFile(null);
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleUpdateGalleryImage = async (id: string) => {
+    const draft = galleryDrafts[id];
+    if (!draft) return;
+    setBusy(true);
+    try {
+      setAdminError("");
+      await invokeFunction("admin-gallery-update", {
+        id,
+        ...draft,
+      });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleDeleteGalleryImage = async (id: string) => {
+    setBusy(true);
+    try {
+      setAdminError("");
+      await invokeFunction("admin-gallery-delete", { id });
+      setGalleryDrafts((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const sortedContacts = useMemo(() => contacts, [contacts]);
   const sortedVolunteers = useMemo(() => volunteers, [volunteers]);
 
@@ -270,6 +342,7 @@ const AdminPage = () => {
             <TabsTrigger value="contacts">Contacts</TabsTrigger>
             <TabsTrigger value="volunteers">Volunteers</TabsTrigger>
             <TabsTrigger value="events">Events</TabsTrigger>
+            <TabsTrigger value="gallery">Gallery</TabsTrigger>
             <TabsTrigger value="logs">Email Logs</TabsTrigger>
           </TabsList>
 
@@ -383,6 +456,164 @@ const AdminPage = () => {
                   </div>
                 </article>
               ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="gallery" className="space-y-6">
+            <form onSubmit={handleCreateGalleryImage} className="bg-card p-6 space-y-4">
+              <h2 className="font-heading text-3xl">Upload Gallery Image</h2>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Label>
+                  Title
+                  <Input
+                    value={galleryForm.title}
+                    onChange={(e) => setGalleryForm((prev) => ({ ...prev, title: e.target.value }))}
+                    required
+                  />
+                </Label>
+                <Label>
+                  Category
+                  <Select
+                    value={galleryForm.category}
+                    onValueChange={(value) =>
+                      setGalleryForm((prev) => ({ ...prev, category: value as "events" | "programs" | "community" }))
+                    }
+                  >
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="events">events</SelectItem>
+                      <SelectItem value="programs">programs</SelectItem>
+                      <SelectItem value="community">community</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Label>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Label>
+                  Sort Order
+                  <Input
+                    type="number"
+                    value={galleryForm.sort_order}
+                    onChange={(e) =>
+                      setGalleryForm((prev) => ({ ...prev, sort_order: Number.parseInt(e.target.value || "0", 10) || 0 }))
+                    }
+                  />
+                </Label>
+                <Label>
+                  Visibility
+                  <Select
+                    value={galleryForm.is_visible ? "visible" : "hidden"}
+                    onValueChange={(value) => setGalleryForm((prev) => ({ ...prev, is_visible: value === "visible" }))}
+                  >
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="visible">visible</SelectItem>
+                      <SelectItem value="hidden">hidden</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Label>
+              </div>
+              <Label>
+                Image File
+                <Input type="file" accept="image/*" onChange={(e) => setGalleryImageFile(e.target.files?.[0] || null)} required />
+              </Label>
+              <Button type="submit" disabled={busy}>{busy ? "Uploading..." : "Upload Gallery Image"}</Button>
+            </form>
+
+            <div className="space-y-3">
+              {galleryImages.map((image) => {
+                const draft = galleryDrafts[image.id] || {
+                  title: image.title,
+                  category: image.category,
+                  sort_order: image.sort_order,
+                  is_visible: image.is_visible,
+                };
+
+                return (
+                  <article key={image.id} className="bg-card p-4">
+                    <div className="grid gap-4 md:grid-cols-[180px,1fr]">
+                      <img src={image.image_url} alt={image.title} className="h-32 w-full object-cover" />
+                      <div className="space-y-3">
+                        <div className="grid gap-3 md:grid-cols-2">
+                          <Label>
+                            Title
+                            <Input
+                              value={draft.title}
+                              onChange={(e) =>
+                                setGalleryDrafts((prev) => ({
+                                  ...prev,
+                                  [image.id]: { ...draft, title: e.target.value },
+                                }))
+                              }
+                            />
+                          </Label>
+                          <Label>
+                            Category
+                            <Select
+                              value={draft.category}
+                              onValueChange={(value) =>
+                                setGalleryDrafts((prev) => ({
+                                  ...prev,
+                                  [image.id]: { ...draft, category: value as "events" | "programs" | "community" },
+                                }))
+                              }
+                            >
+                              <SelectTrigger><SelectValue /></SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="events">events</SelectItem>
+                                <SelectItem value="programs">programs</SelectItem>
+                                <SelectItem value="community">community</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </Label>
+                        </div>
+                        <div className="grid gap-3 md:grid-cols-2">
+                          <Label>
+                            Sort Order
+                            <Input
+                              type="number"
+                              value={draft.sort_order}
+                              onChange={(e) =>
+                                setGalleryDrafts((prev) => ({
+                                  ...prev,
+                                  [image.id]: { ...draft, sort_order: Number.parseInt(e.target.value || "0", 10) || 0 },
+                                }))
+                              }
+                            />
+                          </Label>
+                          <Label>
+                            Visibility
+                            <Select
+                              value={draft.is_visible ? "visible" : "hidden"}
+                              onValueChange={(value) =>
+                                setGalleryDrafts((prev) => ({
+                                  ...prev,
+                                  [image.id]: { ...draft, is_visible: value === "visible" },
+                                }))
+                              }
+                            >
+                              <SelectTrigger><SelectValue /></SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="visible">visible</SelectItem>
+                                <SelectItem value="hidden">hidden</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </Label>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button size="sm" onClick={() => handleUpdateGalleryImage(image.id)} disabled={busy}>Save</Button>
+                          <Button size="sm" variant="outline" onClick={() => handleDeleteGalleryImage(image.id)} disabled={busy}>
+                            Delete
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+              {galleryImages.length === 0 && (
+                <p className="text-sm text-foreground/70">No gallery images yet. Upload the first one above.</p>
+              )}
             </div>
           </TabsContent>
 
