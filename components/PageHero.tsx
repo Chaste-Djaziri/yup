@@ -6,7 +6,7 @@ type PageHeroProps = {
 
 const PageHero = ({ title, subtitle, image = "/placeholder.svg" }: PageHeroProps) => {
   return (
-    <section className="relative flex min-h-[320px] items-center">
+    <section className="relative flex min-h-[320px] items-center pt-20">
       <img src={image} alt={title} className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/45 to-transparent" />
       <div className="container relative z-10 mx-auto px-4 py-20 lg:px-8">

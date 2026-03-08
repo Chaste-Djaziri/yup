@@ -15,7 +15,7 @@ export function PageHeader({
 }: PageHeaderProps) {
   return (
     <section
-      className="w-full py-8 sm:py-12 md:py-16 lg:py-24 relative bg-cover bg-center"
+      className="w-full py-8 sm:py-12 md:py-16 lg:py-24 pt-24 relative bg-cover bg-center"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div className="absolute inset-0 bg-black/60"></div>
@@ -37,4 +37,3 @@ export function PageHeader({
     </section>
   )
 }
-
