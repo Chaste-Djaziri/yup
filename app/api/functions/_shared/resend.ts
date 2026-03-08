@@ -2,11 +2,17 @@ import { Resend } from "resend";
 
 const truthy = new Set(["1", "true", "yes", "on"]);
 const SENDER_DOMAIN = "support.yupinitiative.com";
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export type SenderKind = "contact" | "volunteer" | "partnerships" | "newsletter" | "no-reply";
 
 export const isResendEnabled = () =>
   truthy.has((process.env.RESEND_ENABLED || "true").trim().toLowerCase()) && Boolean(process.env.RESEND_API_KEY);
+
+const normalizedUuidOrEmpty = (value?: string) => {
+  const trimmed = (value || "").trim();
+  return UUID_REGEX.test(trimmed) ? trimmed : "";
+};
 
 export const getResend = () => {
   if (!isResendEnabled()) throw new Error("Resend is disabled by RESEND_ENABLED");
@@ -17,9 +23,9 @@ export const getResend = () => {
 
 export const getResendConfig = () => ({
   adminEmail: "contact.yupinitiative@gmail.com",
-  communitySegmentId: process.env.RESEND_COMMUNITY_SEGMENT_ID || "",
-  nonCommunitySegmentId: process.env.RESEND_NONE_COMMUNITY_SEGMENT_ID || "",
-  audienceId: process.env.RESEND_AUDIENCE_ID || "",
+  communitySegmentId: normalizedUuidOrEmpty(process.env.RESEND_COMMUNITY_SEGMENT_ID),
+  nonCommunitySegmentId: normalizedUuidOrEmpty(process.env.RESEND_NONE_COMMUNITY_SEGMENT_ID),
+  audienceId: normalizedUuidOrEmpty(process.env.RESEND_AUDIENCE_ID),
 });
 
 export const senderFrom = (kind: SenderKind) => {
