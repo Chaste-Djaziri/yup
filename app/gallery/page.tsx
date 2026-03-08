@@ -3,18 +3,15 @@ import Footer from "@/components/footer";
 import PageHero from "@/components/PageHero";
 
 const images = [
-  "/yup-assets/gallery/IMG_3015_jpg.jpeg",
-  "/yup-assets/gallery/IMG_3021_jpg.jpeg",
-  "/yup-assets/gallery/IMG_3040_jpg.jpeg",
-  "/yup-assets/gallery/IMG_3082_jpg.jpeg",
-  "/yup-assets/gallery/IMG_3110_jpg.jpeg",
-  "/yup-assets/gallery/IMG_3115_jpg.jpeg",
-  "/yup-assets/gallery/IMG_3186_jpg.jpeg",
-  "/yup-assets/gallery/IMG_3225_jpg.jpeg",
-  "/yup-assets/gallery/IMG_3314_jpg.jpeg",
-  "/yup-assets/gallery/IMG_3444_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3467_jpg.jpeg",
   "/yup-assets/gallery/IMG_3482_jpg.jpeg",
-  "/yup-assets/gallery/IMG_3492_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3496_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3544.jpeg",
+  "/yup-assets/gallery/IMG_3578.jpeg",
+  "/yup-assets/gallery/IMG_3642.jpeg",
+  "/yup-assets/gallery/IMG_3667.jpeg",
+  "/yup-assets/gallery/IMG_3709.jpeg",
+  "/yup-assets/gallery/IMG_3862.jpeg",
 ];
 
 export default function GalleryPage() {
