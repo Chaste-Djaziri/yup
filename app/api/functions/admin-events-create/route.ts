@@ -4,6 +4,12 @@ import { getResend, getResendConfig, isResendEnabled, runResendSafe, senderFrom 
 import { json } from "../_shared/response";
 import { ensure, toSlug } from "../_shared/utils";
 
+const isMissingAliasTableError = (error: unknown) => {
+  if (!error || typeof error !== "object") return false;
+  const value = error as { code?: string; message?: string };
+  return value.code === "42P01" || Boolean(value.message?.includes("event_slug_aliases"));
+};
+
 export async function POST(req: Request) {
   try {
     const user = await requireAuth(req.headers.get("Authorization") || undefined);
@@ -24,13 +30,9 @@ export async function POST(req: Request) {
     if (slugEventError) throw slugEventError;
     if (slugEventMatch) throw new Error("Slug already exists for another event");
 
-    const { data: slugAliasMatch, error: slugAliasError } = await supabase
-      .from("event_slug_aliases")
-      .select("id")
-      .eq("alias_slug", normalizedSlug)
-      .maybeSingle();
-    if (slugAliasError) throw slugAliasError;
-    if (slugAliasMatch) throw new Error("Slug is reserved by a legacy event URL");
+    const { data: slugAliasMatch, error: slugAliasError } = await supabase.from("event_slug_aliases").select("id").eq("alias_slug", normalizedSlug).maybeSingle();
+    if (slugAliasError && !isMissingAliasTableError(slugAliasError)) throw slugAliasError;
+    if (!slugAliasError && slugAliasMatch) throw new Error("Slug is reserved by a legacy event URL");
 
     const payload = {
       title: body.title,

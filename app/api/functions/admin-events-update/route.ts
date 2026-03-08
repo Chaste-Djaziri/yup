@@ -4,6 +4,12 @@ import { getResend, getResendConfig, isResendEnabled, runResendSafe, senderFrom 
 import { json } from "../_shared/response";
 import { toSlug } from "../_shared/utils";
 
+const isMissingAliasTableError = (error: unknown) => {
+  if (!error || typeof error !== "object") return false;
+  const value = error as { code?: string; message?: string };
+  return value.code === "42P01" || Boolean(value.message?.includes("event_slug_aliases"));
+};
+
 export async function POST(req: Request) {
   try {
     const user = await requireAuth(req.headers.get("Authorization") || undefined);
@@ -36,8 +42,8 @@ export async function POST(req: Request) {
       .select("event_id")
       .eq("alias_slug", normalizedSlug)
       .maybeSingle();
-    if (slugAliasError) throw slugAliasError;
-    if (slugAliasMatch && slugAliasMatch.event_id !== body.id) throw new Error("Slug is reserved by a legacy event URL");
+    if (slugAliasError && !isMissingAliasTableError(slugAliasError)) throw slugAliasError;
+    if (!slugAliasError && slugAliasMatch && slugAliasMatch.event_id !== body.id) throw new Error("Slug is reserved by a legacy event URL");
 
     const updatePayload: Record<string, unknown> = {
       title: body.title,
@@ -62,7 +68,7 @@ export async function POST(req: Request) {
       const { error: aliasInsertError } = await supabase
         .from("event_slug_aliases")
         .upsert({ event_id: data.id, alias_slug: existingEvent.slug }, { onConflict: "alias_slug" });
-      if (aliasInsertError) throw aliasInsertError;
+      if (aliasInsertError && !isMissingAliasTableError(aliasInsertError)) throw aliasInsertError;
     }
 
     await supabase.from("admin_audit_logs").insert({ actor_id: user.id, action: "update", entity: "events", entity_id: data.id, metadata: updatePayload });

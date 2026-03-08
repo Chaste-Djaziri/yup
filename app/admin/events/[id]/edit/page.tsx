@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,14 @@ export default function AdminEditEventPage() {
     registration_url: "",
     status: "draft",
   });
+
+  const selectedImagePreview = useMemo(() => (eventImage ? URL.createObjectURL(eventImage) : null), [eventImage]);
+
+  useEffect(() => {
+    return () => {
+      if (selectedImagePreview) URL.revokeObjectURL(selectedImagePreview);
+    };
+  }, [selectedImagePreview]);
 
   const load = async () => {
     try {
@@ -148,6 +156,26 @@ export default function AdminEditEventPage() {
           Replace Image
           <Input type="file" accept="image/*" onChange={(e) => setEventImage(e.target.files?.[0] || null)} />
         </Label>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground/70">Current Image</p>
+            <img
+              src={eventItem.image_url || "/yup-assets/event.jpg"}
+              alt={`${eventItem.title} current`}
+              className="h-48 w-full object-cover"
+            />
+          </div>
+          <div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground/70">New Image Preview</p>
+            {selectedImagePreview ? (
+              <img src={selectedImagePreview} alt="Selected replacement preview" className="h-48 w-full object-cover" />
+            ) : (
+              <div className="flex h-48 items-center justify-center border border-border text-sm text-foreground/70">
+                Select a file to preview replacement
+              </div>
+            )}
+          </div>
+        </div>
         <div className="flex flex-wrap gap-2">
           <Button type="submit" disabled={busy}>{busy ? "Saving..." : "Save Event"}</Button>
           <Button type="button" variant="outline" onClick={deleteEvent} disabled={busy}>Delete Event</Button>
