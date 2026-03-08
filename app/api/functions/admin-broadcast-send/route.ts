@@ -1,9 +1,52 @@
 import { getServiceClient, requireAuth } from "@/lib/supabase-server";
 import { renderEmailTemplate } from "../_shared/email-template";
-import { getResend, getResendConfig, isResendEnabled, runResendSafe, senderFrom } from "../_shared/resend";
+import { getResendConfig, isResendEnabled, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 
 type BroadcastTarget = "community" | "non_community" | "both";
+
+type BroadcastResult = { target: string; broadcastId: string | null; status: "sent" | "failed"; error?: string | null };
+
+const RESEND_API_BASE = "https://api.resend.com";
+const MAX_RETRIES = 3;
+
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const resendRequest = async (path: string, init: RequestInit) => {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) throw new Error("RESEND_API_KEY is missing");
+
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt += 1) {
+    const response = await fetch(`${RESEND_API_BASE}${path}`, {
+      ...init,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+        ...(init.headers || {}),
+      },
+    });
+
+    let body: any = null;
+    try {
+      body = await response.json();
+    } catch {
+      body = null;
+    }
+
+    if ((response.status === 429 || response.status >= 500) && attempt < MAX_RETRIES) {
+      await wait(response.status === 429 ? 1100 * attempt : 350 * attempt);
+      continue;
+    }
+
+    if (!response.ok) {
+      throw new Error(body?.message || body?.name || `Resend request failed (${response.status})`);
+    }
+
+    return body;
+  }
+
+  throw new Error("Resend request failed after retries");
+};
 
 export async function POST(req: Request) {
   try {
@@ -19,7 +62,6 @@ export async function POST(req: Request) {
     }
 
     const cfg = getResendConfig();
-    const resend = getResend();
     const supabase = getServiceClient();
 
     const segments: { key: "community" | "non_community"; segmentId: string }[] =
@@ -37,48 +79,72 @@ export async function POST(req: Request) {
       throw new Error(`Missing segment id for: ${missing.map((item) => item.key).join(", ")}`);
     }
 
-    const results: Array<{ target: string; broadcastId: string | null; status: "sent" | "failed"; error?: string | null }> = [];
+    const results: BroadcastResult[] = [];
 
     for (const segment of segments) {
-      const result = await runResendSafe(async () => {
-        const created = await resend.broadcasts.create({
-          segmentId: segment.segmentId,
-          from: senderFrom("newsletter"),
-          subject: body.subject,
-          html: renderEmailTemplate({
-            title: body.subject,
-            subtitle: "Community update from Youth Uplift Initiative",
-            bodyHtml: body.html,
+      try {
+        const created = await resendRequest("/broadcasts", {
+          method: "POST",
+          body: JSON.stringify({
+            segment_id: segment.segmentId,
+            from: senderFrom("newsletter"),
+            subject: body.subject,
+            html: renderEmailTemplate({
+              title: body.subject,
+              subtitle: "Community update from Youth Uplift Initiative",
+              bodyHtml: body.html,
+            }),
           }),
         });
 
-        const broadcastId = created.data?.id;
+        const broadcastId = created?.id as string | undefined;
         if (!broadcastId) throw new Error("Broadcast id missing from Resend response");
 
-        await resend.broadcasts.send(broadcastId, {});
-        return broadcastId;
-      });
+        await resendRequest(`/broadcasts/${broadcastId}/send`, {
+          method: "POST",
+          body: JSON.stringify({}),
+        });
 
-      const record = {
-        target: segment.key,
-        broadcastId: result.ok ? result.data : null,
-        status: result.ok ? "sent" : "failed",
-        error: result.ok ? null : result.error,
-      };
+        const record: BroadcastResult = {
+          target: segment.key,
+          broadcastId,
+          status: "sent",
+          error: null,
+        };
+        results.push(record);
 
-      results.push(record);
+        await supabase.from("email_logs").insert({
+          event_type: "admin_broadcast",
+          subject: body.subject,
+          status: record.status,
+          provider_message_id: record.broadcastId,
+          payload: {
+            target: record.target,
+            segment_id: segment.segmentId,
+            error: null,
+          },
+        });
+      } catch (error) {
+        const record: BroadcastResult = {
+          target: segment.key,
+          broadcastId: null,
+          status: "failed",
+          error: error instanceof Error ? error.message : "Unknown broadcast error",
+        };
+        results.push(record);
 
-      await supabase.from("email_logs").insert({
-        event_type: "admin_broadcast",
-        subject: body.subject,
-        status: record.status,
-        provider_message_id: record.broadcastId,
-        payload: {
-          target: record.target,
-          segment_id: segment.segmentId,
-          error: record.error,
-        },
-      });
+        await supabase.from("email_logs").insert({
+          event_type: "admin_broadcast",
+          subject: body.subject,
+          status: record.status,
+          provider_message_id: null,
+          payload: {
+            target: record.target,
+            segment_id: segment.segmentId,
+            error: record.error,
+          },
+        });
+      }
     }
 
     await supabase.from("admin_audit_logs").insert({
