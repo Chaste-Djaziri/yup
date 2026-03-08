@@ -7,13 +7,31 @@ import { resolvePublishedEventBySlug } from "@/lib/events-server";
 const formatEventDate = (value: string) => {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "Date TBD";
-  return date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  return new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "Africa/Kigali",
+  }).format(date);
 };
 
 const formatEventTime = (value: string) => {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "Time TBD";
-  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  return new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Africa/Kigali",
+  }).format(date);
+};
+
+const formatEventTimeRange = (start: string, end: string | null) => {
+  const startTime = formatEventTime(start);
+  if (!end) return `${startTime} CAT`;
+  const endTime = formatEventTime(end);
+  if (endTime === "Time TBD") return `${startTime} CAT`;
+  return `${startTime} - ${endTime} CAT`;
 };
 
 const renderFormattedText = (value: string) => {
@@ -86,7 +104,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
           <aside className="bg-card p-8">
             <h3 className="font-heading text-2xl">Event Info</h3>
             <p className="mt-4 text-sm text-foreground/80">Date: {formatEventDate(event.event_start)}</p>
-            <p className="mt-2 text-sm text-foreground/80">Time: {formatEventTime(event.event_start)}</p>
+            <p className="mt-2 text-sm text-foreground/80">Time: {formatEventTimeRange(event.event_start, event.event_end)}</p>
             <p className="mt-2 text-sm text-foreground/80">Location: {event.location || "Location TBD"}</p>
             <div className="mt-5 space-y-3">
               {event.registration_url ? (
