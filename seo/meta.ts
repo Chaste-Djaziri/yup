@@ -43,6 +43,12 @@ export const seoByRoute = {
       "Apply to volunteer with Youth Uplift Initiative and help deliver impactful youth programs across Rwanda.",
     path: "/volunteer",
   },
+  partnerWithUs: {
+    title: "Partner With Us | Youth Uplift Initiative",
+    description:
+      "Partner with Youth Uplift Initiative to co-create meaningful youth programs and community impact in Rwanda.",
+    path: "/partner-with-us",
+  },
   gallery: {
     title: "Gallery | Youth Uplift Initiative",
     description:

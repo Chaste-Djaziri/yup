@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/lib/supabase";
 import { invokeFunction } from "@/lib/edge";
 import { uploadImageToCloudinary } from "@/lib/cloudinary";
-import type { ContactSubmission, DbEvent, DbGalleryImage, DbProgram, EmailLog, VolunteerApplication } from "@/types/backend";
+import type { ContactSubmission, DbEvent, DbGalleryImage, DbProgram, EmailLog, PartnerSubmission, VolunteerApplication } from "@/types/backend";
 
 const defaultEvent = {
   title: "",
@@ -58,6 +58,7 @@ const AdminPage = () => {
   const [authError, setAuthError] = useState("");
 
   const [contacts, setContacts] = useState<ContactSubmission[]>([]);
+  const [partners, setPartners] = useState<PartnerSubmission[]>([]);
   const [volunteers, setVolunteers] = useState<VolunteerApplication[]>([]);
   const [events, setEvents] = useState<DbEvent[]>([]);
   const [programs, setPrograms] = useState<DbProgram[]>([]);
@@ -111,8 +112,9 @@ const AdminPage = () => {
   const fetchAdminData = async () => {
     try {
       setAdminError("");
-      const [contactsRes, volunteersRes, eventsRes, programsRes, galleryRes, logsRes] = await Promise.all([
+      const [contactsRes, partnersRes, volunteersRes, eventsRes, programsRes, galleryRes, logsRes] = await Promise.all([
         invokeFunction<{ contacts: ContactSubmission[] }>("admin-contacts-list"),
+        invokeFunction<{ partners: PartnerSubmission[] }>("admin-partners-list"),
         invokeFunction<{ volunteers: VolunteerApplication[] }>("admin-volunteers-list"),
         invokeFunction<{ events: DbEvent[] }>("admin-events-list"),
         invokeFunction<{ programs: DbProgram[] }>("admin-programs-list"),
@@ -121,6 +123,7 @@ const AdminPage = () => {
       ]);
 
       setContacts(contactsRes.contacts || []);
+      setPartners(partnersRes.partners || []);
       setVolunteers(volunteersRes.volunteers || []);
       setEvents(eventsRes.events || []);
       setPrograms(programsRes.programs || []);
@@ -201,6 +204,29 @@ const AdminPage = () => {
     setBusy(true);
     try {
       await invokeFunction("admin-volunteers-update-status", { id, status });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleUpdatePartnerStatus = async (id: string, status: PartnerSubmission["status"]) => {
+    setBusy(true);
+    try {
+      await invokeFunction("admin-partners-update-status", { id, status });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleReplyPartner = async (id: string) => {
+    const message = replyMessage[id];
+    if (!message) return;
+    setBusy(true);
+    try {
+      await invokeFunction("admin-partners-reply", { id, message });
+      setReplyMessage((prev) => ({ ...prev, [id]: "" }));
       await fetchAdminData();
     } finally {
       setBusy(false);
@@ -419,6 +445,7 @@ const AdminPage = () => {
   };
 
   const sortedContacts = useMemo(() => contacts, [contacts]);
+  const sortedPartners = useMemo(() => partners, [partners]);
   const sortedVolunteers = useMemo(() => volunteers, [volunteers]);
 
   if (!loading && !sessionReady) return null;
@@ -468,6 +495,7 @@ const AdminPage = () => {
         <Tabs defaultValue="contacts" className="w-full">
           <TabsList>
             <TabsTrigger value="contacts">Contacts</TabsTrigger>
+            <TabsTrigger value="partners">Partners</TabsTrigger>
             <TabsTrigger value="volunteers">Volunteers</TabsTrigger>
             <TabsTrigger value="events">Events</TabsTrigger>
             <TabsTrigger value="programs">Programs</TabsTrigger>
@@ -504,6 +532,46 @@ const AdminPage = () => {
                 <Button className="mt-2" onClick={() => handleReplyContact(item.id)} disabled={busy}>Send Reply</Button>
               </article>
             ))}
+          </TabsContent>
+
+          <TabsContent value="partners" className="space-y-4">
+            {sortedPartners.map((item) => (
+              <article key={item.id} className="bg-card p-5">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <h3 className="font-semibold">{item.full_name}</h3>
+                    <p className="text-sm text-foreground/70">
+                      {item.email} • {item.organization_name} • {item.partner_type}
+                    </p>
+                  </div>
+                  <Select value={item.status} onValueChange={(value) => handleUpdatePartnerStatus(item.id, value as PartnerSubmission["status"])}>
+                    <SelectTrigger className="w-[180px]"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="new">new</SelectItem>
+                      <SelectItem value="in_progress">in_progress</SelectItem>
+                      <SelectItem value="resolved">resolved</SelectItem>
+                      <SelectItem value="archived">archived</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <p className="mt-3 text-sm"><strong>Partnership Goal:</strong> {item.partnership_goal}</p>
+                <p className="mt-2 text-sm"><strong>Message:</strong> {item.message}</p>
+                <p className="mt-2 text-sm text-foreground/70">
+                  Phone: {item.phone || "N/A"} • Website: {item.website || "N/A"} • Country: {item.country || "N/A"}
+                </p>
+                <Textarea
+                  className="mt-3"
+                  rows={3}
+                  placeholder="Reply message"
+                  value={replyMessage[item.id] || ""}
+                  onChange={(e) => setReplyMessage((prev) => ({ ...prev, [item.id]: e.target.value }))}
+                />
+                <Button className="mt-2" onClick={() => handleReplyPartner(item.id)} disabled={busy}>Send Reply</Button>
+              </article>
+            ))}
+            {sortedPartners.length === 0 && (
+              <p className="text-sm text-foreground/70">No partner inquiries yet.</p>
+            )}
           </TabsContent>
 
           <TabsContent value="volunteers" className="space-y-4">

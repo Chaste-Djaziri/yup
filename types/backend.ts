@@ -41,6 +41,24 @@ export type VolunteerApplication = {
   created_at: string;
 };
 
+export type PartnerSubmission = {
+  id: string;
+  full_name: string;
+  email: string;
+  organization_name: string;
+  partner_type: string;
+  partnership_goal: string;
+  message: string;
+  phone?: string | null;
+  website?: string | null;
+  country?: string | null;
+  status: "new" | "in_progress" | "resolved" | "archived";
+  admin_reply?: string | null;
+  replied_at?: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type EmailLog = {
   id: string;
   event_type: string;

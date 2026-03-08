@@ -38,6 +38,7 @@ export const siteData = {
     { label: "Programs", href: "/programs" },
     { label: "Events", href: "/events" },
     { label: "Volunteer", href: "/volunteer" },
+    { label: "Partner", href: "/partner-with-us" },
     { label: "Gallery", href: "/gallery" },
     { label: "Contact", href: "/contact" },
   ] as NavItem[],
@@ -55,6 +56,7 @@ export const siteData = {
       heading: "Get Involved",
       links: [
         { label: "Volunteer", href: "/volunteer" },
+        { label: "Partner With Us", href: "/partner-with-us" },
         { label: "Donate", href: "/donate" },
         { label: "Contact", href: "/contact" },
       ],
