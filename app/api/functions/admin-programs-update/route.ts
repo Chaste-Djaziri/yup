@@ -1,8 +1,10 @@
 import { getServiceClient, requireAuth } from "@/lib/supabase-server";
 import { json } from "../_shared/response";
+import { toSlug } from "../_shared/utils";
 
 type UpdateProgramBody = {
   id: string;
+  slug?: string;
   title?: string;
   category?: string;
   summary?: string;
@@ -22,7 +24,24 @@ export async function POST(req: Request) {
 
     if (!body.id) throw new Error("Program id is required");
 
+    const supabase = getServiceClient();
+
+    let normalizedSlug: string | undefined;
+    if (body.slug !== undefined) {
+      normalizedSlug = toSlug(body.slug);
+      if (!normalizedSlug) throw new Error("Valid slug is required");
+
+      const { data: slugMatch, error: slugError } = await supabase
+        .from("programs")
+        .select("id")
+        .eq("slug", normalizedSlug)
+        .maybeSingle();
+      if (slugError) throw slugError;
+      if (slugMatch && slugMatch.id !== body.id) throw new Error("Slug already exists for another program");
+    }
+
     const updatePayload: Record<string, unknown> = {
+      slug: normalizedSlug,
       title: body.title,
       category: body.category,
       summary: body.summary,
@@ -37,7 +56,6 @@ export async function POST(req: Request) {
 
     Object.keys(updatePayload).forEach((key) => updatePayload[key] === undefined && delete updatePayload[key]);
 
-    const supabase = getServiceClient();
     const { data, error } = await supabase.from("programs").update(updatePayload).eq("id", body.id).select("*").single();
     if (error) throw error;
 
