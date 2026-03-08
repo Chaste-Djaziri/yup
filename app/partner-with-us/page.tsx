@@ -77,10 +77,10 @@ export default function PartnerWithUsPage() {
             <h2 className="font-heading text-3xl">Partnership Inquiry Form</h2>
             <p className="mt-3 text-foreground/70">Tell us about your organization and partnership goals. Our team reviews each request from the admin dashboard.</p>
             {success ? (
-              <div className="mt-6 border border-emerald-300 bg-emerald-50 p-6 text-center">
-                <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Inquiry Sent</p>
-                <h3 className="mt-2 font-heading text-2xl text-emerald-900">Thank you for your partnership interest</h3>
-                <p className="mt-3 text-sm text-emerald-800">We have received your inquiry and will follow up soon.</p>
+              <div className="mt-6 border border-border bg-muted p-6 text-center">
+                <p className="text-xs font-bold uppercase tracking-wider text-foreground/70">Inquiry Sent</p>
+                <h3 className="mt-2 font-heading text-2xl text-foreground">Thank you for your partnership interest</h3>
+                <p className="mt-3 text-sm text-foreground/80">We have received your inquiry and will follow up soon.</p>
                 <button
                   type="button"
                   onClick={() => setSuccess(false)}
@@ -167,7 +167,7 @@ export default function PartnerWithUsPage() {
                   onChange={(e) => setForm({ ...form, website: e.target.value })}
                   className="w-full border border-border px-4 py-3"
                 />
-                {error && <p className="text-sm text-red-700">{error}</p>}
+                {error && <p className="text-sm text-foreground/70">{error}</p>}
                 <button
                   type="submit"
                   disabled={submitting}

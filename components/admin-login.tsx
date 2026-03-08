@@ -41,7 +41,7 @@ export function AdminLogin({ onLogin }: { onLogin: () => void }) {
               className="mt-1"
             />
           </div>
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm text-foreground/70">{error}</p>}
           <Button type="submit" className="w-full">
             Login
           </Button>

@@ -155,7 +155,7 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
 
   if (error) {
     return (
-      <div className="text-center py-8 text-red-600">
+      <div className="text-center py-8 text-foreground/70">
         Error: {error}
         <Button onClick={fetchSubmissions} className="ml-4">
           Retry
@@ -172,19 +172,19 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
     switch (status) {
       case "new":
         return (
-          <Badge variant="default" className="bg-blue-500">
+          <Badge variant="default" className="bg-foreground">
             New
           </Badge>
         )
       case "in-progress":
         return (
-          <Badge variant="default" className="bg-yellow-500">
+          <Badge variant="default" className="bg-secondary">
             In Progress
           </Badge>
         )
       case "completed":
         return (
-          <Badge variant="default" className="bg-green-500">
+          <Badge variant="default" className="bg-muted-foreground">
             Completed
           </Badge>
         )
@@ -220,7 +220,7 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
             <div
               key={submission.id}
               className={`p-4 cursor-pointer hover:bg-gray-50 ${
-                selectedSubmission?.id === submission.id ? "bg-blue-50" : ""
+                selectedSubmission?.id === submission.id ? "bg-muted" : ""
               }`}
               onClick={() => setSelectedSubmission(submission)}
             >
@@ -255,7 +255,7 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
               <Dialog open={blockDialogOpen} onOpenChange={setBlockDialogOpen}>
                 <DialogTrigger asChild>
                   <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                    <ShieldAlert size={16} className="text-red-500" />
+                    <ShieldAlert size={16} className="text-foreground/70" />
                     <span>Block</span>
                   </Button>
                 </DialogTrigger>
@@ -293,7 +293,7 @@ export function ContactSubmissionsTable({ searchQuery = "" }: { searchQuery?: st
               <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
                 <DialogTrigger asChild>
                   <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                    <Trash2 size={16} className="text-red-500" />
+                    <Trash2 size={16} className="text-foreground/70" />
                     <span>Delete</span>
                   </Button>
                 </DialogTrigger>

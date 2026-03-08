@@ -341,7 +341,7 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
 
   if (error) {
     return (
-      <div className="text-center py-8 text-red-600">
+      <div className="text-center py-8 text-foreground/70">
         Error: {error}
         <Button onClick={fetchApplications} className="ml-4">
           Retry
@@ -358,25 +358,25 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
     switch (status) {
       case "new":
         return (
-          <Badge variant="default" className="bg-blue-500">
+          <Badge variant="default" className="bg-foreground">
             New
           </Badge>
         )
       case "in-progress":
         return (
-          <Badge variant="default" className="bg-yellow-500">
+          <Badge variant="default" className="bg-secondary">
             In Progress
           </Badge>
         )
       case "accepted":
         return (
-          <Badge variant="default" className="bg-green-500">
+          <Badge variant="default" className="bg-muted-foreground">
             Accepted
           </Badge>
         )
       case "rejected":
         return (
-          <Badge variant="default" className="bg-red-500">
+          <Badge variant="default" className="bg-muted0">
             Rejected
           </Badge>
         )
@@ -416,7 +416,7 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
             <div
               key={application.id}
               className={`p-4 cursor-pointer hover:bg-gray-50 ${
-                selectedApplication?.id === application.id ? "bg-blue-50" : ""
+                selectedApplication?.id === application.id ? "bg-muted" : ""
               }`}
               onClick={() => setSelectedApplication(application)}
             >
@@ -503,7 +503,7 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
               <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
                 <DialogTrigger asChild>
                   <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                    <Trash2 size={16} className="text-red-500" />
+                    <Trash2 size={16} className="text-foreground/70" />
                     <span>Delete</span>
                   </Button>
                 </DialogTrigger>
@@ -549,7 +549,7 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
                 <div className="text-sm text-gray-500">
                   <div>Created: {new Date(selectedApplication.created_at).toLocaleDateString()}</div>
                   {selectedApplication.updated_at && (
-                    <div className="text-green-600">
+                    <div className="text-foreground/80">
                       Updated: {new Date(selectedApplication.updated_at).toLocaleDateString()}
                     </div>
                   )}
@@ -703,7 +703,7 @@ export function VolunteerApplicationsTable({ searchQuery = "" }: { searchQuery?:
                       className="w-full justify-start"
                       onClick={() => setDeleteDialogOpen(true)}
                     >
-                      <Trash2 size={16} className="mr-2 text-red-500" />
+                      <Trash2 size={16} className="mr-2 text-foreground/70" />
                       Delete Application
                     </Button>
                   </div>

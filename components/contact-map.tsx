@@ -17,11 +17,11 @@ export function ContactMap() {
       const ctx = canvas.getContext("2d")
       if (ctx) {
         // Draw a simple placeholder map
-        ctx.fillStyle = "#e5e7eb"
+        ctx.fillStyle = "#e2e2e2"
         ctx.fillRect(0, 0, canvas.width, canvas.height)
 
         // Draw some roads
-        ctx.strokeStyle = "#ffffff"
+        ctx.strokeStyle = "#f8f8f8"
         ctx.lineWidth = 3
 
         // Horizontal roads
@@ -45,19 +45,19 @@ export function ContactMap() {
         const centerY = canvas.height / 2
 
         // Pin base
-        ctx.fillStyle = "#ef4444"
+        ctx.fillStyle = "#1f1f1f"
         ctx.beginPath()
         ctx.arc(centerX, centerY, 10, 0, Math.PI * 2)
         ctx.fill()
 
         // Pin dot
-        ctx.fillStyle = "#ffffff"
+        ctx.fillStyle = "#f5f5f5"
         ctx.beginPath()
         ctx.arc(centerX, centerY, 4, 0, Math.PI * 2)
         ctx.fill()
 
         // Add "Map placeholder" text
-        ctx.fillStyle = "#6b7280"
+        ctx.fillStyle = "#555555"
         ctx.font = "14px Arial"
         ctx.textAlign = "center"
         ctx.fillText("Interactive Map", centerX, canvas.height - 20)
@@ -73,4 +73,3 @@ export function ContactMap() {
 
   return <div ref={mapRef} className="w-full h-full bg-gray-100 rounded-lg"></div>
 }
-

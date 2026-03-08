@@ -70,12 +70,12 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
               className="p-8 text-center"
             >
               <motion.div
-                className="rounded-full bg-green-100 p-6 mx-auto mb-6 w-fit"
+                className="rounded-full bg-muted p-6 mx-auto mb-6 w-fit"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2, type: "spring" }}
               >
-                <Heart className="h-12 w-12 text-green-600" fill="currentColor" />
+                <Heart className="h-12 w-12 text-foreground/80" fill="currentColor" />
               </motion.div>
               <motion.h3
                 className="text-2xl font-bold mb-4"
@@ -130,7 +130,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
 
               <div className="p-6 space-y-6">
                 {/* Quick Impact */}
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-100">
+                <div className="bg-gradient-to-r from-muted to-card p-4 rounded-lg border border-border">
                   <div className="flex items-center gap-2 mb-2">
                     <Sparkles className="h-5 w-5 text-primary" />
                     <span className="font-medium">Your Impact</span>
@@ -200,7 +200,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
                     </TabsList>
 
                     <TabsContent value="paypal" className="space-y-3">
-                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+                      <div className="bg-gradient-to-r from-muted to-card p-4 rounded-lg border border-border">
                         <div className="text-center mb-3">
                           <div className="flex items-center justify-center gap-2 mb-2">
                             <Image src="/assets/logo/paypal-seeklogo.svg" alt="PayPal" width={20} height={20} />
@@ -225,7 +225,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
                     </TabsContent>
 
                     <TabsContent value="momo" className="space-y-3">
-                      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-4">
+                      <div className="bg-gradient-to-r from-muted to-card border border-border rounded-lg p-4">
                         <div className="text-center mb-3">
                           <div className="flex items-center justify-center gap-2 mb-2">
                             <MomoIcon className="h-5 w-5" />
@@ -233,19 +233,19 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
                           </div>
                         </div>
 
-                        <div className="bg-white rounded-lg p-3 border border-yellow-300">
+                        <div className="bg-white rounded-lg p-3 border border-border">
                           <p className="text-xs text-gray-600 text-center mb-2">Send your donation to:</p>
                           <div className="flex items-center justify-center gap-2 mb-2">
                             <span className="text-lg font-bold text-gray-800">{momoNumber}</span>
                             <Button variant="outline" size="sm" onClick={copyToClipboard} className="h-6 w-6 p-0">
-                              {copied ? <Check className="h-3 w-3 text-green-600" /> : <Copy className="h-3 w-3" />}
+                              {copied ? <Check className="h-3 w-3 text-foreground/80" /> : <Copy className="h-3 w-3" />}
                             </Button>
                           </div>
                           {copied && (
                             <motion.p
                               initial={{ opacity: 0, y: -10 }}
                               animate={{ opacity: 1, y: 0 }}
-                              className="text-xs text-green-600 font-medium text-center"
+                              className="text-xs text-foreground/80 font-medium text-center"
                             >
                               Copied!
                             </motion.p>

@@ -46,10 +46,10 @@ const NewsletterSignup = ({ title = "Stay updated with YUP news and events", cla
         <p className="mb-6 text-center text-foreground/70">Subscribe for updates on programs, events, and community stories.</p>
 
         {success ? (
-          <div className="border border-emerald-300 bg-emerald-50 p-6 text-center">
-            <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Subscribed</p>
-            <h3 className="mt-2 font-heading text-2xl text-emerald-900">Welcome to YUP updates</h3>
-            <p className="mt-3 text-sm text-emerald-800">You are on the list and will receive our latest news and events.</p>
+          <div className="border border-border bg-muted p-6 text-center">
+            <p className="text-xs font-bold uppercase tracking-wider text-foreground/70">Subscribed</p>
+            <h3 className="mt-2 font-heading text-2xl text-foreground">Welcome to YUP updates</h3>
+            <p className="mt-3 text-sm text-foreground/80">You are on the list and will receive our latest news and events.</p>
             <button
               type="button"
               onClick={() => setSuccess(false)}
@@ -75,7 +75,7 @@ const NewsletterSignup = ({ title = "Stay updated with YUP news and events", cla
               />
             </label>
 
-            {error && <p className="text-sm text-red-700">{error}</p>}
+            {error && <p className="text-sm text-foreground/70">{error}</p>}
 
             <button type="submit" disabled={submitting} className="w-full bg-primary px-6 py-3 text-sm font-bold uppercase tracking-wider text-primary-foreground hover:opacity-90">
               {submitting ? "Subscribing..." : "Subscribe"}

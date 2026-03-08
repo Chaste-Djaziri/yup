@@ -122,7 +122,7 @@ export function BlockedEmailsTable() {
 
   if (error) {
     return (
-      <div className="text-center py-8 text-red-600">
+      <div className="text-center py-8 text-foreground/70">
         Error: {error}
         <Button onClick={fetchBlockedEmails} className="ml-4">
           Retry
@@ -167,7 +167,7 @@ export function BlockedEmailsTable() {
                     onChange={(e) => setNewBlockedEmail(e.target.value)}
                     placeholder="email@example.com"
                   />
-                  {emailError && <p className="text-sm text-red-500">{emailError}</p>}
+                  {emailError && <p className="text-sm text-foreground/70">{emailError}</p>}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="reason" className="text-sm font-medium">
@@ -224,7 +224,7 @@ export function BlockedEmailsTable() {
                     disabled={processingAction}
                     title="Unblock Email"
                   >
-                    <Unlock size={16} className="text-green-500" />
+                    <Unlock size={16} className="text-foreground/70" />
                   </Button>
                 </div>
               </div>

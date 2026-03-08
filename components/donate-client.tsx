@@ -57,7 +57,7 @@ export function DonateClient() {
           description={t.donate?.description || "Your generosity helps us continue our mission."}
           backgroundImage="/assets/donate.jpg"
         />
-        <section className="py-12 md:py-24 bg-gradient-to-br from-green-50 to-blue-50">
+        <section className="py-12 md:py-24 bg-gradient-to-br from-muted to-card">
           <div className="container px-4 md:px-6 mx-auto max-w-4xl">
             <motion.div
               className="flex flex-col items-center justify-center py-12 text-center"
@@ -66,12 +66,12 @@ export function DonateClient() {
               transition={{ duration: 0.5 }}
             >
               <motion.div
-                className="rounded-full bg-green-100 p-8 mb-8"
+                className="rounded-full bg-muted p-8 mb-8"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <Heart className="h-16 w-16 text-green-600" fill="currentColor" />
+                <Heart className="h-16 w-16 text-foreground/80" fill="currentColor" />
               </motion.div>
               <motion.h2
                 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter mb-6 text-gray-800"
@@ -147,7 +147,7 @@ export function DonateClient() {
                 ].map((item, index) => (
                   <motion.div
                     key={index}
-                    className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100"
+                    className="bg-gradient-to-br from-muted to-card p-6 rounded-xl border border-border"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -163,7 +163,7 @@ export function DonateClient() {
 
               <div className="bg-gray-50 p-6 rounded-xl">
                 <h3 className="text-xl font-bold mb-3 flex items-center">
-                  <Shield className="h-5 w-5 text-green-600 mr-2" />
+                  <Shield className="h-5 w-5 text-foreground/80 mr-2" />
                   Tax Information
                 </h3>
                 <p className="text-gray-600">
@@ -248,7 +248,7 @@ export function DonateClient() {
                     </TabsList>
 
                     <TabsContent value="paypal" className="space-y-4">
-                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+                      <div className="bg-gradient-to-r from-muted to-card p-6 rounded-xl border border-border">
                         <div className="text-center mb-4">
                           <div className="flex items-center justify-center gap-2 mb-2">
                             <Image src="/assets/logo/paypal-seeklogo.svg" alt="PayPal" width={24} height={24} />
@@ -273,7 +273,7 @@ export function DonateClient() {
                     </TabsContent>
 
                     <TabsContent value="momo" className="space-y-4">
-                      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-6">
+                      <div className="bg-gradient-to-r from-muted to-card border border-border rounded-xl p-6">
                         <div className="text-center mb-4">
                           <div className="flex items-center justify-center gap-2 mb-2">
                             <MomoIcon className="h-6 w-6" />
@@ -282,20 +282,20 @@ export function DonateClient() {
                           <p className="text-sm text-gray-600">Send your donation via MTN Mobile Money</p>
                         </div>
 
-                        <div className="bg-white rounded-lg p-4 border border-yellow-300">
+                        <div className="bg-white rounded-lg p-4 border border-border">
                           <div className="text-center">
                             <p className="text-sm text-gray-600 mb-2">Send your donation to:</p>
                             <div className="flex items-center justify-center gap-2 mb-3">
                               <span className="text-2xl font-bold text-gray-800">{momoNumber}</span>
                               <Button variant="outline" size="sm" onClick={copyToClipboard} className="h-8 w-8 p-0">
-                                {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
+                                {copied ? <Check className="h-4 w-4 text-foreground/80" /> : <Copy className="h-4 w-4" />}
                               </Button>
                             </div>
                             {copied && (
                               <motion.p
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="text-sm text-green-600 font-medium"
+                                className="text-sm text-foreground/80 font-medium"
                               >
                                 Number copied to clipboard!
                               </motion.p>

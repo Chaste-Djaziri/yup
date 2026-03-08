@@ -128,10 +128,10 @@ export default function VolunteerPage() {
           <p className="mt-3 text-center text-foreground/70">Applications are sent to our admin team for review and response.</p>
 
           {success ? (
-            <div className="mt-8 border border-emerald-300 bg-emerald-50 p-8 text-center">
-              <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Application Submitted</p>
-              <h3 className="mt-2 font-heading text-3xl text-emerald-900">Thank you for volunteering</h3>
-              <p className="mt-3 text-sm text-emerald-800">Your application is in our review queue. We will contact you with the next steps.</p>
+            <div className="mt-8 border border-border bg-muted p-8 text-center">
+              <p className="text-xs font-bold uppercase tracking-wider text-foreground/70">Application Submitted</p>
+              <h3 className="mt-2 font-heading text-3xl text-foreground">Thank you for volunteering</h3>
+              <p className="mt-3 text-sm text-foreground/80">Your application is in our review queue. We will contact you with the next steps.</p>
               <button
                 type="button"
                 onClick={() => setSuccess(false)}
@@ -236,7 +236,7 @@ export default function VolunteerPage() {
                 />
               </label>
 
-              {error && <p className="text-sm text-red-700">{error}</p>}
+              {error && <p className="text-sm text-foreground/70">{error}</p>}
 
               <button
                 type="submit"

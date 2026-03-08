@@ -120,9 +120,9 @@ export function VolunteerForm() {
 
   if (isSubmitted) {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-        <h3 className="text-lg font-medium text-green-800 mb-2">{t.volunteer.form.success.title}</h3>
-        <p className="text-green-600">{t.volunteer.form.success.message}</p>
+      <div className="bg-muted border border-border rounded-lg p-6 text-center">
+        <h3 className="text-lg font-medium text-foreground mb-2">{t.volunteer.form.success.title}</h3>
+        <p className="text-foreground/80">{t.volunteer.form.success.message}</p>
       </div>
     )
   }
@@ -133,13 +133,13 @@ export function VolunteerForm() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="first-name" className="text-sm sm:text-base">
-              {t.volunteer.form.firstName} <span className="text-red-500">*</span>
+              {t.volunteer.form.firstName} <span className="text-foreground/70">*</span>
             </Label>
             <Input id="first-name" name="first-name" required className="text-sm sm:text-base h-10 sm:h-11" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="last-name" className="text-sm sm:text-base">
-              {t.volunteer.form.lastName} <span className="text-red-500">*</span>
+              {t.volunteer.form.lastName} <span className="text-foreground/70">*</span>
             </Label>
             <Input id="last-name" name="last-name" required className="text-sm sm:text-base h-10 sm:h-11" />
           </div>
@@ -147,7 +147,7 @@ export function VolunteerForm() {
 
         <div className="space-y-2">
           <Label htmlFor="email" className="text-sm sm:text-base">
-            {t.volunteer.form.email} <span className="text-red-500">*</span>
+            {t.volunteer.form.email} <span className="text-foreground/70">*</span>
           </Label>
           <Input id="email" name="email" type="email" required className="text-sm sm:text-base h-10 sm:h-11" />
         </div>
@@ -238,7 +238,7 @@ export function VolunteerForm() {
         </div>
         <div className="space-y-2">
           <Label htmlFor="motivation">
-            {t.volunteer.form.motivation} <span className="text-red-500">*</span>
+            {t.volunteer.form.motivation} <span className="text-foreground/70">*</span>
           </Label>
           <Textarea id="motivation" name="motivation" placeholder={t.volunteer.form.motivationPlaceholder} required />
         </div>
@@ -252,12 +252,12 @@ export function VolunteerForm() {
             value="accepted"
           />
           <Label htmlFor="terms" className="text-sm font-normal">
-            {t.volunteer.form.terms} <span className="text-red-500">*</span>
+            {t.volunteer.form.terms} <span className="text-foreground/70">*</span>
           </Label>
         </div>
 
         {formState && !formState.success && formState.message && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-600 text-sm">{formState.message}</div>
+          <div className="bg-muted border border-border rounded-lg p-3 text-foreground/70 text-sm">{formState.message}</div>
         )}
 
         <SubmitButton text={t.volunteer.form.submit} loadingText={t.volunteer.form.submitting || "Submitting..."} />

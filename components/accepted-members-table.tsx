@@ -130,7 +130,7 @@ export function AcceptedMembersTable({ searchQuery = "" }: { searchQuery?: strin
 
   if (error) {
     return (
-      <div className="text-center py-8 text-red-600">
+      <div className="text-center py-8 text-foreground/70">
         Error: {error}
         <Button onClick={fetchMembers} className="ml-4">
           Retry

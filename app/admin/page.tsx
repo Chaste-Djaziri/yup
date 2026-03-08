@@ -497,7 +497,7 @@ const AdminPage = () => {
               Password
               <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </Label>
-            {authError && <p className="text-sm text-red-700">{authError}</p>}
+            {authError && <p className="text-sm text-foreground/70">{authError}</p>}
             <div className="flex gap-3">
               <Button type="submit" className="flex-1">Login</Button>
               {allowSignup && (
@@ -523,7 +523,7 @@ const AdminPage = () => {
           </div>
         </div>
 
-        {adminError && <p className="mb-4 text-sm text-red-700">{adminError}</p>}
+        {adminError && <p className="mb-4 text-sm text-foreground/70">{adminError}</p>}
 
         <Tabs defaultValue="contacts" className="w-full">
           <TabsList>

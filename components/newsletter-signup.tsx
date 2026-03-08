@@ -42,8 +42,8 @@ export function NewsletterSignup({ isOpen, onClose }: NewsletterSignupProps) {
         onClose={onClose}
       >
         <div className="flex flex-col items-center justify-center py-8 text-center">
-          <div className="rounded-full bg-green-100 p-3">
-            <CheckCircle className="h-8 w-8 text-green-600" />
+          <div className="rounded-full bg-muted p-3">
+            <CheckCircle className="h-8 w-8 text-foreground/80" />
           </div>
           <h3 className="mt-4 text-lg font-medium">
             {getTranslation(language, "newsletter.thankYou.message", "You're now subscribed!")}
