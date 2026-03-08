@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { siteData } from "@/content/siteData";
 import { SEO_BASE_URL, SEO_SITE_NAME, SEO_TWITTER, absoluteUrl, seoByRoute } from "@/seo/meta";
+import LenisProvider from "@/components/LenisProvider";
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -59,7 +60,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <LenisProvider>{children}</LenisProvider>
+      </body>
     </html>
   );
 }
