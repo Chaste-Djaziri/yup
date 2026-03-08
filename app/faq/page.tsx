@@ -3,10 +3,32 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import PageHero from "@/components/PageHero";
 import { faqSections } from "@/content/faqData";
+import { SEO_SITE_NAME, absoluteUrl } from "@/seo/meta";
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqSections.flatMap((section) =>
+    section.items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  ),
+  publisher: {
+    "@type": "Organization",
+    name: SEO_SITE_NAME,
+    url: absoluteUrl("/"),
+  },
+};
 
 export default function FaqPage() {
   return (
     <div className="min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <Navbar />
       <PageHero
         title="Frequently Asked Questions"

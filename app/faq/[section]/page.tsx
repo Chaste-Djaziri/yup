@@ -6,7 +6,7 @@ import Footer from "@/components/footer";
 import PageHero from "@/components/PageHero";
 import FaqAccordion from "@/components/faq/FaqAccordion";
 import { faqSections, findFaqSection } from "@/content/faqData";
-import { SEO_SITE_NAME, absoluteUrl } from "@/seo/meta";
+import { SEO_SITE_NAME, SEO_TWITTER, absoluteUrl } from "@/seo/meta";
 
 type Params = { section: string };
 
@@ -29,10 +29,18 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const title = `${section.title} FAQ | ${SEO_SITE_NAME}`;
   const description = section.description;
   const path = `/faq/${section.slug}`;
+  const image = absoluteUrl("/yup-assets/about-header.jpg");
+  const keywords = [
+    "faq",
+    "youth uplift initiative",
+    "rwanda youth programs",
+    section.title.toLowerCase(),
+  ];
 
   return {
     title,
     description,
+    keywords,
     alternates: { canonical: path },
     openGraph: {
       type: "website",
@@ -40,13 +48,14 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       description,
       url: absoluteUrl(path),
       siteName: SEO_SITE_NAME,
-      images: [{ url: absoluteUrl("/yup-assets/about-header.jpg"), alt: section.title }],
+      images: [{ url: image, alt: section.title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [absoluteUrl("/yup-assets/about-header.jpg")],
+      images: [image],
+      site: SEO_TWITTER,
     },
   };
 }
@@ -57,8 +66,27 @@ export default async function FaqSectionPage({ params }: { params: Promise<Param
 
   if (!section) notFound();
 
+  const sectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: section.items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+    publisher: {
+      "@type": "Organization",
+      name: SEO_SITE_NAME,
+      url: absoluteUrl("/"),
+    },
+  };
+
   return (
     <div className="min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sectionJsonLd) }} />
       <Navbar />
       <PageHero title={section.title} subtitle={section.description} image="/yup-assets/about-header.jpg" />
 
