@@ -1,5 +1,5 @@
 import { getServiceClient, requireAuth } from "@/lib/supabase-server";
-import { getResend, getResendConfig, isResendEnabled } from "../_shared/resend";
+import { getResend, isResendEnabled, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 
 export async function POST(req: Request) {
@@ -16,10 +16,18 @@ export async function POST(req: Request) {
     await supabase.from("contact_submissions").update({ admin_reply: body.message, replied_at: new Date().toISOString() }).eq("id", body.id);
 
     if (isResendEnabled()) {
-      const cfg = getResendConfig();
       const resend = getResend();
-      const sent = await resend.emails.send({ from: cfg.from, to: data.email, subject, html: `<p>Hello ${data.first_name},</p><p>${body.message}</p>` });
-      await supabase.from("email_logs").insert({ event_type: "contact_reply_email", recipient_email: data.email, subject, provider_message_id: sent.data?.id ?? null, status: sent.error ? "failed" : "sent", payload: { contact_id: data.id } });
+      const sent = await runResendSafe(() =>
+        resend.emails.send({ from: senderFrom("contact"), to: data.email, subject, html: `<p>Hello ${data.first_name},</p><p>${body.message}</p>` }),
+      );
+      await supabase.from("email_logs").insert({
+        event_type: "contact_reply_email",
+        recipient_email: data.email,
+        subject,
+        provider_message_id: sent.ok ? (sent.data as any)?.data?.id ?? null : null,
+        status: sent.ok ? "sent" : "failed",
+        payload: { contact_id: data.id, error: sent.ok ? null : sent.error },
+      });
     }
 
     await supabase.from("admin_audit_logs").insert({ actor_id: user.id, action: "reply", entity: "contact_submissions", entity_id: data.id, metadata: { subject } });

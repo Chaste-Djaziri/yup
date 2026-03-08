@@ -1,5 +1,5 @@
 import { getServiceClient, requireAuth } from "@/lib/supabase-server";
-import { getResend, getResendConfig, isResendEnabled } from "../_shared/resend";
+import { addToSegmentSafe, ensureAudienceContact, getResend, getResendConfig, isResendEnabled, normalizeEmail, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 
 export async function POST(req: Request) {
@@ -19,13 +19,28 @@ export async function POST(req: Request) {
       subject = "Your volunteer application has been accepted";
       html = `<p>Hello ${data.first_name},</p><p>Great news! Your volunteer application has been accepted.</p><p>We will contact you with next steps shortly.</p>`;
 
-      await supabase.from("newsletter_subscribers").upsert({ email: data.email.toLowerCase(), source: "volunteer_accept", linked_volunteer_id: data.id }, { onConflict: "email" });
+      const normalizedEmail = normalizeEmail(data.email);
+      await supabase.from("newsletter_subscribers").upsert({ email: normalizedEmail, source: "volunteer_accept", linked_volunteer_id: data.id }, { onConflict: "email" });
 
       if (isResendEnabled()) {
         const resend = getResend();
         const cfg = getResendConfig();
-        if (cfg.audienceId) await resend.contacts.create({ email: data.email.toLowerCase(), audienceId: cfg.audienceId, unsubscribed: false }).catch(() => null);
-        if (cfg.communitySegmentId) await resend.contacts.segments.add({ email: data.email.toLowerCase(), segmentId: cfg.communitySegmentId }).catch(() => null);
+        const syncResult = await runResendSafe(async () => {
+          await ensureAudienceContact(resend, cfg.audienceId, normalizedEmail, data.first_name, data.last_name);
+          await addToSegmentSafe(resend, normalizedEmail, cfg.communitySegmentId);
+        });
+        await supabase.from("email_logs").insert({
+          event_type: "volunteer_community_segment_sync",
+          recipient_email: normalizedEmail,
+          subject: "Volunteer community segment sync",
+          status: syncResult.ok ? "sent" : "failed",
+          payload: {
+            volunteer_id: data.id,
+            audience_id: cfg.audienceId || null,
+            segment_id: cfg.communitySegmentId || null,
+            error: syncResult.ok ? null : syncResult.error,
+          },
+        });
       }
     }
 
@@ -36,9 +51,17 @@ export async function POST(req: Request) {
 
     if ((body.status === "accepted" || body.status === "rejected") && isResendEnabled()) {
       const resend = getResend();
-      const cfg = getResendConfig();
-      const sent = await resend.emails.send({ from: cfg.from, to: data.email, subject, html });
-      await supabase.from("email_logs").insert({ event_type: "volunteer_status_email", recipient_email: data.email, subject, provider_message_id: sent.data?.id ?? null, status: sent.error ? "failed" : "sent", payload: { volunteer_id: data.id, status: body.status } });
+      const sent = await runResendSafe(() =>
+        resend.emails.send({ from: senderFrom("volunteer"), to: data.email, subject, html }),
+      );
+      await supabase.from("email_logs").insert({
+        event_type: "volunteer_status_email",
+        recipient_email: data.email,
+        subject,
+        provider_message_id: sent.ok ? (sent.data as any)?.data?.id ?? null : null,
+        status: sent.ok ? "sent" : "failed",
+        payload: { volunteer_id: data.id, status: body.status, error: sent.ok ? null : sent.error },
+      });
     }
 
     await supabase.from("admin_audit_logs").insert({ actor_id: user.id, action: "update_status", entity: "volunteer_applications", entity_id: data.id, metadata: { status: body.status } });

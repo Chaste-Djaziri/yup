@@ -68,6 +68,15 @@ export type EmailLog = {
   created_at: string;
 };
 
+export type AdminBroadcastTarget = "community" | "non_community" | "both";
+
+export type AdminBroadcastResult = {
+  target: "community" | "non_community";
+  broadcastId: string | null;
+  status: "sent" | "failed";
+  error?: string | null;
+};
+
 export type DbGalleryImage = {
   id: string;
   title: string;

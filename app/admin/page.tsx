@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/lib/supabase";
 import { invokeFunction } from "@/lib/edge";
 import { uploadImageToCloudinary } from "@/lib/cloudinary";
-import type { ContactSubmission, DbEvent, DbGalleryImage, DbProgram, EmailLog, PartnerSubmission, VolunteerApplication } from "@/types/backend";
+import type { AdminBroadcastResult, AdminBroadcastTarget, ContactSubmission, DbEvent, DbGalleryImage, DbProgram, EmailLog, PartnerSubmission, VolunteerApplication } from "@/types/backend";
 
 const defaultEvent = {
   title: "",
@@ -91,6 +91,10 @@ const AdminPage = () => {
   const [galleryDrafts, setGalleryDrafts] = useState<
     Record<string, { title: string; category: "events" | "programs" | "community"; sort_order: number; is_visible: boolean }>
   >({});
+  const [broadcastTarget, setBroadcastTarget] = useState<AdminBroadcastTarget>("community");
+  const [broadcastSubject, setBroadcastSubject] = useState("");
+  const [broadcastHtml, setBroadcastHtml] = useState("");
+  const [broadcastResults, setBroadcastResults] = useState<AdminBroadcastResult[]>([]);
   const [busy, setBusy] = useState(false);
 
   const allowSignup = process.env.NODE_ENV === "development";
@@ -438,6 +442,30 @@ const AdminPage = () => {
         delete next[id];
         return next;
       });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleSendBroadcast = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!broadcastSubject || !broadcastHtml) {
+      setAdminError("Broadcast subject and message are required.");
+      return;
+    }
+
+    setBusy(true);
+    try {
+      setAdminError("");
+      const result = await invokeFunction<{ success: boolean; results: AdminBroadcastResult[] }>("admin-broadcast-send", {
+        target: broadcastTarget,
+        subject: broadcastSubject,
+        html: broadcastHtml,
+      });
+      setBroadcastResults(result.results || []);
+      setBroadcastSubject("");
+      setBroadcastHtml("");
       await fetchAdminData();
     } finally {
       setBusy(false);
@@ -1047,6 +1075,41 @@ const AdminPage = () => {
           </TabsContent>
 
           <TabsContent value="logs">
+            <form onSubmit={handleSendBroadcast} className="mb-6 space-y-4 bg-card p-6">
+              <h2 className="font-heading text-3xl">Broadcast Email</h2>
+              <p className="text-sm text-foreground/70">Send one-time broadcast to the selected newsletter segment.</p>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Label>
+                  Target Segment
+                  <Select value={broadcastTarget} onValueChange={(value) => setBroadcastTarget(value as AdminBroadcastTarget)}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="community">community</SelectItem>
+                      <SelectItem value="non_community">non_community</SelectItem>
+                      <SelectItem value="both">both</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Label>
+                <Label>
+                  Subject
+                  <Input value={broadcastSubject} onChange={(e) => setBroadcastSubject(e.target.value)} required />
+                </Label>
+              </div>
+              <Label>
+                HTML Message
+                <Textarea rows={8} value={broadcastHtml} onChange={(e) => setBroadcastHtml(e.target.value)} required />
+              </Label>
+              <Button type="submit" disabled={busy}>{busy ? "Sending..." : "Send Broadcast"}</Button>
+              {broadcastResults.length > 0 && (
+                <div className="space-y-2">
+                  {broadcastResults.map((item) => (
+                    <p key={`${item.target}-${item.broadcastId || "none"}`} className="text-sm">
+                      {item.target}: {item.status} {item.broadcastId ? `(${item.broadcastId})` : ""} {item.error ? `- ${item.error}` : ""}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </form>
             <div className="space-y-2">
               {logs.map((log) => (
                 <article key={log.id} className="bg-card p-3 text-sm">

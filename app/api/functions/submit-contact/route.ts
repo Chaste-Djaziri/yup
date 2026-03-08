@@ -1,5 +1,5 @@
 import { getServiceClient } from "@/lib/supabase-server";
-import { getResend, getResendConfig, isResendEnabled } from "../_shared/resend";
+import { getResend, getResendConfig, isResendEnabled, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 import { ensure } from "../_shared/utils";
 
@@ -12,11 +12,26 @@ export async function POST(req: Request) {
     const { data, error } = await supabase.from("contact_submissions").insert({ first_name: body.firstName, last_name: body.lastName, email: body.email, subject: body.subject, message: body.message, status: "new" }).select("id").single();
     if (error) throw error;
 
+    const subject = `New contact submission: ${body.subject}`;
     if (isResendEnabled()) {
       const resend = getResend();
       const cfg = getResendConfig();
-      const emailResult = await resend.emails.send({ from: cfg.from, to: cfg.adminEmail, subject: `New contact submission: ${body.subject}`, html: `<h2>New contact submission</h2><p><strong>Name:</strong> ${body.firstName} ${body.lastName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Subject:</strong> ${body.subject}</p><p><strong>Message:</strong><br/>${body.message}</p>` });
-      await supabase.from("email_logs").insert({ event_type: "new_contact_notification", recipient_email: cfg.adminEmail, subject: `New contact submission: ${body.subject}`, provider_message_id: emailResult.data?.id ?? null, status: emailResult.error ? "failed" : "sent", payload: { contact_submission_id: data.id, from_email: body.email } });
+      const emailResult = await runResendSafe(() =>
+        resend.emails.send({
+          from: senderFrom("contact"),
+          to: cfg.adminEmail,
+          subject,
+          html: `<h2>New contact submission</h2><p><strong>Name:</strong> ${body.firstName} ${body.lastName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Subject:</strong> ${body.subject}</p><p><strong>Message:</strong><br/>${body.message}</p>`,
+        }),
+      );
+      await supabase.from("email_logs").insert({
+        event_type: "new_contact_notification",
+        recipient_email: cfg.adminEmail,
+        subject,
+        provider_message_id: emailResult.ok ? (emailResult.data as any)?.data?.id ?? null : null,
+        status: emailResult.ok ? "sent" : "failed",
+        payload: { contact_submission_id: data.id, from_email: body.email, error: emailResult.ok ? null : emailResult.error },
+      });
     }
 
     return json({ success: true, id: data.id });

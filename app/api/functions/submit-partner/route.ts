@@ -1,5 +1,5 @@
 import { getServiceClient } from "@/lib/supabase-server";
-import { getResend, getResendConfig, isResendEnabled } from "../_shared/resend";
+import { getResend, getResendConfig, isResendEnabled, normalizeEmail, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 import { ensure } from "../_shared/utils";
 
@@ -44,20 +44,22 @@ export async function POST(req: Request) {
       const resend = getResend();
       const cfg = getResendConfig();
       const subject = `New partnership inquiry: ${body.organizationName}`;
-      const emailResult = await resend.emails.send({
-        from: cfg.from,
-        to: cfg.adminEmail,
-        subject,
-        html: `<h2>New partnership inquiry</h2><p><strong>Name:</strong> ${body.fullName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Organization:</strong> ${body.organizationName}</p><p><strong>Partner type:</strong> ${body.partnerType}</p><p><strong>Goal:</strong> ${body.partnershipGoal}</p><p><strong>Phone:</strong> ${body.phone ?? "N/A"}</p><p><strong>Website:</strong> ${body.website ?? "N/A"}</p><p><strong>Country:</strong> ${body.country ?? "N/A"}</p><p><strong>Message:</strong><br/>${body.message}</p>`,
-      });
+      const emailResult = await runResendSafe(() =>
+        resend.emails.send({
+          from: senderFrom("partnerships"),
+          to: cfg.adminEmail,
+          subject,
+          html: `<h2>New partnership inquiry</h2><p><strong>Name:</strong> ${body.fullName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Organization:</strong> ${body.organizationName}</p><p><strong>Partner type:</strong> ${body.partnerType}</p><p><strong>Goal:</strong> ${body.partnershipGoal}</p><p><strong>Phone:</strong> ${body.phone ?? "N/A"}</p><p><strong>Website:</strong> ${body.website ?? "N/A"}</p><p><strong>Country:</strong> ${body.country ?? "N/A"}</p><p><strong>Message:</strong><br/>${body.message}</p>`,
+        }),
+      );
 
       await supabase.from("email_logs").insert({
         event_type: "new_partner_notification",
         recipient_email: cfg.adminEmail,
         subject,
-        provider_message_id: emailResult.data?.id ?? null,
-        status: emailResult.error ? "failed" : "sent",
-        payload: { partner_submission_id: data.id, from_email: body.email },
+        provider_message_id: emailResult.ok ? (emailResult.data as any)?.data?.id ?? null : null,
+        status: emailResult.ok ? "sent" : "failed",
+        payload: { partner_submission_id: data.id, from_email: normalizeEmail(body.email), error: emailResult.ok ? null : emailResult.error },
       });
     }
 

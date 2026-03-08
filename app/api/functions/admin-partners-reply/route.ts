@@ -1,5 +1,5 @@
 import { getServiceClient, requireAuth } from "@/lib/supabase-server";
-import { getResend, getResendConfig, isResendEnabled } from "../_shared/resend";
+import { getResend, isResendEnabled, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 
 export async function POST(req: Request) {
@@ -20,22 +20,23 @@ export async function POST(req: Request) {
       .eq("id", body.id);
 
     if (isResendEnabled()) {
-      const cfg = getResendConfig();
       const resend = getResend();
-      const sent = await resend.emails.send({
-        from: cfg.from,
-        to: data.email,
-        subject,
-        html: `<p>Hello ${data.full_name},</p><p>${body.message}</p>`,
-      });
+      const sent = await runResendSafe(() =>
+        resend.emails.send({
+          from: senderFrom("partnerships"),
+          to: data.email,
+          subject,
+          html: `<p>Hello ${data.full_name},</p><p>${body.message}</p>`,
+        }),
+      );
 
       await supabase.from("email_logs").insert({
         event_type: "partner_reply_email",
         recipient_email: data.email,
         subject,
-        provider_message_id: sent.data?.id ?? null,
-        status: sent.error ? "failed" : "sent",
-        payload: { partner_submission_id: data.id },
+        provider_message_id: sent.ok ? (sent.data as any)?.data?.id ?? null : null,
+        status: sent.ok ? "sent" : "failed",
+        payload: { partner_submission_id: data.id, error: sent.ok ? null : sent.error },
       });
     }
 
