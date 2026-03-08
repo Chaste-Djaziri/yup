@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getPublishedEvents } from "@/lib/events-server";
 import { getPublishedPrograms } from "@/lib/programs-server";
 import { absoluteUrl } from "@/seo/meta";
+import { faqSections } from "@/content/faqData";
 
 export const revalidate = 300;
 
@@ -26,6 +27,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: now,
   }));
 
+  const faqEntries: MetadataRoute.Sitemap = faqSections.map((section) => ({
+    url: absoluteUrl(`/faq/${section.slug}`),
+    lastModified: now,
+  }));
+
   const programs = await getPublishedPrograms();
   const programEntries: MetadataRoute.Sitemap = programs.map((program) => ({
     url: absoluteUrl(`/programs/${program.slug}`),
@@ -38,5 +44,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: event.updated_at || event.created_at || now.toISOString(),
   }));
 
-  return [...staticEntries, ...programEntries, ...eventEntries];
+  return [...staticEntries, ...faqEntries, ...programEntries, ...eventEntries];
 }
