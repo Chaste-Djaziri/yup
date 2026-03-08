@@ -75,9 +75,33 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
   }
 
   const event = resolved.event;
+  const eventJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: event.title,
+    description: event.summary || event.description || "Youth Uplift Initiative event",
+    startDate: event.event_start,
+    endDate: event.event_end || undefined,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: event.location
+      ? {
+          "@type": "Place",
+          name: event.location,
+        }
+      : undefined,
+    image: event.image_url ? [event.image_url] : undefined,
+    organizer: {
+      "@type": "Organization",
+      name: "Youth Uplift Initiative",
+      url: "https://yupinitiative.com",
+    },
+    url: `https://yupinitiative.com/events/${event.slug}`,
+  };
 
   return (
     <div className="min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }} />
       <Navbar />
 
       <section className="relative flex min-h-[340px] items-end bg-black pt-20">
