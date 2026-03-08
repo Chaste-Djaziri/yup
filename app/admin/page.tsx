@@ -251,6 +251,54 @@ const AdminPage = () => {
     }
   };
 
+  const handleDeleteContact = async (id: string) => {
+    if (!window.confirm("Delete this contact submission permanently?")) return;
+    setBusy(true);
+    try {
+      await invokeFunction("admin-contacts-delete", { id });
+      setReplyMessage((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleDeletePartner = async (id: string) => {
+    if (!window.confirm("Delete this partner inquiry permanently?")) return;
+    setBusy(true);
+    try {
+      await invokeFunction("admin-partners-delete", { id });
+      setReplyMessage((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleDeleteVolunteer = async (id: string) => {
+    if (!window.confirm("Delete this volunteer application permanently?")) return;
+    setBusy(true);
+    try {
+      await invokeFunction("admin-volunteers-delete", { id });
+      setReplyMessage((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const handleCreateEvent = async (e: FormEvent) => {
     e.preventDefault();
     setBusy(true);
@@ -562,7 +610,10 @@ const AdminPage = () => {
                   value={replyMessage[item.id] || ""}
                   onChange={(e) => setReplyMessage((prev) => ({ ...prev, [item.id]: e.target.value }))}
                 />
-                <Button className="mt-2" onClick={() => handleReplyContact(item.id)} disabled={busy}>Send Reply</Button>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <Button onClick={() => handleReplyContact(item.id)} disabled={busy}>Send Reply</Button>
+                  <Button variant="outline" onClick={() => handleDeleteContact(item.id)} disabled={busy}>Delete</Button>
+                </div>
               </article>
             ))}
           </TabsContent>
@@ -599,7 +650,10 @@ const AdminPage = () => {
                   value={replyMessage[item.id] || ""}
                   onChange={(e) => setReplyMessage((prev) => ({ ...prev, [item.id]: e.target.value }))}
                 />
-                <Button className="mt-2" onClick={() => handleReplyPartner(item.id)} disabled={busy}>Send Reply</Button>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <Button onClick={() => handleReplyPartner(item.id)} disabled={busy}>Send Reply</Button>
+                  <Button variant="outline" onClick={() => handleDeletePartner(item.id)} disabled={busy}>Delete</Button>
+                </div>
               </article>
             ))}
             {sortedPartners.length === 0 && (
@@ -634,7 +688,10 @@ const AdminPage = () => {
                   value={replyMessage[item.id] || ""}
                   onChange={(e) => setReplyMessage((prev) => ({ ...prev, [item.id]: e.target.value }))}
                 />
-                <Button className="mt-2" onClick={() => handleReplyVolunteer(item.id)} disabled={busy}>Send Reply</Button>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <Button onClick={() => handleReplyVolunteer(item.id)} disabled={busy}>Send Reply</Button>
+                  <Button variant="outline" onClick={() => handleDeleteVolunteer(item.id)} disabled={busy}>Delete</Button>
+                </div>
               </article>
             ))}
           </TabsContent>
