@@ -34,6 +34,13 @@ const formatEventTimeRange = (start: string, end: string | null) => {
   return `${startTime} - ${endTime} CAT`;
 };
 
+const parseRwfPrice = (...values: Array<string | null | undefined>) => {
+  const source = values.filter(Boolean).join(" ");
+  const match = source.match(/(\d[\d.,]*)\s*RWF/i);
+  if (!match?.[1]) return null;
+  return match[1].replace(/[,\s]/g, "");
+};
+
 const renderFormattedText = (value: string) => {
   const paragraphs = value
     .split(/\n{2,}/)
@@ -75,6 +82,8 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
   }
 
   const event = resolved.event;
+  const eventLocation = event.location || "Rwanda";
+  const parsedPrice = parseRwfPrice(event.summary, event.description);
   const eventJsonLd = {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -88,15 +97,42 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
       ? {
           "@type": "Place",
           name: event.location,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: event.location,
+            addressCountry: "RW",
+            addressRegion: "Kigali",
+          },
         }
-      : undefined,
+      : {
+          "@type": "Place",
+          name: "Rwanda",
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "RW",
+          },
+        },
     image: event.image_url ? [event.image_url] : undefined,
+    performer: {
+      "@type": "Organization",
+      name: "Youth Uplift Initiative",
+      url: "https://yupinitiative.com",
+    },
+    offers: {
+      "@type": "Offer",
+      url: event.registration_url || `https://yupinitiative.com/events/${event.slug}`,
+      availability: "https://schema.org/InStock",
+      priceCurrency: "RWF",
+      price: parsedPrice || "0",
+      validFrom: event.created_at,
+    },
     organizer: {
       "@type": "Organization",
       name: "Youth Uplift Initiative",
       url: "https://yupinitiative.com",
     },
     url: `https://yupinitiative.com/events/${event.slug}`,
+    keywords: [eventLocation, "YUP", "Youth Uplift Initiative", "Rwanda"],
   };
 
   return (
