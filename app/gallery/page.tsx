@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import PageHero from "@/components/PageHero";
 import EmptyStatePanel from "@/components/EmptyStatePanel";
+import { CardGridSkeleton } from "@/components/skeletons/content-loading";
 import type { DbGalleryImage } from "@/types/backend";
-import { useEffect } from "react";
 
 export default function GalleryPage() {
   const [images, setImages] = useState<DbGalleryImage[]>([]);
@@ -49,6 +49,7 @@ export default function GalleryPage() {
     <div className="min-h-screen">
       <Navbar />
       <PageHero title="Gallery" subtitle="Moments from our programs, events, and community activities." image="/yup-assets/gallery/IMG_3467_jpg.jpeg" />
+
       <section className="bg-background py-16">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mb-8 flex flex-wrap gap-2">
@@ -67,7 +68,12 @@ export default function GalleryPage() {
             ))}
           </div>
 
-          {loading && <p className="text-sm text-foreground/70">Loading gallery...</p>}
+          {loading && (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <CardGridSkeleton count={9} imageHeightClass="h-64" />
+            </div>
+          )}
+
           {!loading && filteredImages.length === 0 && (
             <EmptyStatePanel
               title="No Gallery Images Yet"
@@ -90,6 +96,7 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
+
       <Footer />
     </div>
   );

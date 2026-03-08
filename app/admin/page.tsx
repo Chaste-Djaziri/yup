@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AdminDashboardSkeleton } from "@/components/skeletons/content-loading";
 import { supabase } from "@/lib/supabase";
 import { invokeFunction } from "@/lib/edge";
 import { uploadImageToCloudinary } from "@/lib/cloudinary";
@@ -477,6 +478,10 @@ const AdminPage = () => {
   const sortedVolunteers = useMemo(() => volunteers, [volunteers]);
 
   if (!loading && !sessionReady) return null;
+
+  if (loading || !sessionReady) {
+    return <AdminDashboardSkeleton />;
+  }
 
   if (!isAuthenticated) {
     return (
