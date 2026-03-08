@@ -1,106 +1,29 @@
-"use client";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import PageHero from "@/components/PageHero";
 
-import { useState } from "react";
-import { useLanguage } from "@/contexts/language-context";
-import { dictionaries } from "@/dictionaries";
-import { PageHeader } from "@/components/page-header";
-import dynamic from "next/dynamic";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Skeleton } from "@/components/ui/skeleton";
-
-const ImageGallery = dynamic(() => import("@/components/image-gallery").then(mod => mod.ImageGallery), {
-  ssr: false,
-  loading: () => <GalleryLoading />,
-});
-
-function GalleryLoading() {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {Array.from({ length: 8 }).map((_, i) => (
-        <Skeleton key={i} className="aspect-square rounded-lg" />
-      ))}
-    </div>
-  );
-}
+const images = [
+  "/yup-assets/gallery/IMG_3015_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3021_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3040_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3082_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3110_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3115_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3186_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3225_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3314_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3444_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3482_jpg.jpeg",
+  "/yup-assets/gallery/IMG_3492_jpg.jpeg",
+];
 
 export default function GalleryPage() {
-  const { language } = useLanguage();
-  const t = dictionaries[language];
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
   return (
-    <main className="flex flex-col min-h-screen">
-      <PageHeader
-        title={t.gallery.title}
-        description={t.gallery.description}
-        backgroundImage="/assets/IMG_3467_jpg.jpeg"
-      />
-
-      <section className="py-12 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <Tabs defaultValue="all" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8">
-              <TabsTrigger value="all">{t.gallery.categories.all}</TabsTrigger>
-              <TabsTrigger value="events">{t.gallery.categories.events}</TabsTrigger>
-              <TabsTrigger value="programs">{t.gallery.categories.programs}</TabsTrigger>
-              <TabsTrigger value="community">{t.gallery.categories.community}</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="all">
-              <ImageGallery images={t.gallery.images} onImageClick={setSelectedImage} />
-            </TabsContent>
-
-            <TabsContent value="events">
-              <ImageGallery
-                images={t.gallery.images.filter(img => img.category === "events")}
-                onImageClick={setSelectedImage}
-              />
-            </TabsContent>
-
-            <TabsContent value="programs">
-              <ImageGallery
-                images={t.gallery.images.filter(img => img.category === "programs")}
-                onImageClick={setSelectedImage}
-              />
-            </TabsContent>
-
-            <TabsContent value="community">
-              <ImageGallery
-                images={t.gallery.images.filter(img => img.category === "community")}
-                onImageClick={setSelectedImage}
-              />
-            </TabsContent>
-          </Tabs>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-24 bg-gray-100">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                {t.gallery.share.title}
-              </h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl lg:text-base xl:text-xl">
-                {t.gallery.share.description}
-              </p>
-            </div>
-            <div className="flex flex-col w-full max-w-sm gap-2">
-              <div className="flex flex-col sm:flex-row gap-2">
-                <input
-                  type="email"
-                  placeholder={t.gallery.share.placeholder}
-                  className="px-4 py-2 border rounded-md flex-1"
-                />
-                <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90">
-                  {t.gallery.share.button}
-                </button>
-              </div>
-              <p className="text-xs text-gray-500">{t.gallery.share.note}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+    <div className="min-h-screen">
+      <Navbar />
+      <PageHero title="Gallery" subtitle="Moments from our programs, events, and community activities." image="/yup-assets/gallery-header.jpg" />
+      <section className="bg-background py-16"><div className="container mx-auto px-4 lg:px-8"><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{images.map((src) => (<img key={src} src={src} alt="YUP activity" className="h-64 w-full object-cover" />))}</div></div></section>
+      <Footer />
+    </div>
   );
 }

@@ -1,4 +1,5 @@
 User-agent: *
-Disallow: /api/
 Allow: /
+Disallow: /api/
+
 Sitemap: https://yupinitiative.com/sitemap.xml

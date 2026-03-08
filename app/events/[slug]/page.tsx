@@ -1,68 +1,58 @@
-import type { Metadata } from "next"
-import Image from "next/image"
-import Link from "next/link"
-import { Calendar, Clock, MapPin } from "lucide-react"
-import { PageHeader } from "@/components/page-header"
-import { dictionaries } from "@/dictionaries"
-import { Button } from "@/components/ui/button"
+"use client";
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const t = dictionaries.en
-  const all = [...(t.events?.list || []), ...(t.home?.events?.events || [])]
-  const event: any = all.find((e: any) => e.slug === params.slug)
-  if (!event) return { title: "Event | Youth Uplift Initiative" }
-  const url = `https://yupinitiative.com/events/${event.slug}`
-  return {
-    title: `${event.title} | Events`,
-    description: event.description,
-    alternates: { canonical: url },
-    openGraph: {
-      title: event.title,
-      description: event.description,
-      url,
-      images: event.image ? [{ url: event.image, width: 1200, height: 630 }] : undefined,
-      type: "article",
-    },
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import { usePublicEventBySlug } from "@/hooks/usePublicEvents";
+
+const formatEventDate = (value: string) => {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Date TBD";
+  return date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+};
+
+const formatEventTime = (value: string) => {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Time TBD";
+  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+};
+
+export default function EventDetailPage() {
+  const params = useParams<{ slug: string }>();
+  const { data: event, isLoading } = usePublicEventBySlug(params.slug);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <section className="container mx-auto px-4 py-16 lg:px-8"><p className="text-sm text-foreground/70">Loading event details...</p></section>
+        <Footer />
+      </div>
+    );
   }
-}
-
-export default function EventDetailsPage({ params }: { params: { slug: string } }) {
-  const t = dictionaries.en
-  const all = [...(t.events?.list || []), ...(t.home?.events?.events || [])]
-  const event: any = all.find((e: any) => e.slug === params.slug)
 
   if (!event) {
     return (
-      <main className="flex flex-col min-h-screen">
-        <PageHeader title="Event Not Found" description="The event you are looking for does not exist." backgroundImage="/assets/event-header.jpg" />
-        <section className="py-12">
-          <div className="container px-4 md:px-6">
-            <Link href="/events"><Button variant="outline">Back to Events</Button></Link>
-          </div>
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <section className="container mx-auto px-4 py-16 lg:px-8">
+          <p className="text-sm text-foreground/70">Event not found.</p>
+          <Link href="/events" className="mt-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">
+            Back to Events
+          </Link>
         </section>
-      </main>
-    )
+        <Footer />
+      </div>
+    );
   }
 
   return (
-    <main className="flex flex-col min-h-screen">
-      <PageHeader title={event.title} description={event.description} backgroundImage={event.image || "/assets/event-header.jpg"} />
-      <section className="py-12 md:py-24 bg-white">
-        <div className="container px-4 md:px-6 max-w-4xl">
-          <div className="aspect-video mb-6 rounded-lg overflow-hidden relative">
-            <Image src={event.image || "/assets/event.jpg"} alt={event.title} fill className="object-cover" />
-          </div>
-          <div className="grid gap-2 text-gray-700">
-            <div className="flex items-center gap-2"><Calendar className="h-4 w-4" /><span>{event.date}</span></div>
-            <div className="flex items-center gap-2"><Clock className="h-4 w-4" /><span>{event.time}</span></div>
-            <div className="flex items-center gap-2"><MapPin className="h-4 w-4" /><span>{event.location}</span></div>
-          </div>
-          <p className="mt-6 text-gray-600">{event.description}</p>
-          <div className="mt-8">
-            <Link href="/contact"><Button className="bg-primary hover:bg-primary/90">Contact to Join</Button></Link>
-          </div>
-        </div>
-      </section>
-    </main>
-  )
+    <div className="min-h-screen">
+      <Navbar />
+      <section className="relative flex min-h-[340px] items-end"><img src={event.image_url || "/yup-assets/event-header.jpg"} alt={event.title} className="absolute inset-0 h-full w-full object-cover" /><div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/45 to-transparent" /><div className="container relative z-10 mx-auto px-4 pb-12 pt-24 lg:px-8"><p className="text-xs font-bold uppercase tracking-wider text-primary-foreground/80">{event.status}</p><h1 className="mt-2 font-heading text-5xl text-primary-foreground">{event.title}</h1></div></section>
+      <section className="bg-background py-16"><div className="container mx-auto grid gap-8 px-4 lg:grid-cols-[2fr,1fr] lg:px-8"><article className="bg-card p-8"><h2 className="font-heading text-3xl">Event Overview</h2><p className="mt-4 text-foreground/80">{event.description || "No additional event description has been provided yet."}</p></article><aside className="bg-card p-8"><h3 className="font-heading text-2xl">Event Info</h3><p className="mt-4 text-sm text-foreground/80">Date: {formatEventDate(event.event_start)}</p><p className="mt-2 text-sm text-foreground/80">Time: {formatEventTime(event.event_start)}</p><p className="mt-2 text-sm text-foreground/80">Location: {event.location || "Location TBD"}</p><div className="mt-5 space-y-3">{event.registration_url ? (<a href={event.registration_url} target="_blank" rel="noreferrer" className="block bg-primary px-5 py-3 text-center text-xs font-bold uppercase tracking-wider text-primary-foreground">Register for Event</a>) : (<Link href="/contact" className="block bg-primary px-5 py-3 text-center text-xs font-bold uppercase tracking-wider text-primary-foreground">Contact Us</Link>)}<Link href="/events" className="block border border-primary px-5 py-3 text-center text-xs font-bold uppercase tracking-wider text-primary">Back to Events</Link></div></aside></div></section>
+      <Footer />
+    </div>
+  );
 }

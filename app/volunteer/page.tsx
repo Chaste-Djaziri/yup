@@ -1,175 +1,70 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { ArrowRight, CheckCircle } from "lucide-react"
-import { motion } from "framer-motion"
-import { useLanguage } from "@/contexts/language-context"
-import { dictionaries } from "@/dictionaries"
-import { PageHeader } from "@/components/page-header"
-import { VolunteerForm } from "@/components/volunteer-form"
-import { OpportunityCard } from "@/components/opportunity-card"
+import { FormEvent, useState } from "react";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import PageHero from "@/components/PageHero";
+import { siteData } from "@/content/siteData";
+import { invokePublicFunction } from "@/lib/edge";
+
+type VolunteerForm = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  country: string;
+  opportunity: string;
+  motivation: string;
+};
+
+const initialForm: VolunteerForm = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  country: "",
+  opportunity: "",
+  motivation: "",
+};
+
+const countryOptions = ["Rwanda", "United States", "United Kingdom", "Kenya", "Uganda", "Tanzania", "Canada", "Germany", "France", "Australia"];
 
 export default function VolunteerPage() {
-  const { language } = useLanguage()
-  const t = dictionaries[language]
+  const [form, setForm] = useState<VolunteerForm>(initialForm);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!form.firstName || !form.lastName || !form.email || !form.phone || !form.country || !form.opportunity || !form.motivation) {
+      setSuccess(false);
+      setError("Please complete all required fields.");
+      return;
+    }
+
+    setSubmitting(true);
+    setError("");
+    try {
+      await invokePublicFunction("submit-volunteer", form);
+      setSuccess(true);
+      setForm(initialForm);
+    } catch (err) {
+      setSuccess(false);
+      setError(err instanceof Error ? err.message : "Failed to submit volunteer application.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
-    <main className="flex flex-col min-h-screen">
-      <PageHeader
-        title={t.volunteer.title}
-        description={t.volunteer.description}
-        backgroundImage="/assets/donate.jpg"
-      />
-
-      <section className="py-12 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
-            <motion.div
-              className="space-y-4"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">{t.volunteer.why.title}</h2>
-              <p className="text-gray-500 md:text-lg">{t.volunteer.why.description}</p>
-              <ul className="space-y-2">
-                {t.volunteer.why.benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-primary mr-2 shrink-0 mt-0.5" />
-                    <span className="text-gray-500">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-            <motion.div
-              className="relative h-[400px] overflow-hidden rounded-lg"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <img
-                src="/assets/donate.jpg"
-                alt="Volunteers making a difference"
-                className="object-cover w-full h-full"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-24 bg-gray-100">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                {t.volunteer.opportunities.title}
-              </h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {t.volunteer.opportunities.description}
-              </p>
-            </div>
-          </div>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {/* {t.volunteer.opportunities.list.map((opportunity, index) => (
-              <OpportunityCard
-                key={index}
-                title={opportunity.title}
-                description={opportunity.description}
-                commitment={opportunity.commitment}
-                skills={opportunity.skills}
-                location={opportunity.location}
-                index={index}
-              />
-            ))} */}
-          </div>
-          <p className="text-gray-500 font-bold text-center text-xl">We will put the opportunities here soon</p>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
-            <motion.div
-              className="space-y-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">{t.volunteer.form.title}</h2>
-              <p className="text-gray-500 md:text-lg">{t.volunteer.form.description}</p>
-              <VolunteerForm />
-            </motion.div>
-            <motion.div
-              className="space-y-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="text-xl font-bold mb-4">{t.volunteer.testimonials.title}</h3>
-                <div className="space-y-6">
-                  {/* {t.volunteer.testimonials.list.map((testimonial, index) => (
-                    <div key={index} className="space-y-2">
-                      <p className="italic text-gray-500">"{testimonial.quote}"</p>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 rounded-full bg-gray-200 mr-2"></div>
-                        <div>
-                          <p className="font-medium text-sm">{testimonial.name}</p>
-                          <p className="text-xs text-gray-500">{testimonial.role}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))} */}
-                  <p className="text-gray-500 font-bold">Testimonials will be posted here soon</p>
-                </div>
-              </div>
-              <div className="bg-primary/5 p-6 rounded-lg">
-                <h3 className="text-xl font-bold mb-4">{t.volunteer.faq.title}</h3>
-                <div className="space-y-4">
-                  {t.volunteer.faq.list.map((item, index) => (
-                    <div key={index}>
-                      <h4 className="font-medium">{item.question}</h4>
-                      <p className="text-gray-500 text-sm mt-1">{item.answer}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4">
-                  <Link href="/contact">
-                    <Button variant="outline" size="sm">
-                      {t.volunteer.faq.contactButton}
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-24 bg-gray-100">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{t.volunteer.cta.title}</h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {t.volunteer.cta.description}
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Link href="#volunteer-form">
-                <Button className="bg-primary hover:bg-primary/90">
-                  {t.volunteer.cta.applyButton} <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button variant="outline">{t.volunteer.cta.contactButton}</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  )
+    <div className="min-h-screen">
+      <Navbar />
+      <PageHero title="Volunteer With Us" subtitle="Join a community of volunteers creating meaningful change for youth in Rwanda." image="/yup-assets/volunteer-header.jpg" />
+      <section className="bg-background py-16"><div className="container mx-auto grid gap-8 px-4 lg:grid-cols-2 lg:px-8"><article className="bg-card p-8"><h2 className="font-heading text-3xl">Why Volunteer With YUP?</h2><ul className="mt-5 list-disc space-y-2 pl-5 text-foreground/80">{siteData.volunteerBenefits.map((benefit) => (<li key={benefit}>{benefit}</li>))}</ul></article><article className="bg-card p-8"><h2 className="font-heading text-3xl">Opportunities</h2><ul className="mt-5 grid gap-2 text-foreground/80 sm:grid-cols-2">{siteData.volunteerOpportunities.map((opportunity) => (<li key={opportunity}>• {opportunity}</li>))}</ul></article></div></section>
+      <section className="section-beige py-16" id="volunteer-form"><div className="container mx-auto max-w-3xl px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">Volunteer Application</h2><p className="mt-3 text-center text-foreground/70">Applications are sent to our admin team for review and response.</p>{success ? (<div className="mt-8 border border-emerald-300 bg-emerald-50 p-8 text-center"><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Application Submitted</p><h3 className="mt-2 font-heading text-3xl text-emerald-900">Thank you for volunteering</h3><p className="mt-3 text-sm text-emerald-800">Your application is in our review queue. We will contact you with the next steps.</p><button type="button" onClick={() => setSuccess(false)} className="mt-5 bg-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">Submit Another Application</button></div>) : (<form onSubmit={handleSubmit} className="mt-8 space-y-4 bg-background p-8"><div className="grid gap-4 sm:grid-cols-2"><label className="block text-sm font-semibold">First Name*<input type="text" value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })} className="mt-1 w-full border border-border px-4 py-3" required /></label><label className="block text-sm font-semibold">Last Name*<input type="text" value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })} className="mt-1 w-full border border-border px-4 py-3" required /></label></div><label className="block text-sm font-semibold">Email*<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="mt-1 w-full border border-border px-4 py-3" required /></label><div className="grid gap-4 sm:grid-cols-2"><label className="block text-sm font-semibold">Phone Number*<input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="mt-1 w-full border border-border px-4 py-3" required /></label><label className="block text-sm font-semibold">Country of Residence*<select value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} className="mt-1 w-full border border-border bg-background px-4 py-3" required><option value="">Select country</option>{countryOptions.map((country) => (<option key={country} value={country}>{country}</option>))}</select></label></div><label className="block text-sm font-semibold">Preferred Opportunity*<select value={form.opportunity} onChange={(e) => setForm({ ...form, opportunity: e.target.value })} className="mt-1 w-full border border-border bg-background px-4 py-3" required><option value="">Select opportunity</option>{siteData.volunteerOpportunities.map((opportunity) => (<option key={opportunity} value={opportunity}>{opportunity}</option>))}</select></label><label className="block text-sm font-semibold">Motivation*<textarea value={form.motivation} onChange={(e) => setForm({ ...form, motivation: e.target.value })} className="mt-1 w-full border border-border px-4 py-3" rows={5} required /></label>{error && <p className="text-sm text-red-700">{error}</p>}<button type="submit" disabled={submitting} className="w-full bg-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">{submitting ? "Submitting..." : "Submit Application"}</button></form>)}</div></section>
+      <Footer />
+    </div>
+  );
 }
-

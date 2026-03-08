@@ -1,193 +1,48 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useActionState } from "react"
-import { useFormStatus } from "react-dom"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { MapPin, Mail, Phone, Clock } from 'lucide-react'
-import { motion } from "framer-motion"
-import { useLanguage } from "@/contexts/language-context"
-import { dictionaries } from "@/dictionaries"
-import { PageHeader } from "@/components/page-header"
-import { ContactMap } from "@/components/contact-map"
-import { submitContactForm } from "../actions/contact-actions"
-import { toast } from "@/components/ui/use-toast"
+import { FormEvent, useState } from "react";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import PageHero from "@/components/PageHero";
+import { siteData } from "@/content/siteData";
+import { invokePublicFunction } from "@/lib/edge";
 
-
-// Submit button with loading state
-function SubmitButton({ text, loadingText }: { text: string; loadingText: string }) {
-  const { pending } = useFormStatus()
-
-  return (
-    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={pending}>
-      {pending ? loadingText : text}
-    </Button>
-  )
-}
+type ContactForm = { firstName: string; lastName: string; email: string; subject: string; message: string };
+const initialForm: ContactForm = { firstName: "", lastName: "", email: "", subject: "", message: "" };
 
 export default function ContactPage() {
-  const { language } = useLanguage()
-  const t = dictionaries[language]
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [form, setForm] = useState<ContactForm>(initialForm);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const initialState = { success: false, message: "" }
-  const [formState, formAction, isPending] = useActionState(submitContactForm, initialState)
-
-  // Handle form submission result
-  useEffect(() => {
-    if (formState && formState.message) {
-      if (formState.success) {
-        setIsSubmitted(true)
-      } else {
-        toast({
-          title: "Error",
-          description: formState.message,
-          variant: "destructive",
-        })
-      }
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!form.firstName || !form.lastName || !form.email || !form.subject || !form.message) {
+      setSuccess(false);
+      setError("Please complete all required fields.");
+      return;
     }
-  }, [formState])
+    setSubmitting(true);
+    setError("");
+    try {
+      await invokePublicFunction("submit-contact", form);
+      setSuccess(true);
+      setForm(initialForm);
+    } catch (err) {
+      setSuccess(false);
+      setError(err instanceof Error ? err.message : "Failed to submit contact form.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
-    <main className="flex flex-col min-h-screen">
-      <PageHeader title={t.contact.title} description={t.contact.description} backgroundImage="/assets/donation1.jpg" />
-
-      <section className="py-12 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 md:gap-8 lg:grid-cols-2 lg:gap-12">
-            <motion.div
-              className="space-y-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">{t.contact.form.title}</h2>
-              <p className="text-gray-500 md:text-lg">{t.contact.form.description}</p>
-
-              {isSubmitted ? (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-                  <h3 className="text-lg font-medium text-green-800 mb-2">
-                    {t.contact.form.successTitle || "Message Sent!"}
-                  </h3>
-                  <p className="text-green-600">{formState.message}</p>
-                </div>
-              ) : (
-                <form action={formAction} className="space-y-4">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <Label htmlFor="first-name" className="text-sm sm:text-base">
-                        {t.contact.form.firstName}
-                      </Label>
-                      <Input id="first-name" name="first-name" required className="text-sm sm:text-base h-10 sm:h-11" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="last-name" className="text-sm sm:text-base">
-                        {t.contact.form.lastName}
-                      </Label>
-                      <Input id="last-name" name="last-name" required className="text-sm sm:text-base h-10 sm:h-11" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">{t.contact.form.email}</Label>
-                    <Input id="email" name="email" type="email" required />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">{t.contact.form.subject}</Label>
-                    <Input id="subject" name="subject" required />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">{t.contact.form.message}</Label>
-                    <Textarea id="message" name="message" rows={5} required />
-                  </div>
-
-                  {formState && !formState.success && formState.message && (
-                    <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-600 text-sm">
-                      {formState.message}
-                    </div>
-                  )}
-
-                  <SubmitButton
-                    text={t.contact.form.submitButton}
-                    loadingText={t.contact.form.submittingButton || "Submitting..."}
-                  />
-                </form>
-              )}
-            </motion.div>
-            <motion.div
-              className="space-y-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div>
-                <h3 className="text-xl font-bold mb-4">{t.contact.info.title}</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <MapPin className="h-5 w-5 text-primary mr-2 shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium">{t.contact.info.address.title}</h4>
-                      <p className="text-gray-500">{t.contact.info.address.line1}</p>
-                      <p className="text-gray-500">{t.contact.info.address.line2}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Mail className="h-5 w-5 text-primary mr-2 shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium">{t.contact.info.email.title}</h4>
-                      <p className="text-gray-500">{t.contact.info.email.general}</p>
-                      <p className="text-gray-500">{t.contact.info.email.support}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Phone className="h-5 w-5 text-primary mr-2 shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium">{t.contact.info.phone.title}</h4>
-                      <p className="text-gray-500">{t.contact.info.phone.office}</p>
-                      <p className="text-gray-500">{t.contact.info.phone.mobile}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Clock className="h-5 w-5 text-primary mr-2 shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium">{t.contact.info.hours.title}</h4>
-                      <p className="text-gray-500">{t.contact.info.hours.weekdays}</p>
-                      <p className="text-gray-500">{t.contact.info.hours.weekends}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="h-[300px] rounded-lg overflow-hidden">
-                <ContactMap />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-24 bg-gray-100">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{t.contact.faq.title}</h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {t.contact.faq.description}
-              </p>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 w-full max-w-4xl">
-              {t.contact.faq.questions.map((faq, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="font-bold mb-2">{faq.question}</h3>
-                  <p className="text-gray-500 text-sm">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  )
+    <div className="min-h-screen">
+      <Navbar />
+      <PageHero title="Contact Us" subtitle="Reach out and we will respond as soon as possible." image="/yup-assets/contact-header.jpg" />
+      <section className="bg-background py-16"><div className="container mx-auto grid gap-8 px-4 lg:grid-cols-2 lg:px-8"><article className="bg-card p-8"><h2 className="font-heading text-3xl">Send Us a Message</h2><p className="mt-3 text-foreground/70">Submit your message and our team will review it from the admin inbox.</p>{success ? (<div className="mt-6 border border-emerald-300 bg-emerald-50 p-6 text-center"><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Message Sent</p><h3 className="mt-2 font-heading text-2xl text-emerald-900">Thank you for contacting YUP</h3><p className="mt-3 text-sm text-emerald-800">Our team has received your message and will respond shortly.</p><button type="button" onClick={() => setSuccess(false)} className="mt-5 bg-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">Send Another Message</button></div>) : (<form onSubmit={handleSubmit} className="mt-6 space-y-4"><div className="grid gap-4 sm:grid-cols-2"><input type="text" placeholder="First name*" value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })} className="border border-border px-4 py-3" required /><input type="text" placeholder="Last name*" value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })} className="border border-border px-4 py-3" required /></div><input type="email" placeholder="Email*" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full border border-border px-4 py-3" required /><input type="text" placeholder="Subject*" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} className="w-full border border-border px-4 py-3" required /><textarea rows={5} placeholder="Your message*" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="w-full border border-border px-4 py-3" required />{error && <p className="text-sm text-red-700">{error}</p>}<button type="submit" disabled={submitting} className="w-full bg-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">{submitting ? "Sending..." : "Send Message"}</button></form>)}</article><article className="bg-card p-8"><h2 className="font-heading text-3xl">Contact Information</h2><div className="mt-6 space-y-5 text-foreground/80"><div><p className="text-xs font-bold uppercase tracking-wider text-primary">Address</p><p>{siteData.organization.location}</p></div><div><p className="text-xs font-bold uppercase tracking-wider text-primary">Email</p><p>{siteData.organization.email}</p></div><div><p className="text-xs font-bold uppercase tracking-wider text-primary">Phone</p><p>{siteData.organization.phone}</p></div><div><p className="text-xs font-bold uppercase tracking-wider text-primary">Office Hours</p><p>Monday-Friday: 8:30 AM - 5:00 PM</p><p>Saturday: 9:00 AM - 1:00 PM (By appointment)</p></div></div></article></div></section>
+      <Footer />
+    </div>
+  );
 }
-

@@ -1,14 +1,28 @@
-import { createClient } from "@supabase/supabase-js"
+import { createClient } from "@supabase/supabase-js";
 
-// Initialize Supabase client (server-side)
-const supabaseUrl = process.env.SUPABASE_URL!
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+const supabaseUrl = process.env.SUPABASE_URL!;
+const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const anon = process.env.SUPABASE_ANON_KEY!;
 
-export function createServerSupabaseClient() {
-  return createClient(supabaseUrl, supabaseKey)
-}
+export const getServiceClient = () =>
+  createClient(supabaseUrl, serviceRole, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
 
-// Export a default function for easier imports
-export default function defaultCreateClient() {
-  return createServerSupabaseClient()
+export const getAnonClient = (authHeader?: string) =>
+  createClient(supabaseUrl, anon, {
+    global: authHeader
+      ? {
+          headers: { Authorization: authHeader },
+        }
+      : undefined,
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+
+export async function requireAuth(authHeader?: string) {
+  if (!authHeader) throw new Error("Missing Authorization header");
+  const client = getAnonClient(authHeader);
+  const { data, error } = await client.auth.getUser();
+  if (error || !data.user) throw new Error("Unauthorized");
+  return data.user;
 }

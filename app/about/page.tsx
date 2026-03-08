@@ -1,177 +1,19 @@
-"use client";
-
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { useLanguage } from "@/contexts/language-context";
-import { dictionaries } from "@/dictionaries";
-import { TeamSection } from "@/components/team-section";
-import { HistoryTimeline } from "@/components/history-timeline";
-import { PageHeader } from "@/components/page-header";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import PageHero from "@/components/PageHero";
+import { siteData } from "@/content/siteData";
 
 export default function AboutPage() {
-  const { language } = useLanguage();
-  const t = dictionaries[language];
-
   return (
-    <main className="flex flex-col min-h-screen">
-      <PageHeader
-        title={t.about.title}
-        description={t.about.description}
-        backgroundImage="/assets/about-header.jpg"
-      />
-
-      <section className="py-12 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 md:gap-8 lg:grid-cols-2 lg:gap-12 items-center">
-            <motion.div
-              className="space-y-4"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter">
-                {t.about.mission.title}
-              </h2>
-              <p className="text-gray-500 text-sm sm:text-base md:text-lg">
-                {t.about.mission.description}
-              </p>
-              <h3 className="text-xl font-bold">
-                {t.about.mission.values.title}
-              </h3>
-              <ul className="space-y-2 text-gray-500">
-                {t.about.mission.values.list.map((value, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="mr-2 text-primary">•</span>
-                    <span>{value}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-            <motion.div
-              className="relative h-[400px] overflow-hidden rounded-lg"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Image
-                src="/assets/about.jpg"
-                alt="Our mission in action"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <HistoryTimeline />
-
-      <section className="py-12 md:py-24 bg-gray-100">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
-            <motion.div
-              className="relative h-[400px] overflow-hidden rounded-lg order-2 lg:order-1"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Image
-                src="/assets/IMG_3531_jpg.jpeg"
-                alt="Our impact"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-            <motion.div
-              className="space-y-4 order-1 lg:order-2"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
-                {t.about.impact.title}
-              </h2>
-              <p className="text-gray-500 md:text-lg">
-                {t.about.impact.description}
-              </p>
-              <div className="grid grid-cols-2 gap-4 mt-6">
-                {/* <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <div className="text-3xl font-bold text-primary">
-                    {t.about.impact.stats.students}
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {t.about.impact.stats.studentsLabel}
-                  </div>
-                </div>
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <div className="text-3xl font-bold text-primary">
-                    {t.about.impact.stats.communities}
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {t.about.impact.stats.communitiesLabel}
-                  </div>
-                </div>
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <div className="text-3xl font-bold text-primary">
-                    {t.about.impact.stats.volunteers}
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {t.about.impact.stats.volunteersLabel}
-                  </div>
-                </div>
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <div className="text-3xl font-bold text-primary">
-                    {t.about.impact.stats.projects}
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {t.about.impact.stats.projectsLabel}
-                  </div>
-                </div> */}
-                <p className="text-gray-500 font-bold">We will be uploading the data soon, subscribe for latest news</p>
-              </div>
-              <div className="pt-4">
-                <Link href="/programs">
-                  <Button className="bg-primary hover:bg-primary/90">
-                    {t.about.impact.programsButton}{" "}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <TeamSection />
-
-      <section className="py-12 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                {t.about.join.title}
-              </h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {t.about.join.description}
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Link href="/volunteer">
-                <Button className="bg-primary hover:bg-primary/90">
-                  {t.about.join.volunteerButton}{" "}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="/donate">
-                <Button variant="outline">{t.about.join.donateButton}</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+    <div className="min-h-screen">
+      <Navbar />
+      <PageHero title="About Youth Uplift Initiative" subtitle={siteData.organization.vision} image="/yup-assets/about-header.jpg" />
+      <section className="bg-background py-16"><div className="container mx-auto grid gap-8 px-4 lg:grid-cols-2 lg:px-8"><article className="bg-card p-8"><h2 className="font-heading text-3xl">Our Mission</h2><p className="mt-4 text-foreground/80">{siteData.organization.mission}</p></article><article className="bg-card p-8"><h2 className="font-heading text-3xl">Our Vision</h2><p className="mt-4 text-foreground/80">{siteData.organization.vision}</p></article></div></section>
+      <section className="section-beige py-16"><div className="container mx-auto px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">What Guides Us</h2><div className="mt-8 grid gap-6 md:grid-cols-3">{siteData.values.map((value) => (<article key={value.title} className="bg-background p-6"><h3 className="font-heading text-2xl">{value.title}</h3><p className="mt-3 text-foreground/80">{value.description}</p></article>))}</div></div></section>
+      <section className="bg-background py-16"><div className="container mx-auto px-4 lg:px-8"><div className="mx-auto max-w-4xl bg-card p-8"><h2 className="font-heading text-4xl">Our Journey</h2><p className="mt-4 text-foreground/80">Youth Uplift Initiative was created to bridge gaps in mentorship, practical education, and community support. We started with local youth gatherings and have continued expanding programs that build confidence, skills, and opportunity.</p></div></div></section>
+      <section className="section-beige py-16"><div className="container mx-auto px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">Team</h2><div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{siteData.teamMembers.map((member) => (<article key={member.name} className="bg-background p-6 text-center"><img src={member.image} alt={member.name} className="mx-auto h-16 w-16 rounded-full object-cover" /><h3 className="mt-4 font-heading text-2xl">{member.name}</h3><p className="mt-2 text-sm text-foreground/70">{member.role}</p></article>))}</div><div className="mt-10 text-center"><Link href="/volunteer" className="bg-primary px-7 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">Join Our Mission</Link></div></div></section>
+      <Footer />
+    </div>
   );
 }

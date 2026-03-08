@@ -1,54 +1,52 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
-import { HeroSection } from "@/components/hero-section"
-import { MissionSection } from "@/components/mission-section"
-import { ImpactSection } from "@/components/impact-section"
-import { TestimonialSection } from "@/components/testimonial-section"
-import { UpcomingEvents } from "@/components/upcoming-events"
-import { DonateSection } from "@/components/donate-section"
-import { VideosSection } from "@/components/videos-section"
-import { useLanguage } from "@/contexts/language-context"
-import { dictionaries } from "@/dictionaries"
+import Link from "next/link";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import { siteData } from "@/content/siteData";
+import { usePublicEvents } from "@/hooks/usePublicEvents";
+import type { DbEvent } from "@/types/backend";
 
-export default function Home() {
-  const { language } = useLanguage()
-  const t = dictionaries[language]
+const formatEventDate = (event: DbEvent) => {
+  const date = new Date(event.event_start);
+  if (Number.isNaN(date.getTime())) return "Date TBD";
+  return date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+};
+
+export default function HomePage() {
+  const { data: events = [], isLoading } = usePublicEvents();
+  const now = new Date();
+  const upcomingEvents = events.filter((event) => new Date(event.event_start) >= now).slice(0, 4);
 
   return (
-    <main className="flex flex-col min-h-screen">
-      <HeroSection />
-      <MissionSection />
-      <ImpactSection />
-      <VideosSection />
-      <TestimonialSection />
-      <UpcomingEvents />
-      <DonateSection />
-
-      <section className="py-12 md:py-16 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{t.home.community.title}</h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {t.home.community.description}
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Link href="/volunteer">
-                <Button className="bg-primary hover:bg-primary/90">
-                  {t.home.community.volunteerButton} <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button variant="outline">{t.home.community.contactButton}</Button>
-              </Link>
-            </div>
+    <div className="min-h-screen">
+      <Navbar />
+      <section className="relative flex min-h-[90vh] items-center overflow-hidden">
+        <img src="/yup-assets/about-header.jpg" alt="Youth community gathering" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: "var(--hero-overlay)" }} />
+        <div className="container relative z-10 mx-auto px-4 py-32 lg:px-8">
+          <h1 className="max-w-3xl font-heading text-5xl leading-[1.1] text-primary-foreground md:text-7xl">Youth Uplift Initiative</h1>
+          <p className="mt-5 max-w-2xl text-lg text-primary-foreground/90">{siteData.organization.mission}</p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/programs" className="bg-primary px-7 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">Explore Programs</Link>
+            <Link href="/volunteer" className="border border-primary-foreground/40 px-7 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">Become a Volunteer</Link>
           </div>
         </div>
       </section>
-    </main>
-  )
+
+      <section className="bg-background py-16"><div className="container mx-auto px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">Our Core Values</h2><div className="mt-8 grid gap-6 md:grid-cols-3">{siteData.values.map((value) => (<article key={value.title} className="bg-card p-6"><h3 className="font-heading text-2xl">{value.title}</h3><p className="mt-3 text-foreground/80">{value.description}</p></article>))}</div></div></section>
+
+      <section className="section-beige py-16"><div className="container mx-auto px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">Our Programs</h2><div className="mt-8 grid gap-6 md:grid-cols-3">{siteData.programs.map((program) => (<article key={program.slug} className="overflow-hidden bg-background"><img src={program.image} alt={program.title} className="h-48 w-full object-cover" /><div className="p-5"><h3 className="font-heading text-2xl">{program.title}</h3><p className="mt-2 text-sm text-foreground/80">{program.summary}</p><Link href={`/programs/${program.slug}`} className="mt-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">Learn More</Link></div></article>))}</div></div></section>
+
+      <section className="bg-background py-16"><div className="container mx-auto px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">Upcoming Events</h2><div className="mt-8 grid gap-6 md:grid-cols-2">{isLoading && <p className="text-sm text-foreground/70">Loading events...</p>}{!isLoading && upcomingEvents.length === 0 && <p className="text-sm text-foreground/70">No upcoming events right now.</p>}{upcomingEvents.map((event) => (<article key={event.slug} className="bg-card p-6"><p className="text-xs font-bold uppercase tracking-wider text-primary">{formatEventDate(event)}</p><h3 className="mt-2 font-heading text-2xl">{event.title}</h3><p className="mt-2 text-foreground/80">{event.summary || "No summary available."}</p><p className="mt-2 text-sm text-foreground/60">{event.location || "Location TBD"}</p><Link href={`/events/${event.slug}`} className="mt-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">Event Details</Link></article>))}</div><div className="mt-8 text-center"><Link href="/events" className="bg-primary px-7 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">View All Events</Link></div></div></section>
+
+      <section className="section-beige py-16"><div className="container mx-auto px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">Impact Snapshot</h2><div className="mt-8 grid grid-cols-2 gap-5 md:grid-cols-4">{siteData.impactStats.map((stat) => (<div key={stat.label} className="bg-background p-6 text-center"><p className="font-heading text-4xl text-primary">{stat.value}</p><p className="mt-2 text-sm uppercase tracking-wider text-foreground/70">{stat.label}</p></div>))}</div></div></section>
+
+      <section className="bg-background py-16"><div className="container mx-auto grid gap-8 px-4 lg:grid-cols-2 lg:px-8"><article className="bg-card p-8"><h3 className="font-heading text-3xl">Stories & Voices</h3><p className="mt-4 text-foreground/80">New story highlights and testimonials will appear here as youth and volunteers share their experience.</p></article><article className="bg-card p-8"><h3 className="font-heading text-3xl">Get Involved</h3><p className="mt-4 text-foreground/80">Volunteer, partner, or donate to expand opportunities for young people.</p><div className="mt-6 flex gap-3"><Link href="/volunteer" className="bg-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">Volunteer</Link><Link href="/donate" className="border border-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-primary">Donate</Link></div></article></div></section>
+
+      <NewsletterSignup />
+      <Footer />
+    </div>
+  );
 }
