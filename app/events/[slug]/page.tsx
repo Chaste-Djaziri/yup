@@ -73,6 +73,13 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
         <div className="container mx-auto grid gap-8 px-4 lg:grid-cols-[2fr,1fr] lg:px-8">
           <article className="bg-card p-8">
             <h2 className="font-heading text-3xl">Event Overview</h2>
+            {event.image_url ? (
+              <img
+                src={event.image_url}
+                alt={event.title}
+                className="mt-4 h-auto max-w-full"
+              />
+            ) : null}
             {event.description ? renderFormattedText(event.description) : <p className="mt-4 text-foreground/80">No additional event description has been provided yet.</p>}
           </article>
 
