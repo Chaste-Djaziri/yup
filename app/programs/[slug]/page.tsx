@@ -1,8 +1,27 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { siteData } from "@/content/siteData";
+import { buildMetadata, seoByRoute } from "@/seo/meta";
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const program = siteData.programs.find((item) => item.slug === params.slug);
+  if (!program) {
+    return buildMetadata(seoByRoute.programs);
+  }
+
+  return buildMetadata(
+    {
+      title: `${program.title} | Youth Uplift Initiative`,
+      description: program.summary,
+      path: `/programs/${program.slug}`,
+      image: program.image,
+    },
+    "article",
+  );
+}
 
 export default function ProgramDetailPage({ params }: { params: { slug: string } }) {
   const program = siteData.programs.find((item) => item.slug === params.slug);

@@ -1,12 +1,15 @@
-"use client";
-
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { siteData } from "@/content/siteData";
-import { usePublicEvents } from "@/hooks/usePublicEvents";
 import type { DbEvent } from "@/types/backend";
+import { buildMetadata, seoByRoute } from "@/seo/meta";
+import { getPublishedEvents } from "@/lib/events-server";
+
+export const metadata = buildMetadata(seoByRoute.home);
+
+export const revalidate = 300;
 
 const formatEventDate = (event: DbEvent) => {
   const date = new Date(event.event_start);
@@ -14,10 +17,12 @@ const formatEventDate = (event: DbEvent) => {
   return date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
 };
 
-export default function HomePage() {
-  const { data: events = [], isLoading } = usePublicEvents();
+export default async function HomePage() {
   const now = new Date();
-  const upcomingEvents = events.filter((event) => new Date(event.event_start) >= now).slice(0, 4);
+  const publishedEvents = await getPublishedEvents();
+  const upcomingEvents = publishedEvents
+    .filter((event) => new Date(event.event_start) >= now)
+    .slice(0, 4);
 
   return (
     <div className="min-h-screen">
@@ -39,7 +44,7 @@ export default function HomePage() {
 
       <section className="section-beige py-16"><div className="container mx-auto px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">Our Programs</h2><div className="mt-8 grid gap-6 md:grid-cols-3">{siteData.programs.map((program) => (<article key={program.slug} className="overflow-hidden bg-background"><img src={program.image} alt={program.title} className="h-48 w-full object-cover" /><div className="p-5"><h3 className="font-heading text-2xl">{program.title}</h3><p className="mt-2 text-sm text-foreground/80">{program.summary}</p><Link href={`/programs/${program.slug}`} className="mt-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">Learn More</Link></div></article>))}</div></div></section>
 
-      <section className="bg-background py-16"><div className="container mx-auto px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">Upcoming Events</h2><div className="mt-8 grid gap-6 md:grid-cols-2">{isLoading && <p className="text-sm text-foreground/70">Loading events...</p>}{!isLoading && upcomingEvents.length === 0 && <p className="text-sm text-foreground/70">No upcoming events right now.</p>}{upcomingEvents.map((event) => (<article key={event.slug} className="bg-card p-6"><p className="text-xs font-bold uppercase tracking-wider text-primary">{formatEventDate(event)}</p><h3 className="mt-2 font-heading text-2xl">{event.title}</h3><p className="mt-2 text-foreground/80">{event.summary || "No summary available."}</p><p className="mt-2 text-sm text-foreground/60">{event.location || "Location TBD"}</p><Link href={`/events/${event.slug}`} className="mt-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">Event Details</Link></article>))}</div><div className="mt-8 text-center"><Link href="/events" className="bg-primary px-7 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">View All Events</Link></div></div></section>
+      <section className="bg-background py-16"><div className="container mx-auto px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">Upcoming Events</h2><div className="mt-8 grid gap-6 md:grid-cols-2">{upcomingEvents.length === 0 && <p className="text-sm text-foreground/70">No upcoming events right now.</p>}{upcomingEvents.map((event) => (<article key={event.slug} className="bg-card p-6"><p className="text-xs font-bold uppercase tracking-wider text-primary">{formatEventDate(event)}</p><h3 className="mt-2 font-heading text-2xl">{event.title}</h3><p className="mt-2 text-foreground/80">{event.summary || "No summary available."}</p><p className="mt-2 text-sm text-foreground/60">{event.location || "Location TBD"}</p><Link href={`/events/${event.slug}`} className="mt-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">Event Details</Link></article>))}</div><div className="mt-8 text-center"><Link href="/events" className="bg-primary px-7 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">View All Events</Link></div></div></section>
 
       <section className="section-beige py-16"><div className="container mx-auto px-4 lg:px-8"><h2 className="text-center font-heading text-4xl text-primary">Impact Snapshot</h2><div className="mt-8 grid grid-cols-2 gap-5 md:grid-cols-4">{siteData.impactStats.map((stat) => (<div key={stat.label} className="bg-background p-6 text-center"><p className="font-heading text-4xl text-primary">{stat.value}</p><p className="mt-2 text-sm uppercase tracking-wider text-foreground/70">{stat.label}</p></div>))}</div></div></section>
 

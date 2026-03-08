@@ -1,8 +1,12 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import PageHero from "@/components/PageHero";
 import { siteData } from "@/content/siteData";
+import { buildMetadata, seoByRoute } from "@/seo/meta";
+
+export const metadata: Metadata = buildMetadata(seoByRoute.about);
 
 export default function AboutPage() {
   return (

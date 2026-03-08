@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
+
 export const SEO_BASE_URL = "https://yupinitiative.com";
 export const SEO_SITE_NAME = "Youth Uplift Initiative";
 export const SEO_DEFAULT_IMAGE = `${SEO_BASE_URL}/yup-assets/about-header.jpg`;
+export const SEO_TWITTER = "@yupinitiative";
 
 export type SeoConfig = {
   title: string;
@@ -59,3 +62,34 @@ export const seoByRoute = {
     path: "/donate",
   },
 } satisfies Record<string, SeoConfig>;
+
+export const absoluteUrl = (path: string) => new URL(path, SEO_BASE_URL).toString();
+
+export const buildMetadata = (config: SeoConfig, type: "website" | "article" = "website"): Metadata => {
+  const image = config.image || SEO_DEFAULT_IMAGE;
+  const imageUrl = image.startsWith("http") ? image : absoluteUrl(image);
+  const url = absoluteUrl(config.path);
+
+  return {
+    title: config.title,
+    description: config.description,
+    alternates: {
+      canonical: config.path,
+    },
+    openGraph: {
+      type,
+      title: config.title,
+      description: config.description,
+      url,
+      siteName: SEO_SITE_NAME,
+      images: [{ url: imageUrl, alt: SEO_SITE_NAME }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: config.title,
+      description: config.description,
+      images: [imageUrl],
+      site: SEO_TWITTER,
+    },
+  };
+};
