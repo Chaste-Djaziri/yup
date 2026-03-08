@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/lib/supabase";
 import { invokeFunction } from "@/lib/edge";
 import { uploadImageToCloudinary } from "@/lib/cloudinary";
-import type { ContactSubmission, DbEvent, DbGalleryImage, EmailLog, VolunteerApplication } from "@/types/backend";
+import type { ContactSubmission, DbEvent, DbGalleryImage, DbProgram, EmailLog, VolunteerApplication } from "@/types/backend";
 
 const defaultEvent = {
   title: "",
@@ -24,12 +24,30 @@ const defaultEvent = {
   status: "draft",
 };
 
+const defaultProgramForm = {
+  title: "",
+  category: "",
+  summary: "",
+  description: "",
+  outcomes: "",
+  cta_label: "Support This Program",
+  sort_order: 0,
+  status: "draft" as DbProgram["status"],
+};
+
 const defaultGalleryForm = {
   title: "",
   category: "events" as "events" | "programs" | "community",
   sort_order: 0,
   is_visible: true,
 };
+
+const outcomesToLines = (outcomes: string[]) => outcomes.join("\n");
+const linesToOutcomes = (value: string) =>
+  value
+    .split("\n")
+    .map((item) => item.trim())
+    .filter(Boolean);
 
 const AdminPage = () => {
   const [loading, setLoading] = useState(true);
@@ -42,6 +60,7 @@ const AdminPage = () => {
   const [contacts, setContacts] = useState<ContactSubmission[]>([]);
   const [volunteers, setVolunteers] = useState<VolunteerApplication[]>([]);
   const [events, setEvents] = useState<DbEvent[]>([]);
+  const [programs, setPrograms] = useState<DbProgram[]>([]);
   const [galleryImages, setGalleryImages] = useState<DbGalleryImage[]>([]);
   const [logs, setLogs] = useState<EmailLog[]>([]);
   const [adminError, setAdminError] = useState("");
@@ -49,6 +68,23 @@ const AdminPage = () => {
   const [replyMessage, setReplyMessage] = useState<Record<string, string>>({});
   const [eventForm, setEventForm] = useState(defaultEvent);
   const [eventImage, setEventImage] = useState<File | null>(null);
+  const [programForm, setProgramForm] = useState(defaultProgramForm);
+  const [programImageFile, setProgramImageFile] = useState<File | null>(null);
+  const [programDrafts, setProgramDrafts] = useState<
+    Record<
+      string,
+      {
+        title: string;
+        category: string;
+        summary: string;
+        description: string;
+        outcomes: string;
+        cta_label: string;
+        sort_order: number;
+        status: DbProgram["status"];
+      }
+    >
+  >({});
   const [galleryForm, setGalleryForm] = useState(defaultGalleryForm);
   const [galleryImageFile, setGalleryImageFile] = useState<File | null>(null);
   const [galleryDrafts, setGalleryDrafts] = useState<
@@ -75,10 +111,11 @@ const AdminPage = () => {
   const fetchAdminData = async () => {
     try {
       setAdminError("");
-      const [contactsRes, volunteersRes, eventsRes, galleryRes, logsRes] = await Promise.all([
+      const [contactsRes, volunteersRes, eventsRes, programsRes, galleryRes, logsRes] = await Promise.all([
         invokeFunction<{ contacts: ContactSubmission[] }>("admin-contacts-list"),
         invokeFunction<{ volunteers: VolunteerApplication[] }>("admin-volunteers-list"),
         invokeFunction<{ events: DbEvent[] }>("admin-events-list"),
+        invokeFunction<{ programs: DbProgram[] }>("admin-programs-list"),
         invokeFunction<{ images: DbGalleryImage[] }>("admin-gallery-list"),
         invokeFunction<{ logs: EmailLog[] }>("admin-email-logs-list"),
       ]);
@@ -86,6 +123,7 @@ const AdminPage = () => {
       setContacts(contactsRes.contacts || []);
       setVolunteers(volunteersRes.volunteers || []);
       setEvents(eventsRes.events || []);
+      setPrograms(programsRes.programs || []);
       setGalleryImages(galleryRes.images || []);
       setLogs(logsRes.logs || []);
     } catch (error) {
@@ -233,6 +271,96 @@ const AdminPage = () => {
     }
   };
 
+  const handleCreateProgram = async (e: FormEvent) => {
+    e.preventDefault();
+    setBusy(true);
+
+    try {
+      let cover_image_url: string | undefined;
+      let cover_cloudinary_public_id: string | undefined;
+
+      if (programImageFile) {
+        const uploaded = await uploadImageToCloudinary(programImageFile);
+        cover_image_url = uploaded.secureUrl;
+        cover_cloudinary_public_id = uploaded.publicId;
+      }
+
+      await invokeFunction("admin-programs-create", {
+        title: programForm.title,
+        category: programForm.category,
+        summary: programForm.summary,
+        description: programForm.description,
+        outcomes: linesToOutcomes(programForm.outcomes),
+        cta_label: programForm.cta_label,
+        sort_order: programForm.sort_order,
+        status: programForm.status,
+        cover_image_url,
+        cover_cloudinary_public_id,
+      });
+
+      setProgramForm(defaultProgramForm);
+      setProgramImageFile(null);
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleUpdateProgram = async (id: string) => {
+    const draft = programDrafts[id];
+    if (!draft) return;
+
+    setBusy(true);
+    try {
+      await invokeFunction("admin-programs-update", {
+        id,
+        title: draft.title,
+        category: draft.category,
+        summary: draft.summary,
+        description: draft.description,
+        outcomes: linesToOutcomes(draft.outcomes),
+        cta_label: draft.cta_label,
+        sort_order: draft.sort_order,
+        status: draft.status,
+      });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleReplaceProgramCover = async (id: string, file: File | null) => {
+    if (!file) return;
+
+    setBusy(true);
+    try {
+      const uploaded = await uploadImageToCloudinary(file);
+      await invokeFunction("admin-programs-update", {
+        id,
+        cover_image_url: uploaded.secureUrl,
+        cover_cloudinary_public_id: uploaded.publicId,
+      });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleDeleteProgram = async (id: string) => {
+    setBusy(true);
+    try {
+      await invokeFunction("admin-programs-delete", { id });
+      setProgramDrafts((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
+      await fetchAdminData();
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const handleCreateGalleryImage = async (e: FormEvent) => {
     e.preventDefault();
     if (!galleryImageFile) {
@@ -342,6 +470,7 @@ const AdminPage = () => {
             <TabsTrigger value="contacts">Contacts</TabsTrigger>
             <TabsTrigger value="volunteers">Volunteers</TabsTrigger>
             <TabsTrigger value="events">Events</TabsTrigger>
+            <TabsTrigger value="programs">Programs</TabsTrigger>
             <TabsTrigger value="gallery">Gallery</TabsTrigger>
             <TabsTrigger value="logs">Email Logs</TabsTrigger>
           </TabsList>
@@ -456,6 +585,238 @@ const AdminPage = () => {
                   </div>
                 </article>
               ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="programs" className="space-y-6">
+            <form onSubmit={handleCreateProgram} className="bg-card p-6 space-y-4">
+              <h2 className="font-heading text-3xl">Create Program</h2>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Label>
+                  Title
+                  <Input
+                    value={programForm.title}
+                    onChange={(e) => setProgramForm((prev) => ({ ...prev, title: e.target.value }))}
+                    required
+                  />
+                </Label>
+                <Label>
+                  Category
+                  <Input
+                    value={programForm.category}
+                    onChange={(e) => setProgramForm((prev) => ({ ...prev, category: e.target.value }))}
+                    required
+                  />
+                </Label>
+              </div>
+              <Label>
+                Summary
+                <Textarea
+                  value={programForm.summary}
+                  onChange={(e) => setProgramForm((prev) => ({ ...prev, summary: e.target.value }))}
+                />
+              </Label>
+              <Label>
+                Description
+                <Textarea
+                  value={programForm.description}
+                  onChange={(e) => setProgramForm((prev) => ({ ...prev, description: e.target.value }))}
+                />
+              </Label>
+              <Label>
+                Outcomes (one per line)
+                <Textarea
+                  rows={4}
+                  value={programForm.outcomes}
+                  onChange={(e) => setProgramForm((prev) => ({ ...prev, outcomes: e.target.value }))}
+                />
+              </Label>
+              <div className="grid gap-4 md:grid-cols-3">
+                <Label>
+                  CTA Label
+                  <Input
+                    value={programForm.cta_label}
+                    onChange={(e) => setProgramForm((prev) => ({ ...prev, cta_label: e.target.value }))}
+                  />
+                </Label>
+                <Label>
+                  Sort Order
+                  <Input
+                    type="number"
+                    value={programForm.sort_order}
+                    onChange={(e) => setProgramForm((prev) => ({ ...prev, sort_order: Number.parseInt(e.target.value || "0", 10) || 0 }))}
+                  />
+                </Label>
+                <Label>
+                  Status
+                  <Select
+                    value={programForm.status}
+                    onValueChange={(value) => setProgramForm((prev) => ({ ...prev, status: value as DbProgram["status"] }))}
+                  >
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="draft">draft</SelectItem>
+                      <SelectItem value="published">published</SelectItem>
+                      <SelectItem value="archived">archived</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Label>
+              </div>
+              <Label>
+                Cover Image
+                <Input type="file" accept="image/*" onChange={(e) => setProgramImageFile(e.target.files?.[0] || null)} />
+              </Label>
+              <Button type="submit" disabled={busy}>{busy ? "Saving..." : "Create Program"}</Button>
+            </form>
+
+            <div className="space-y-3">
+              {programs.map((program) => {
+                const draft = programDrafts[program.id] || {
+                  title: program.title,
+                  category: program.category,
+                  summary: program.summary || "",
+                  description: program.description || "",
+                  outcomes: outcomesToLines(program.outcomes || []),
+                  cta_label: program.cta_label,
+                  sort_order: program.sort_order,
+                  status: program.status,
+                };
+
+                return (
+                  <article key={program.id} className="bg-card p-4">
+                    <div className="grid gap-4 md:grid-cols-[180px,1fr]">
+                      <img src={program.cover_image_url || "/yup-assets/programs-header.jpg"} alt={program.title} className="h-32 w-full object-cover" />
+                      <div className="space-y-3">
+                        <p className="text-xs uppercase tracking-wider text-foreground/70">Slug: {program.slug}</p>
+                        <div className="grid gap-3 md:grid-cols-2">
+                          <Label>
+                            Title
+                            <Input
+                              value={draft.title}
+                              onChange={(e) =>
+                                setProgramDrafts((prev) => ({
+                                  ...prev,
+                                  [program.id]: { ...draft, title: e.target.value },
+                                }))
+                              }
+                            />
+                          </Label>
+                          <Label>
+                            Category
+                            <Input
+                              value={draft.category}
+                              onChange={(e) =>
+                                setProgramDrafts((prev) => ({
+                                  ...prev,
+                                  [program.id]: { ...draft, category: e.target.value },
+                                }))
+                              }
+                            />
+                          </Label>
+                        </div>
+                        <div className="grid gap-3 md:grid-cols-2">
+                          <Label>
+                            Summary
+                            <Textarea
+                              value={draft.summary}
+                              onChange={(e) =>
+                                setProgramDrafts((prev) => ({
+                                  ...prev,
+                                  [program.id]: { ...draft, summary: e.target.value },
+                                }))
+                              }
+                            />
+                          </Label>
+                          <Label>
+                            Description
+                            <Textarea
+                              value={draft.description}
+                              onChange={(e) =>
+                                setProgramDrafts((prev) => ({
+                                  ...prev,
+                                  [program.id]: { ...draft, description: e.target.value },
+                                }))
+                              }
+                            />
+                          </Label>
+                        </div>
+                        <Label>
+                          Outcomes (one per line)
+                          <Textarea
+                            rows={4}
+                            value={draft.outcomes}
+                            onChange={(e) =>
+                              setProgramDrafts((prev) => ({
+                                ...prev,
+                                [program.id]: { ...draft, outcomes: e.target.value },
+                              }))
+                            }
+                          />
+                        </Label>
+                        <div className="grid gap-3 md:grid-cols-3">
+                          <Label>
+                            CTA Label
+                            <Input
+                              value={draft.cta_label}
+                              onChange={(e) =>
+                                setProgramDrafts((prev) => ({
+                                  ...prev,
+                                  [program.id]: { ...draft, cta_label: e.target.value },
+                                }))
+                              }
+                            />
+                          </Label>
+                          <Label>
+                            Sort Order
+                            <Input
+                              type="number"
+                              value={draft.sort_order}
+                              onChange={(e) =>
+                                setProgramDrafts((prev) => ({
+                                  ...prev,
+                                  [program.id]: { ...draft, sort_order: Number.parseInt(e.target.value || "0", 10) || 0 },
+                                }))
+                              }
+                            />
+                          </Label>
+                          <Label>
+                            Status
+                            <Select
+                              value={draft.status}
+                              onValueChange={(value) =>
+                                setProgramDrafts((prev) => ({
+                                  ...prev,
+                                  [program.id]: { ...draft, status: value as DbProgram["status"] },
+                                }))
+                              }
+                            >
+                              <SelectTrigger><SelectValue /></SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="draft">draft</SelectItem>
+                                <SelectItem value="published">published</SelectItem>
+                                <SelectItem value="archived">archived</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </Label>
+                        </div>
+                        <Label>
+                          Replace Cover Image
+                          <Input type="file" accept="image/*" onChange={(e) => handleReplaceProgramCover(program.id, e.target.files?.[0] || null)} />
+                        </Label>
+                        <div className="flex gap-2">
+                          <Button size="sm" onClick={() => handleUpdateProgram(program.id)} disabled={busy}>Save</Button>
+                          <Button size="sm" variant="outline" onClick={() => handleDeleteProgram(program.id)} disabled={busy}>
+                            Delete
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+              {programs.length === 0 && (
+                <p className="text-sm text-foreground/70">No programs yet. Create the first one above.</p>
+              )}
             </div>
           </TabsContent>
 

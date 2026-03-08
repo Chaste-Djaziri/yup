@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
-import { siteData } from "@/content/siteData";
 import { getPublishedEvents } from "@/lib/events-server";
+import { getPublishedPrograms } from "@/lib/programs-server";
 import { absoluteUrl } from "@/seo/meta";
 
 export const revalidate = 300;
@@ -24,9 +24,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: now,
   }));
 
-  const programEntries: MetadataRoute.Sitemap = siteData.programs.map((program) => ({
+  const programs = await getPublishedPrograms();
+  const programEntries: MetadataRoute.Sitemap = programs.map((program) => ({
     url: absoluteUrl(`/programs/${program.slug}`),
-    lastModified: now,
+    lastModified: program.updated_at || program.created_at || now.toISOString(),
   }));
 
   const events = await getPublishedEvents();

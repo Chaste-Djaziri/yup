@@ -6,9 +6,21 @@ import { ensure } from "../_shared/utils";
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as { firstName: string; lastName: string; email: string; phone?: string; country?: string; opportunity?: string; motivation: string };
-    ensure(body.firstName && body.lastName && body.email && body.motivation, "Missing required fields");
+    ensure(body.firstName && body.lastName && body.email && body.opportunity && body.motivation, "Missing required fields");
 
     const supabase = getServiceClient();
+    if (body.opportunity) {
+      const { data: program, error: programError } = await supabase
+        .from("programs")
+        .select("id")
+        .eq("status", "published")
+        .eq("title", body.opportunity.trim())
+        .maybeSingle();
+
+      if (programError) throw programError;
+      if (!program) throw new Error("Selected opportunity is no longer available.");
+    }
+
     const { data, error } = await supabase.from("volunteer_applications").insert({ first_name: body.firstName, last_name: body.lastName, email: body.email, phone: body.phone ?? null, country: body.country ?? null, opportunity: body.opportunity ?? null, motivation: body.motivation, status: "new" }).select("id").single();
     if (error) throw error;
 

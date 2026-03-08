@@ -62,3 +62,21 @@ export type DbGalleryImage = {
   created_at: string;
   updated_at: string;
 };
+
+export type DbProgram = {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  summary: string | null;
+  description: string | null;
+  outcomes: string[];
+  cover_image_url: string | null;
+  cover_cloudinary_public_id: string | null;
+  cta_label: string;
+  sort_order: number;
+  status: "draft" | "published" | "archived";
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+};

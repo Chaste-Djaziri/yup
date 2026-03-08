@@ -62,9 +62,9 @@ export const siteData = {
     {
       heading: "Programs",
       links: [
-        { label: "Education Scholarships", href: "/programs/education-scholarships" },
-        { label: "After-School Programs", href: "/programs/after-school-programs" },
-        { label: "Digital Literacy", href: "/programs/digital-literacy" },
+        { label: "Browse Programs", href: "/programs" },
+        { label: "Volunteer", href: "/volunteer" },
+        { label: "Donate", href: "/donate" },
       ],
     },
   ],
