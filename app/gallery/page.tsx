@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import PageHero from "@/components/PageHero";
+import EmptyStatePanel from "@/components/EmptyStatePanel";
 import type { DbGalleryImage } from "@/types/backend";
 import { useEffect } from "react";
 
@@ -68,7 +69,12 @@ export default function GalleryPage() {
 
           {loading && <p className="text-sm text-foreground/70">Loading gallery...</p>}
           {!loading && filteredImages.length === 0 && (
-            <p className="text-sm text-foreground/70">No gallery images available yet.</p>
+            <EmptyStatePanel
+              title="No Gallery Images Yet"
+              description="No visible images are available right now. Upload and mark images as visible from the admin dashboard."
+              actionLabel="Go To Contact"
+              actionHref="/contact"
+            />
           )}
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
