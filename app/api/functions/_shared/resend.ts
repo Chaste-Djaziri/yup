@@ -3,6 +3,7 @@ import { Resend } from "resend";
 const truthy = new Set(["1", "true", "yes", "on"]);
 const SENDER_DOMAIN = "support.yupinitiative.com";
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const RESEND_API_BASE_URL = "https://api.resend.com";
 
 export type SenderKind = "contact" | "volunteer" | "partnerships" | "newsletter" | "no-reply";
 
@@ -19,6 +20,38 @@ export const getResend = () => {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("RESEND_API_KEY is missing");
   return new Resend(apiKey);
+};
+
+const getResendApiKey = () => {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) throw new Error("RESEND_API_KEY is missing");
+  return apiKey;
+};
+
+type ResendApiResult = {
+  ok: boolean;
+  status: number;
+  body: any;
+};
+
+const callResendApi = async (path: string, init: RequestInit): Promise<ResendApiResult> => {
+  const response = await fetch(`${RESEND_API_BASE_URL}${path}`, {
+    ...init,
+    headers: {
+      Authorization: `Bearer ${getResendApiKey()}`,
+      "Content-Type": "application/json",
+      ...(init.headers || {}),
+    },
+  });
+
+  let body: any = null;
+  try {
+    body = await response.json();
+  } catch {
+    body = null;
+  }
+
+  return { ok: response.ok, status: response.status, body };
 };
 
 export const getResendConfig = () => ({
@@ -70,6 +103,63 @@ export async function ensureAudienceContact(resend: Resend, audienceId: string, 
 export async function addToSegmentSafe(resend: Resend, email: string, segmentId: string) {
   if (!segmentId) return;
   await resend.contacts.segments.add({ email: normalizeEmail(email), segmentId });
+}
+
+export async function createOrUpdateContactByEmail(email: string, firstName?: string, lastName?: string) {
+  const normalizedEmail = normalizeEmail(email);
+  const payload: Record<string, unknown> = {
+    email: normalizedEmail,
+    unsubscribed: false,
+  };
+
+  if (firstName) payload.first_name = firstName;
+  if (lastName) payload.last_name = lastName;
+
+  const created = await callResendApi("/contacts", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  if (created.ok) return { status: "created" as const };
+  if (created.status === 409) return { status: "existing" as const };
+
+  const errorText = String(created.body?.message || created.body?.name || "");
+  if (errorText.toLowerCase().includes("already exists")) {
+    return { status: "existing" as const };
+  }
+
+  const updated = await callResendApi(`/contacts/${encodeURIComponent(normalizedEmail)}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+
+  if (updated.ok) return { status: "updated" as const };
+
+  throw new Error(
+    `Resend contact sync failed: ${created.body?.message || created.body?.name || created.status} / ${
+      updated.body?.message || updated.body?.name || updated.status
+    }`,
+  );
+}
+
+export async function addContactEmailToSegment(email: string, segmentId: string) {
+  const normalizedEmail = normalizeEmail(email);
+  if (!segmentId) {
+    return { status: "skipped" as const, reason: "missing_segment_id" };
+  }
+
+  if (!UUID_REGEX.test(segmentId)) {
+    return { status: "skipped" as const, reason: "invalid_segment_id" };
+  }
+
+  const added = await callResendApi(
+    `/contacts/${encodeURIComponent(normalizedEmail)}/segments/${segmentId}`,
+    { method: "POST" },
+  );
+
+  if (added.ok) return { status: "added" as const };
+
+  throw new Error(`Resend segment add failed: ${added.body?.message || added.body?.name || added.status}`);
 }
 
 export async function runResendSafe<T>(run: () => Promise<T>) {

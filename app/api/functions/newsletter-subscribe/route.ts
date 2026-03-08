@@ -1,6 +1,6 @@
 import { getServiceClient } from "@/lib/supabase-server";
 import { renderEmailTemplate } from "../_shared/email-template";
-import { addToSegmentSafe, ensureAudienceContact, getResend, getResendConfig, isResendEnabled, normalizeEmail, runResendSafe, senderFrom } from "../_shared/resend";
+import { addContactEmailToSegment, createOrUpdateContactByEmail, getResend, getResendConfig, isResendEnabled, normalizeEmail, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 import { ensure } from "../_shared/utils";
 
@@ -39,8 +39,9 @@ export async function POST(req: Request) {
       });
 
       const syncResult = await runResendSafe(async () => {
-        await ensureAudienceContact(resend, cfg.audienceId, email);
-        await addToSegmentSafe(resend, email, cfg.nonCommunitySegmentId);
+        const contact = await createOrUpdateContactByEmail(email);
+        const segment = await addContactEmailToSegment(email, cfg.nonCommunitySegmentId);
+        return { contact, segment };
       });
 
       await supabase.from("email_logs").insert({
@@ -49,7 +50,8 @@ export async function POST(req: Request) {
         subject: "Newsletter segment sync",
         status: syncResult.ok ? "sent" : "failed",
         payload: {
-          audience_id: cfg.audienceId || null,
+          contact_sync: syncResult.ok ? syncResult.data.contact : null,
+          segment_sync: syncResult.ok ? syncResult.data.segment : null,
           segment_id: cfg.nonCommunitySegmentId || null,
           error: syncResult.ok ? null : syncResult.error,
         },

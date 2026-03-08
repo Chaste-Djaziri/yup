@@ -1,6 +1,6 @@
 import { getServiceClient, requireAuth } from "@/lib/supabase-server";
 import { renderEmailTemplate } from "../_shared/email-template";
-import { addToSegmentSafe, ensureAudienceContact, getResend, getResendConfig, isResendEnabled, normalizeEmail, runResendSafe, senderFrom } from "../_shared/resend";
+import { addContactEmailToSegment, createOrUpdateContactByEmail, getResend, getResendConfig, isResendEnabled, normalizeEmail, runResendSafe, senderFrom } from "../_shared/resend";
 import { json } from "../_shared/response";
 
 export async function POST(req: Request) {
@@ -32,11 +32,11 @@ export async function POST(req: Request) {
       await supabase.from("newsletter_subscribers").upsert({ email: normalizedEmail, source: "volunteer_accept", linked_volunteer_id: data.id }, { onConflict: "email" });
 
       if (isResendEnabled()) {
-        const resend = getResend();
         const cfg = getResendConfig();
         const syncResult = await runResendSafe(async () => {
-          await ensureAudienceContact(resend, cfg.audienceId, normalizedEmail, data.first_name, data.last_name);
-          await addToSegmentSafe(resend, normalizedEmail, cfg.communitySegmentId);
+          const contact = await createOrUpdateContactByEmail(normalizedEmail, data.first_name, data.last_name);
+          const segment = await addContactEmailToSegment(normalizedEmail, cfg.communitySegmentId);
+          return { contact, segment };
         });
         await supabase.from("email_logs").insert({
           event_type: "volunteer_community_segment_sync",
@@ -45,7 +45,8 @@ export async function POST(req: Request) {
           status: syncResult.ok ? "sent" : "failed",
           payload: {
             volunteer_id: data.id,
-            audience_id: cfg.audienceId || null,
+            contact_sync: syncResult.ok ? syncResult.data.contact : null,
+            segment_sync: syncResult.ok ? syncResult.data.segment : null,
             segment_id: cfg.communitySegmentId || null,
             error: syncResult.ok ? null : syncResult.error,
           },
