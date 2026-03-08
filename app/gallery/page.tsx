@@ -47,7 +47,7 @@ export default function GalleryPage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <PageHero title="Gallery" subtitle="Moments from our programs, events, and community activities." image="/yup-assets/gallery-header.jpg" />
+      <PageHero title="Gallery" subtitle="Moments from our programs, events, and community activities." image="/yup-assets/gallery/IMG_3467_jpg.jpeg" />
       <section className="bg-background py-16">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mb-8 flex flex-wrap gap-2">
