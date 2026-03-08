@@ -7,6 +7,8 @@ type UpdateGalleryBody = {
   category?: "events" | "programs" | "community";
   sort_order?: number;
   is_visible?: boolean;
+  image_url?: string;
+  cloudinary_public_id?: string;
 };
 
 export async function POST(req: Request) {
@@ -21,6 +23,8 @@ export async function POST(req: Request) {
       category: body.category,
       sort_order: body.sort_order,
       is_visible: body.is_visible,
+      image_url: body.image_url,
+      cloudinary_public_id: body.cloudinary_public_id,
     };
 
     Object.keys(updatePayload).forEach((k) => updatePayload[k] === undefined && delete updatePayload[k]);
