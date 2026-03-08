@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AdminDashboardSkeleton } from "@/components/skeletons/content-loading";
 import { supabase } from "@/lib/supabase";
-import { invokeFunction } from "@/lib/edge";
+import { invokeFunction, invokePublicFunction } from "@/lib/edge";
 import { uploadImageToCloudinary } from "@/lib/cloudinary";
 import type { AdminBroadcastResult, AdminBroadcastTarget, ContactSubmission, DbEvent, DbGalleryImage, DbProgram, EmailLog, PartnerSubmission, VolunteerApplication } from "@/types/backend";
 
@@ -168,7 +168,7 @@ const AdminPage = () => {
       return;
     }
     try {
-      await invokeFunction("admin-signup", { email, password });
+      await invokePublicFunction("admin-signup", { email, password });
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
       setEmail("");
