@@ -32,15 +32,18 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <section className="relative flex min-h-[90vh] items-center overflow-hidden">
-        <img src="/yup-assets/about-header.jpg" alt="Youth community gathering" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0" style={{ background: "var(--hero-overlay)" }} />
-        <div className="container relative z-10 mx-auto px-4 py-32 lg:px-8">
-          <h1 className="max-w-3xl font-heading text-5xl leading-[1.1] text-primary-foreground md:text-7xl">Youth Uplift Initiative</h1>
-          <p className="mt-5 max-w-2xl text-lg text-primary-foreground/90">{siteData.organization.mission}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/programs" className="bg-primary px-7 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">Explore Programs</Link>
-            <Link href="/volunteer" className="border border-primary-foreground/40 px-7 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">Become a Volunteer</Link>
+      <section className="bg-white py-20 lg:py-28">
+        <div className="container mx-auto grid items-center gap-10 px-4 lg:grid-cols-2 lg:px-8">
+          <div>
+            <h1 className="max-w-3xl font-heading text-5xl leading-[1.1] text-foreground md:text-7xl">Youth Uplift Initiative</h1>
+            <p className="mt-5 max-w-2xl text-lg text-foreground/80">{siteData.organization.mission}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/programs" className="bg-primary px-7 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground">Explore Programs</Link>
+              <Link href="/volunteer" className="border border-primary/40 px-7 py-3 text-xs font-bold uppercase tracking-wider text-primary">Become a Volunteer</Link>
+            </div>
+          </div>
+          <div className="hidden justify-end lg:flex">
+            <img src="/yup-assets/hero.png" alt="YUP logo" className="h-auto w-full max-w-md object-contain" />
           </div>
         </div>
       </section>
