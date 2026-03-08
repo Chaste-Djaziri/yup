@@ -32,7 +32,7 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <section className="bg-white py-20 lg:py-28">
+      <section className="bg-white py-20 lg:py-28 min-h-[78vh] flex items-center">
         <div className="container mx-auto grid items-center gap-10 px-4 lg:grid-cols-2 lg:px-8">
           <div>
             <h1 className="max-w-3xl font-heading text-5xl leading-[1.1] text-foreground md:text-7xl">Youth Uplift Initiative</h1>
