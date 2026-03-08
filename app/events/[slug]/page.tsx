@@ -52,9 +52,7 @@ export default function EventDetailPage() {
     <div className="min-h-screen">
       <Navbar />
 
-      <section className="relative flex min-h-[340px] items-end pt-20">
-        <img src={event.image_url || "/yup-assets/event-header.jpg"} alt={event.title} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/45 to-transparent" />
+      <section className="relative flex min-h-[340px] items-end bg-black pt-20">
         <div className="container relative z-10 mx-auto px-4 pb-12 pt-24 lg:px-8">
           <p className="text-xs font-bold uppercase tracking-wider text-primary-foreground/80">{event.status}</p>
           <h1 className="mt-2 font-heading text-5xl text-primary-foreground">{event.title}</h1>

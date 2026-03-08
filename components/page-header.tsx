@@ -11,14 +11,12 @@ interface PageHeaderProps {
 export function PageHeader({
   title = "Youth Uplift Initiative",
   description = "Empowering youth in Rwanda",
-  backgroundImage = "/donate-header.jpg",
+  backgroundImage: _backgroundImage = "/donate-header.jpg",
 }: PageHeaderProps) {
   return (
     <section
-      className="w-full py-8 sm:py-12 md:py-16 lg:py-24 pt-24 relative bg-cover bg-center"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      className="w-full py-8 sm:py-12 md:py-16 lg:py-24 pt-24 relative bg-black"
     >
-      <div className="absolute inset-0 bg-black/60"></div>
       <div className="container px-4 md:px-6 relative z-10">
         <div className="flex flex-col items-center justify-center space-y-3 sm:space-y-4 text-center">
           <motion.div
