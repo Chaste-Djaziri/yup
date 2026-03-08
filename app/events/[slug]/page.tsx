@@ -16,6 +16,34 @@ const formatEventTime = (value: string) => {
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 };
 
+const renderFormattedText = (value: string) => {
+  const paragraphs = value
+    .split(/\n{2,}/)
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+
+  return paragraphs.map((paragraph, paragraphIndex) => {
+    const lines = paragraph.split("\n");
+    return (
+      <p key={`p-${paragraphIndex}`} className="mt-4 text-foreground/80">
+        {lines.map((line, lineIndex) => {
+          const parts = line.split(/(\*\*[^*]+\*\*)/g).filter(Boolean);
+          return (
+            <span key={`l-${paragraphIndex}-${lineIndex}`}>
+              {parts.map((part, partIndex) => {
+                const isBold = part.startsWith("**") && part.endsWith("**");
+                const content = isBold ? part.slice(2, -2) : part;
+                return isBold ? <strong key={`b-${partIndex}`}>{content}</strong> : <span key={`t-${partIndex}`}>{content}</span>;
+              })}
+              {lineIndex < lines.length - 1 ? <br /> : null}
+            </span>
+          );
+        })}
+      </p>
+    );
+  });
+};
+
 export default async function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const resolved = await resolvePublishedEventBySlug(slug);
@@ -45,7 +73,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
         <div className="container mx-auto grid gap-8 px-4 lg:grid-cols-[2fr,1fr] lg:px-8">
           <article className="bg-card p-8">
             <h2 className="font-heading text-3xl">Event Overview</h2>
-            <p className="mt-4 text-foreground/80">{event.description || "No additional event description has been provided yet."}</p>
+            {event.description ? renderFormattedText(event.description) : <p className="mt-4 text-foreground/80">No additional event description has been provided yet.</p>}
           </article>
 
           <aside className="bg-card p-8">
