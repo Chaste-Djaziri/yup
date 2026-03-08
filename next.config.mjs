@@ -17,11 +17,6 @@ const nextConfig = {
     // Optimize images in production for faster loading
     unoptimized: process.env.NODE_ENV === "development",
   },
-  experimental: {
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
-  },
   async redirects() {
     return [
       { source: "/our-story", destination: "/about", permanent: true },
