@@ -4,6 +4,8 @@ const truthy = new Set(["1", "true", "yes", "on"]);
 const SENDER_DOMAIN = "support.yupinitiative.com";
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const RESEND_API_BASE_URL = "https://api.resend.com";
+const RETRYABLE_STATUS_CODES = new Set([429, 500, 502, 503, 504]);
+const MAX_RESEND_RETRIES = 3;
 
 export type SenderKind = "contact" | "volunteer" | "partnerships" | "newsletter" | "no-reply";
 
@@ -34,24 +36,44 @@ type ResendApiResult = {
   body: any;
 };
 
-const callResendApi = async (path: string, init: RequestInit): Promise<ResendApiResult> => {
-  const response = await fetch(`${RESEND_API_BASE_URL}${path}`, {
-    ...init,
-    headers: {
-      Authorization: `Bearer ${getResendApiKey()}`,
-      "Content-Type": "application/json",
-      ...(init.headers || {}),
-    },
-  });
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  let body: any = null;
-  try {
-    body = await response.json();
-  } catch {
-    body = null;
+const retryDelayMs = (status: number, attempt: number) => {
+  if (status === 429) return 1100 * attempt;
+  return 350 * attempt;
+};
+
+const callResendApi = async (path: string, init: RequestInit): Promise<ResendApiResult> => {
+  for (let attempt = 1; attempt <= MAX_RESEND_RETRIES; attempt += 1) {
+    const response = await fetch(`${RESEND_API_BASE_URL}${path}`, {
+      ...init,
+      headers: {
+        Authorization: `Bearer ${getResendApiKey()}`,
+        "Content-Type": "application/json",
+        ...(init.headers || {}),
+      },
+    });
+
+    let body: any = null;
+    try {
+      body = await response.json();
+    } catch {
+      body = null;
+    }
+
+    if (!response.ok && RETRYABLE_STATUS_CODES.has(response.status) && attempt < MAX_RESEND_RETRIES) {
+      await wait(retryDelayMs(response.status, attempt));
+      continue;
+    }
+
+    return { ok: response.ok, status: response.status, body };
   }
 
-  return { ok: response.ok, status: response.status, body };
+  return {
+    ok: false,
+    status: 599,
+    body: { message: "Resend request failed after retries" },
+  };
 };
 
 export const getResendConfig = () => ({
