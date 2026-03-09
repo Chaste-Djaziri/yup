@@ -125,7 +125,7 @@ export const siteData = {
     },
     {
       name: "Ngabonziza Danny",
-      role: "Co-Founder",
+      role: "Impact & Monitoring Officer",
       image: "/yup-assets/people/danny.jpeg",
       socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
     },
