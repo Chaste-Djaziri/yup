@@ -256,7 +256,7 @@ export const en = {
         },
         {
           name: "Chaste Djaziri",
-          role: "Web Developer | Member",
+          role: "Software Developer",
           bio: "A dedicated individual with a passion for software designing, web development, and game design.",
           image: "/assets/people/chaste.jfif",
           social: {
