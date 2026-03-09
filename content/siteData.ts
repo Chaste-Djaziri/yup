@@ -19,9 +19,10 @@ export type TeamMember = {
   role: string;
   image: string;
   socials: {
-    instagram: string;
-    gmail: string;
-    linkedin: string;
+    instagram?: string;
+    gmail?: string;
+    linkedin?: string;
+    phone?: string;
   };
 };
 
@@ -109,7 +110,6 @@ export const siteData = {
       role: "Founder and Head of Partnerships",
       image: "/yup-assets/people/axel.jpeg",
       socials: {
-        instagram: "https://www.instagram.com/christsavedaxel/",
         gmail: "mailto:ganzaxcelo@gmail.com",
         linkedin: "https://www.linkedin.com/in/axel-karambizi-1633922a7/",
       },
@@ -118,7 +118,10 @@ export const siteData = {
       name: "Maniragaba Elissa",
       role: "Chief Advisor",
       image: "/yup-assets/people/boston.jfif",
-      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+      socials: {
+        gmail: "mailto:bostonbravo56@gmail.com",
+        phone: "tel:+250793095297",
+      },
     },
     {
       name: "Ngabonziza Danny",
@@ -130,19 +133,28 @@ export const siteData = {
       name: "Rukundo Joseph",
       role: "Co-Founder",
       image: "/yup-assets/people/joe.jpeg",
-      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+      socials: {
+        gmail: "mailto:rukundojosephtuyishime@gmail.com",
+        linkedin: "https://www.linkedin.com/in/tuyishime-rukundo-joseph-96017b288/",
+      },
     },
     {
       name: "GISUBIZO KELLY",
       role: "Advisor and Operation manager",
       image: "/yup-assets/people/kelly.jpeg",
-      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+      socials: {
+        gmail: "mailto:kellydigitalmarketing2@gmail.com",
+        linkedin: "https://www.linkedin.com/me?trk=p_mwlite_profile_view-secondary_nav",
+      },
     },
     {
       name: "TETA NELLY AURORE",
       role: "Community Manager",
       image: "/yup-assets/people/aurore.jpeg",
-      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+      socials: {
+        gmail: "mailto:tnaceo101@gmail.com",
+        linkedin: "https://www.linkedin.com/in/t-na-8b6998384?trk=contact-info",
+      },
     },
     {
       name: "Chaste Djaziri",
