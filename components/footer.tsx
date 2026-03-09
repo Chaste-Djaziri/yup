@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUp, Instagram } from "lucide-react";
+import { ArrowUp, Instagram, Linkedin } from "lucide-react";
 import { siteData } from "@/content/siteData";
 
 const Footer = () => {
@@ -51,6 +51,15 @@ const Footer = () => {
                 aria-label="Instagram"
               >
                 <Instagram size={16} className="text-primary-foreground" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/youth-uplift-initiative"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-foreground/20 hover:bg-primary-foreground/30"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={16} className="text-primary-foreground" />
               </a>
             </div>
           </div>
