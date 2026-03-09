@@ -108,7 +108,11 @@ export const siteData = {
       name: "Axel Karambizi",
       role: "Founder and Head of Partnerships",
       image: "/yup-assets/people/axel.jpeg",
-      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+      socials: {
+        instagram: "https://www.instagram.com/christsavedaxel/",
+        gmail: "mailto:ganzaxcelo@gmail.com",
+        linkedin: "https://www.linkedin.com/in/axel-karambizi-1633922a7/",
+      },
     },
     {
       name: "Maniragaba Elissa",
