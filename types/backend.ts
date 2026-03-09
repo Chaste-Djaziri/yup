@@ -92,6 +92,33 @@ export type DbGalleryImage = {
   updated_at: string;
 };
 
+export type DbGalleryGroup = {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  cover_image_url: string;
+  cover_cloudinary_public_id: string | null;
+  sort_order: number;
+  is_visible: boolean;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+  photo_count?: number;
+};
+
+export type DbGalleryGroupPhoto = {
+  id: string;
+  group_id: string;
+  title: string | null;
+  image_url: string;
+  cloudinary_public_id: string | null;
+  sort_order: number;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type DbProgram = {
   id: string;
   slug: string;

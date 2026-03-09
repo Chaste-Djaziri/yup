@@ -1,34 +1,34 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import PageHero from "@/components/PageHero";
 import EmptyStatePanel from "@/components/EmptyStatePanel";
 import { CardGridSkeleton } from "@/components/skeletons/content-loading";
-import type { DbGalleryImage } from "@/types/backend";
+import type { DbGalleryGroup } from "@/types/backend";
 
 export default function GalleryPage() {
-  const [images, setImages] = useState<DbGalleryImage[]>([]);
+  const [groups, setGroups] = useState<DbGalleryGroup[]>([]);
   const [loading, setLoading] = useState(true);
-  const [category, setCategory] = useState<"all" | "events" | "programs" | "community">("all");
 
   useEffect(() => {
     let active = true;
 
-    fetch("/api/functions/gallery-list")
+    fetch("/api/functions/gallery-groups-list")
       .then(async (res) => {
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Failed to load gallery images");
-        return data.images as DbGalleryImage[];
+        if (!res.ok) throw new Error(data.error || "Failed to load gallery groups");
+        return data.groups as DbGalleryGroup[];
       })
       .then((items) => {
         if (!active) return;
-        setImages(items || []);
+        setGroups(items || []);
       })
       .catch(() => {
         if (!active) return;
-        setImages([]);
+        setGroups([]);
       })
       .finally(() => {
         if (!active) return;
@@ -40,56 +40,37 @@ export default function GalleryPage() {
     };
   }, []);
 
-  const filteredImages = useMemo(() => {
-    if (category === "all") return images;
-    return images.filter((image) => image.category === category);
-  }, [images, category]);
-
   return (
     <div className="min-h-screen">
       <Navbar />
-      <PageHero title="Gallery" subtitle="Moments from our programs, events, and community activities." image="/yup-assets/gallery/IMG_3467_jpg.jpeg" />
+      <PageHero title="Gallery" subtitle="Browse our photo groups and explore each gallery in detail." image="/yup-assets/gallery/IMG_3467_jpg.jpeg" />
 
       <section className="bg-background py-16">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="mb-8 flex flex-wrap gap-2">
-            {(["all", "events", "programs", "community"] as const).map((item) => (
-              <button
-                key={item}
-                type="button"
-                onClick={() => setCategory(item)}
-                className={[
-                  "px-4 py-2 text-xs font-bold uppercase tracking-wider",
-                  category === item ? "bg-primary text-primary-foreground" : "border border-border bg-card text-foreground",
-                ].join(" ")}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-
           {loading && (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <CardGridSkeleton count={9} imageHeightClass="h-64" />
+              <CardGridSkeleton count={6} imageHeightClass="h-56" />
             </div>
           )}
 
-          {!loading && filteredImages.length === 0 && (
+          {!loading && groups.length === 0 && (
             <EmptyStatePanel
-              title="No Gallery Images Yet"
-              description="No visible images are available right now. Upload and mark images as visible from the admin dashboard."
+              title="No Gallery Groups Yet"
+              description="No visible gallery groups are available right now. Groups will appear here once admins publish them."
               actionLabel="Go To Contact"
               actionHref="/contact"
             />
           )}
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredImages.map((image) => (
-              <article key={image.id} className="overflow-hidden bg-card">
-                <img src={image.image_url} alt={image.title} className="h-64 w-full object-cover" />
+            {groups.map((group) => (
+              <article key={group.id} className="overflow-hidden bg-card">
+                <img src={group.cover_image_url} alt={group.title} className="h-56 w-full object-cover" />
                 <div className="p-4">
-                  <h3 className="font-heading text-xl">{image.title}</h3>
-                  <p className="mt-1 text-xs uppercase tracking-wider text-foreground/70">{image.category}</p>
+                  <h3 className="font-heading text-2xl">{group.title}</h3>
+                  <p className="mt-2 text-sm text-foreground/80">{group.description || "No description available."}</p>
+                  <p className="mt-2 text-xs uppercase tracking-wider text-foreground/70">{(group.photo_count || 0).toString()} photos</p>
+                  <Link href={`/gallery/${group.slug}`} className="mt-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">View Group</Link>
                 </div>
               </article>
             ))}

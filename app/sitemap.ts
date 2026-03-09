@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getPublishedEvents } from "@/lib/events-server";
 import { getPublishedPrograms } from "@/lib/programs-server";
+import { getServiceClient } from "@/lib/supabase-server";
 import { absoluteUrl } from "@/seo/meta";
 import { faqSections } from "@/content/faqData";
 
@@ -44,5 +45,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: event.updated_at || event.created_at || now.toISOString(),
   }));
 
-  return [...staticEntries, ...faqEntries, ...programEntries, ...eventEntries];
+  const supabase = getServiceClient();
+  const { data: galleryGroupsData, error: galleryError } = await supabase
+    .from("gallery_groups")
+    .select("slug,updated_at,created_at")
+    .eq("is_visible", true);
+
+  const galleryGroups = galleryError ? [] : galleryGroupsData ?? [];
+
+  const galleryEntries: MetadataRoute.Sitemap = galleryGroups.map((group) => ({
+    url: absoluteUrl(`/gallery/${group.slug}`),
+    lastModified: group.updated_at || group.created_at || now.toISOString(),
+  }));
+
+  return [...staticEntries, ...faqEntries, ...programEntries, ...eventEntries, ...galleryEntries];
 }
