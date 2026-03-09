@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Instagram, Linkedin, Mail } from "lucide-react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import PageHero from "@/components/PageHero";
@@ -63,8 +64,36 @@ export default function AboutPage() {
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {siteData.teamMembers.map((member) => (
               <article key={member.name} className="overflow-hidden bg-background">
-                <div className="aspect-square w-full">
+                <div className="group relative aspect-square w-full">
                   <img src={member.image} alt={member.name} className="h-full w-full object-cover" />
+                  <div className="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                  <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                    <a
+                      href={member.socials.instagram}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-black"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${member.name} Instagram`}
+                    >
+                      <Instagram size={16} />
+                    </a>
+                    <a
+                      href={member.socials.gmail}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-black"
+                      aria-label={`${member.name} Gmail`}
+                    >
+                      <Mail size={16} />
+                    </a>
+                    <a
+                      href={member.socials.linkedin}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-black"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${member.name} LinkedIn`}
+                    >
+                      <Linkedin size={16} />
+                    </a>
+                  </div>
                 </div>
                 <div className="p-5 text-center">
                   <h3 className="font-heading text-2xl">{member.name}</h3>

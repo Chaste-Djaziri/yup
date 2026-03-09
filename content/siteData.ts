@@ -14,6 +14,17 @@ export type Program = {
   ctaLabel: string;
 };
 
+export type TeamMember = {
+  name: string;
+  role: string;
+  image: string;
+  socials: {
+    instagram: string;
+    gmail: string;
+    linkedin: string;
+  };
+};
+
 export const siteData = {
   organization: {
     name: "Youth Uplift Initiative",
@@ -93,14 +104,49 @@ export const siteData = {
     { label: "Community Projects", value: "45+" },
   ],
   teamMembers: [
-    { name: "Axel Karambizi", role: "Founder and Head of Partnerships", image: "/yup-assets/people/axel.jpeg" },
-    { name: "Maniragaba Elissa", role: "Chief Advisor", image: "/yup-assets/people/boston.jfif" },
-    { name: "Ngabonziza Danny", role: "Co-Founder", image: "/yup-assets/people/danny.jpeg" },
-    { name: "Rukundo Joseph", role: "Co-Founder", image: "/yup-assets/people/joe.jpeg" },
-    { name: "GISUBIZO KELLY", role: "Advisor and Operation manager", image: "/yup-assets/people/kelly.jpeg" },
-    { name: "TETA NELLY AURORE", role: "Community Manager", image: "/yup-assets/people/aurore.jpeg" },
-    { name: "Chaste Djaziri", role: "Software Developer", image: "/yup-assets/people/chaste.JPG" },
-  ],
+    {
+      name: "Axel Karambizi",
+      role: "Founder and Head of Partnerships",
+      image: "/yup-assets/people/axel.jpeg",
+      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+    },
+    {
+      name: "Maniragaba Elissa",
+      role: "Chief Advisor",
+      image: "/yup-assets/people/boston.jfif",
+      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+    },
+    {
+      name: "Ngabonziza Danny",
+      role: "Co-Founder",
+      image: "/yup-assets/people/danny.jpeg",
+      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+    },
+    {
+      name: "Rukundo Joseph",
+      role: "Co-Founder",
+      image: "/yup-assets/people/joe.jpeg",
+      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+    },
+    {
+      name: "GISUBIZO KELLY",
+      role: "Advisor and Operation manager",
+      image: "/yup-assets/people/kelly.jpeg",
+      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+    },
+    {
+      name: "TETA NELLY AURORE",
+      role: "Community Manager",
+      image: "/yup-assets/people/aurore.jpeg",
+      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+    },
+    {
+      name: "Chaste Djaziri",
+      role: "Software Developer",
+      image: "/yup-assets/people/chaste.JPG",
+      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+    },
+  ] as TeamMember[],
   programs: [
     {
       slug: "education-scholarships",
