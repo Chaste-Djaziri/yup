@@ -36,7 +36,7 @@ export const siteData = {
       "A Rwanda where all youth have access to quality education and opportunities to reach their full potential.",
     email: "contact.yupinitiative@gmail.com",
     phone: "+250 788 749 709",
-    location: "KG 123 St, Nyamirambo, Kigali, Rwanda",
+    location: "Norrsken House, Kigali, Rwanda",
     socials: [
       { label: "Facebook", href: "#" },
       { label: "Instagram", href: "#" },
