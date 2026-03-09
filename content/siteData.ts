@@ -97,7 +97,8 @@ export const siteData = {
     { name: "Ngabonziza Danny", role: "Co-Founder", image: "/yup-assets/gallery/IMG_3482_jpg.jpeg" },
     { name: "Maniragaba Elissa", role: "Co-Founder", image: "/yup-assets/people/boston.jfif" },
     { name: "Rukundo Joseph", role: "Co-Founder", image: "/yup-assets/people/joe.jpeg" },
-    { name: "Chaste Djaziri", role: "Web Developer | Member", image: "/yup-assets/people/chaste.JPG" },
+    { name: "Chaste Djaziri", role: "Software Developer", image: "/yup-assets/people/chaste.JPG" },
+    { name: "TETA NELLY AURORE", role: "Community Manager", image: "/yup-assets/people/aurore.jpeg" },
   ],
   programs: [
     {
