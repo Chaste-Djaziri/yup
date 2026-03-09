@@ -5,10 +5,10 @@
   "packageManager": "pnpm@10.31.0",
   "scripts": {
     "clean:next": "node scripts/clean-next.mjs",
-    "dev": "npm run clean:next && next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "npm run clean:next && node ./node_modules/next/dist/bin/next dev",
+    "build": "node ./node_modules/next/dist/bin/next build",
+    "start": "node ./node_modules/next/dist/bin/next start",
+    "lint": "node ./node_modules/next/dist/bin/next lint"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
