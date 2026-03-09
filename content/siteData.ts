@@ -144,7 +144,11 @@ export const siteData = {
       name: "Chaste Djaziri",
       role: "Software Developer",
       image: "/yup-assets/people/chaste.JPG",
-      socials: { instagram: "#", gmail: "mailto:placeholder@yupinitiative.com", linkedin: "#" },
+      socials: {
+        instagram: "https://www.instagram.com/chaste_djaziri/",
+        gmail: "mailto:habimanahirwa@gmail.com",
+        linkedin: "https://rw.linkedin.com/in/chaste-djaziri",
+      },
     },
   ] as TeamMember[],
   programs: [
