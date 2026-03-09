@@ -102,14 +102,17 @@ export default function EventsPage() {
             )}
 
             {pastEvents.map((event) => (
-              <article key={event.slug} className="bg-background p-6">
-                <p className="text-xs font-bold uppercase tracking-wider text-primary">Past Event</p>
-                <h3 className="mt-2 font-heading text-2xl">{event.title}</h3>
-                <p className="mt-2 text-foreground/80">{event.summary || "No summary available."}</p>
-                <p className="mt-2 text-sm text-foreground/70">{formatEventDate(event)}</p>
-                <Link href={`/events/${event.slug}`} className="mt-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">
-                  View Details
-                </Link>
+              <article key={event.slug} className="overflow-hidden bg-card">
+                <img src={event.image_url || "/yup-assets/event.jpg"} alt={event.title} className="h-44 w-full object-cover" />
+                <div className="p-6">
+                  <p className="text-xs font-bold uppercase tracking-wider text-primary">Past Event</p>
+                  <h3 className="mt-2 font-heading text-2xl">{event.title}</h3>
+                  <p className="mt-2 text-foreground/80">{event.summary || "No summary available."}</p>
+                  <p className="mt-2 text-sm text-foreground/70">{formatEventDate(event)}</p>
+                  <Link href={`/events/${event.slug}`} className="mt-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">
+                    View Details
+                  </Link>
+                </div>
               </article>
             ))}
           </div>
