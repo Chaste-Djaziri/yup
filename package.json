@@ -5,7 +5,8 @@
   "packageManager": "pnpm@10.31.0",
   "scripts": {
     "clean:next": "node scripts/clean-next.mjs",
-    "dev": "npm run clean:next && node ./node_modules/next/dist/bin/next dev",
+    "dev": "node ./node_modules/next/dist/bin/next dev --turbopack",
+    "dev:reset": "npm run clean:next && node ./node_modules/next/dist/bin/next dev --turbopack",
     "build": "node ./node_modules/next/dist/bin/next build",
     "start": "node ./node_modules/next/dist/bin/next start",
     "lint": "node ./node_modules/next/dist/bin/next lint"
