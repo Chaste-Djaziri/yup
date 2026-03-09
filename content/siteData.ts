@@ -96,7 +96,7 @@ export const siteData = {
     { name: "Axel Karambizi", role: "Founder", image: "/yup-assets/people/axel.jpeg" },
     { name: "Ngabonziza Danny", role: "Co-Founder", image: "/yup-assets/gallery/IMG_3482_jpg.jpeg" },
     { name: "Maniragaba Elissa", role: "Co-Founder", image: "/yup-assets/people/boston.jfif" },
-    { name: "Rukundo Joseph", role: "Co-Founder", image: "/yup-assets/people/joe.jfif" },
+    { name: "Rukundo Joseph", role: "Co-Founder", image: "/yup-assets/people/joe.jpeg" },
     { name: "Chaste Djaziri", role: "Web Developer | Member", image: "/yup-assets/people/chaste.JPG" },
   ],
   programs: [
