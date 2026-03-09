@@ -94,12 +94,12 @@ export const siteData = {
   ],
   teamMembers: [
     { name: "Axel Karambizi", role: "Founder and Head of Partnerships", image: "/yup-assets/people/axel.jpeg" },
-    { name: "Ngabonziza Danny", role: "Co-Founder", image: "/yup-assets/gallery/IMG_3482_jpg.jpeg" },
     { name: "Maniragaba Elissa", role: "Chief Advisor", image: "/yup-assets/people/boston.jfif" },
+    { name: "Ngabonziza Danny", role: "Co-Founder", image: "/yup-assets/people/danny.jpeg" },
     { name: "Rukundo Joseph", role: "Co-Founder", image: "/yup-assets/people/joe.jpeg" },
-    { name: "Chaste Djaziri", role: "Software Developer", image: "/yup-assets/people/chaste.JPG" },
-    { name: "TETA NELLY AURORE", role: "Community Manager", image: "/yup-assets/people/aurore.jpeg" },
     { name: "GISUBIZO KELLY", role: "Advisor and Operation manager", image: "/yup-assets/people/kelly.jpeg" },
+    { name: "TETA NELLY AURORE", role: "Community Manager", image: "/yup-assets/people/aurore.jpeg" },
+    { name: "Chaste Djaziri", role: "Software Developer", image: "/yup-assets/people/chaste.JPG" },
   ],
   programs: [
     {
