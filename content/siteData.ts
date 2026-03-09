@@ -131,7 +131,7 @@ export const siteData = {
     },
     {
       name: "Rukundo Joseph",
-      role: "Co-Founder",
+      role: "Marketing & Communications Manager",
       image: "/yup-assets/people/joe.jpeg",
       socials: {
         gmail: "mailto:rukundojosephtuyishime@gmail.com",
