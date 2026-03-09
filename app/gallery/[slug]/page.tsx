@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import PageHero from "@/components/PageHero";
 import EmptyStatePanel from "@/components/EmptyStatePanel";
+import GalleryGroupPhotoGrid from "@/components/gallery/GalleryGroupPhotoGrid";
 import { getServiceClient } from "@/lib/supabase-server";
 import type { DbGalleryGroup, DbGalleryGroupPhoto } from "@/types/backend";
 import { SEO_SITE_NAME, absoluteUrl } from "@/seo/meta";
@@ -85,7 +85,19 @@ export default async function GalleryGroupPage({ params }: { params: Promise<Par
   return (
     <div className="min-h-screen">
       <Navbar />
-      <PageHero title={group.title} subtitle={group.description || "Gallery group"} image={group.cover_image_url} />
+      <section
+        className="relative flex min-h-[360px] items-end bg-black pt-20"
+        style={{
+          backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.35)), url(${group.cover_image_url})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="container relative z-10 mx-auto px-4 py-16 lg:px-8">
+          <h1 className="font-heading text-5xl text-white md:text-6xl">{group.title}</h1>
+          {group.description ? <p className="mt-4 max-w-3xl text-white/90">{group.description}</p> : null}
+        </div>
+      </section>
 
       <section className="bg-background py-16">
         <div className="container mx-auto px-4 lg:px-8">
@@ -97,16 +109,7 @@ export default async function GalleryGroupPage({ params }: { params: Promise<Par
               actionHref="/gallery"
             />
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {photos.map((photo) => (
-                <article key={photo.id} className="overflow-hidden bg-card">
-                  <img src={photo.image_url} alt={photo.title || group.title} className="h-72 w-full object-cover" />
-                  <div className="p-4">
-                    <h2 className="font-heading text-xl">{photo.title || group.title}</h2>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <GalleryGroupPhotoGrid photos={photos} groupTitle={group.title} />
           )}
         </div>
       </section>
