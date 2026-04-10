@@ -15,7 +15,6 @@ type VolunteerForm = {
   email: string;
   phone: string;
   country: string;
-  opportunity: string;
   motivation: string;
 };
 
@@ -25,7 +24,6 @@ const initialForm: VolunteerForm = {
   email: "",
   phone: "",
   country: "",
-  opportunity: "",
   motivation: "",
 };
 
@@ -71,7 +69,7 @@ export default function VolunteerPage() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!form.firstName || !form.lastName || !form.email || !form.phone || !form.country || !form.opportunity || !form.motivation) {
+    if (!form.firstName || !form.lastName || !form.email || !form.phone || !form.country || !form.motivation) {
       setSuccess(false);
       setError("Please complete all required fields.");
       return;
@@ -206,26 +204,6 @@ export default function VolunteerPage() {
               </div>
 
               <label className="block text-sm font-semibold">
-                Preferred Opportunity*
-                <select
-                  value={form.opportunity}
-                  onChange={(e) => setForm({ ...form, opportunity: e.target.value })}
-                  className="mt-1 w-full border border-border bg-background px-4 py-3"
-                  required
-                  disabled={!hasOpportunities || loadingOpportunities}
-                >
-                  <option value="">
-                    {loadingOpportunities ? "Loading opportunities..." : hasOpportunities ? "Select opportunity" : "No opportunities available"}
-                  </option>
-                  {opportunities.map((opportunity) => (
-                    <option key={opportunity} value={opportunity}>
-                      {opportunity}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="block text-sm font-semibold">
                 Motivation*
                 <textarea
                   value={form.motivation}
@@ -240,7 +218,7 @@ export default function VolunteerPage() {
 
               <button
                 type="submit"
-                disabled={submitting || !hasOpportunities || loadingOpportunities}
+                disabled={submitting}
                 className="w-full bg-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground"
               >
                 {submitting ? "Submitting..." : "Submit Application"}
