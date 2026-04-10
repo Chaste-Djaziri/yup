@@ -6,8 +6,8 @@ import { ensure } from "../_shared/utils";
 
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as { firstName: string; lastName: string; email: string; phone?: string; country?: string; opportunity?: string; motivation: string };
-    ensure(body.firstName && body.lastName && body.email && body.opportunity && body.motivation, "Missing required fields");
+    const body = (await req.json()) as { firstName: string; lastName: string; email: string; phone?: string; country?: string; motivation: string };
+    ensure(body.firstName && body.lastName && body.email && body.motivation, "Missing required fields");
 
     const supabase = getServiceClient();
     if (body.opportunity) {
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       if (!program) throw new Error("Selected opportunity is no longer available.");
     }
 
-    const { data, error } = await supabase.from("volunteer_applications").insert({ first_name: body.firstName, last_name: body.lastName, email: body.email, phone: body.phone ?? null, country: body.country ?? null, opportunity: body.opportunity ?? null, motivation: body.motivation, status: "new" }).select("id").single();
+    const { data, error } = await supabase.from("volunteer_applications").insert({ first_name: body.firstName, last_name: body.lastName, email: body.email, phone: body.phone ?? null, country: body.country ?? null, motivation: body.motivation, status: "new" }).select("id").single();
     if (error) throw error;
 
     const subject = `New volunteer application: ${body.firstName} ${body.lastName}`;
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
           html: renderEmailTemplate({
             title: "New Volunteer Application",
             subtitle: "A new volunteer application was submitted.",
-            bodyHtml: `<p><strong>Name:</strong> ${body.firstName} ${body.lastName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Phone:</strong> ${body.phone ?? "N/A"}</p><p><strong>Country:</strong> ${body.country ?? "N/A"}</p><p><strong>Opportunity:</strong> ${body.opportunity ?? "N/A"}</p><p><strong>Motivation:</strong><br/>${body.motivation}</p>`,
+            bodyHtml: `<p><strong>Name:</strong> ${body.firstName} ${body.lastName}</p><p><strong>Email:</strong> ${body.email}</p><p><strong>Phone:</strong> ${body.phone ?? "N/A"}</p><p><strong>Country:</strong> ${body.country ?? "N/A"}</p><p><strong>Motivation:</strong><br/>${body.motivation}</p>`,
           }),
         }),
       );
