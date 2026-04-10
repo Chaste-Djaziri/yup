@@ -96,6 +96,18 @@ export default async function GalleryGroupPage({ params }: { params: Promise<Par
         <div className="container relative z-10 mx-auto px-4 py-16 lg:px-8">
           <h1 className="font-heading text-5xl text-white md:text-6xl">{group.title}</h1>
           {group.description ? <p className="mt-4 max-w-3xl text-white/90">{group.description}</p> : null}
+          {group.external_link ? (
+            <div className="mt-6">
+              <a
+                href={group.external_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-primary px-6 py-3 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                View Full Gallery
+              </a>
+            </div>
+          ) : null}
         </div>
       </section>
 

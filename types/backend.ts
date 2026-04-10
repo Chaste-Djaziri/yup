@@ -101,6 +101,7 @@ export type DbGalleryGroup = {
   cover_cloudinary_public_id: string | null;
   sort_order: number;
   is_visible: boolean;
+  external_link: string | null;
   created_by: string | null;
   created_at: string;
   updated_at: string;

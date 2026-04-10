@@ -31,6 +31,7 @@ export default function AdminEditGalleryPage() {
     description: "",
     sort_order: 0,
     is_visible: true,
+    external_link: "",
   });
 
   const [newPhotoForm, setNewPhotoForm] = useState({
@@ -69,6 +70,7 @@ export default function AdminEditGalleryPage() {
         description: found.description || "",
         sort_order: found.sort_order,
         is_visible: found.is_visible,
+        external_link: found.external_link || "",
       });
 
       const draftMap: Record<string, { title: string; sort_order: number }> = {};
@@ -224,6 +226,9 @@ export default function AdminEditGalleryPage() {
         </Label>
         <div className="grid gap-4 md:grid-cols-2">
           <Label>Sort Order<Input type="number" value={groupForm.sort_order} onChange={(e) => setGroupForm((prev) => ({ ...prev, sort_order: Number.parseInt(e.target.value || "0", 10) || 0 }))} /></Label>
+          <Label>External Link (optional)<Input value={groupForm.external_link} onChange={(e) => setGroupForm((prev) => ({ ...prev, external_link: e.target.value }))} placeholder="https://..." /></Label>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
           <Label>Visibility
             <Select value={groupForm.is_visible ? "visible" : "hidden"} onValueChange={(value) => setGroupForm((prev) => ({ ...prev, is_visible: value === "visible" }))}>
               <SelectTrigger><SelectValue /></SelectTrigger>

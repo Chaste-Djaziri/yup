@@ -10,6 +10,7 @@ type Body = {
   cover_cloudinary_public_id?: string;
   sort_order?: number;
   is_visible?: boolean;
+  external_link?: string;
 };
 
 export async function POST(req: Request) {
@@ -42,6 +43,7 @@ export async function POST(req: Request) {
       cover_cloudinary_public_id: body.cover_cloudinary_public_id ?? null,
       sort_order: Number.isFinite(body.sort_order) ? Number(body.sort_order) : 0,
       is_visible: body.is_visible ?? true,
+      external_link: body.external_link || null,
       created_by: user.id,
     };
 

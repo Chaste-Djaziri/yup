@@ -16,6 +16,7 @@ const defaultGroupForm = {
   description: "",
   sort_order: 0,
   is_visible: true,
+  external_link: "",
 };
 
 export default function AdminNewGalleryPage() {
@@ -71,6 +72,9 @@ export default function AdminNewGalleryPage() {
         </Label>
         <div className="grid gap-4 md:grid-cols-2">
           <Label>Sort Order<Input type="number" value={groupForm.sort_order} onChange={(e) => setGroupForm((prev) => ({ ...prev, sort_order: Number.parseInt(e.target.value || "0", 10) || 0 }))} /></Label>
+          <Label>External Link (optional)<Input value={groupForm.external_link} onChange={(e) => setGroupForm((prev) => ({ ...prev, external_link: e.target.value }))} placeholder="https://..." /></Label>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
           <Label>Visibility
             <Select value={groupForm.is_visible ? "visible" : "hidden"} onValueChange={(value) => setGroupForm((prev) => ({ ...prev, is_visible: value === "visible" }))}>
               <SelectTrigger><SelectValue /></SelectTrigger>
